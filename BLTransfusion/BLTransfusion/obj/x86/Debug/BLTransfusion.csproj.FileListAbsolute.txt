@@ -1,0 +1,9 @@
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\BLTransfusion.exe
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\BLTransfusion.pdb
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.MainForm.resources
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.Properties.Resources.resources
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.csproj.GenerateResource.Cache
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.exe
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.pdb
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\BLTransfusion.exe.config
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.csprojResolveAssemblyReference.cache
