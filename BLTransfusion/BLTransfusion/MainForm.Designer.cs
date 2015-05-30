@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.panelVideo = new System.Windows.Forms.Panel();
             this.cmbDevices = new System.Windows.Forms.ComboBox();
             this.bnStart = new System.Windows.Forms.Button();
             this.bnSettings = new System.Windows.Forms.Button();
@@ -41,28 +40,26 @@
             this.LbQualifiedCnt = new System.Windows.Forms.Label();
             this.LbUnqualifiedCnt = new System.Windows.Forms.Label();
             this.LbTotalCnt = new System.Windows.Forms.Label();
+            this.pB_Image = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).BeginInit();
             this.SuspendLayout();
-            // 
-            // panelVideo
-            // 
-            this.panelVideo.Location = new System.Drawing.Point(10, 58);
-            this.panelVideo.Name = "panelVideo";
-            this.panelVideo.Size = new System.Drawing.Size(824, 406);
-            this.panelVideo.TabIndex = 0;
             // 
             // cmbDevices
             // 
+            this.cmbDevices.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.cmbDevices.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbDevices.FormattingEnabled = true;
-            this.cmbDevices.Location = new System.Drawing.Point(14, 19);
+            this.cmbDevices.Location = new System.Drawing.Point(67, 14);
             this.cmbDevices.Name = "cmbDevices";
-            this.cmbDevices.Size = new System.Drawing.Size(312, 20);
+            this.cmbDevices.Size = new System.Drawing.Size(193, 20);
             this.cmbDevices.TabIndex = 1;
             this.cmbDevices.SelectedIndexChanged += new System.EventHandler(this.cmbDevices_SelectedIndexChanged);
             // 
             // bnStart
             // 
-            this.bnStart.Location = new System.Drawing.Point(387, 14);
+            this.bnStart.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.bnStart.AutoSize = true;
+            this.bnStart.Location = new System.Drawing.Point(295, 9);
             this.bnStart.Name = "bnStart";
             this.bnStart.Size = new System.Drawing.Size(78, 28);
             this.bnStart.TabIndex = 2;
@@ -72,7 +69,8 @@
             // 
             // bnSettings
             // 
-            this.bnSettings.Location = new System.Drawing.Point(504, 14);
+            this.bnSettings.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.bnSettings.Location = new System.Drawing.Point(379, 9);
             this.bnSettings.Name = "bnSettings";
             this.bnSettings.Size = new System.Drawing.Size(78, 28);
             this.bnSettings.TabIndex = 2;
@@ -82,7 +80,8 @@
             // 
             // bnSnapShot
             // 
-            this.bnSnapShot.Location = new System.Drawing.Point(618, 14);
+            this.bnSnapShot.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.bnSnapShot.Location = new System.Drawing.Point(472, 9);
             this.bnSnapShot.Name = "bnSnapShot";
             this.bnSnapShot.Size = new System.Drawing.Size(78, 28);
             this.bnSnapShot.TabIndex = 2;
@@ -92,7 +91,8 @@
             // 
             // bnImageProc
             // 
-            this.bnImageProc.Location = new System.Drawing.Point(730, 14);
+            this.bnImageProc.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.bnImageProc.Location = new System.Drawing.Point(556, 9);
             this.bnImageProc.Name = "bnImageProc";
             this.bnImageProc.Size = new System.Drawing.Size(78, 28);
             this.bnImageProc.TabIndex = 2;
@@ -102,8 +102,9 @@
             // 
             // LbCameraStatus
             // 
+            this.LbCameraStatus.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.LbCameraStatus.AutoSize = true;
-            this.LbCameraStatus.Location = new System.Drawing.Point(12, 480);
+            this.LbCameraStatus.Location = new System.Drawing.Point(71, 579);
             this.LbCameraStatus.Name = "LbCameraStatus";
             this.LbCameraStatus.Size = new System.Drawing.Size(59, 12);
             this.LbCameraStatus.TabIndex = 3;
@@ -111,29 +112,33 @@
             // 
             // tBQualifiedCnt
             // 
-            this.tBQualifiedCnt.Location = new System.Drawing.Point(466, 477);
+            this.tBQualifiedCnt.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.tBQualifiedCnt.Location = new System.Drawing.Point(254, 579);
             this.tBQualifiedCnt.Name = "tBQualifiedCnt";
             this.tBQualifiedCnt.Size = new System.Drawing.Size(56, 21);
             this.tBQualifiedCnt.TabIndex = 4;
             // 
             // tBUnqualifiedCnt
             // 
-            this.tBUnqualifiedCnt.Location = new System.Drawing.Point(633, 477);
+            this.tBUnqualifiedCnt.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.tBUnqualifiedCnt.Location = new System.Drawing.Point(421, 579);
             this.tBUnqualifiedCnt.Name = "tBUnqualifiedCnt";
             this.tBUnqualifiedCnt.Size = new System.Drawing.Size(56, 21);
             this.tBUnqualifiedCnt.TabIndex = 4;
             // 
             // tBTotalCnt
             // 
-            this.tBTotalCnt.Location = new System.Drawing.Point(765, 477);
+            this.tBTotalCnt.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.tBTotalCnt.Location = new System.Drawing.Point(544, 576);
             this.tBTotalCnt.Name = "tBTotalCnt";
             this.tBTotalCnt.Size = new System.Drawing.Size(56, 21);
             this.tBTotalCnt.TabIndex = 4;
             // 
             // LbQualifiedCnt
             // 
+            this.LbQualifiedCnt.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.LbQualifiedCnt.AutoSize = true;
-            this.LbQualifiedCnt.Location = new System.Drawing.Point(413, 480);
+            this.LbQualifiedCnt.Location = new System.Drawing.Point(201, 582);
             this.LbQualifiedCnt.Name = "LbQualifiedCnt";
             this.LbQualifiedCnt.Size = new System.Drawing.Size(47, 12);
             this.LbQualifiedCnt.TabIndex = 5;
@@ -141,8 +146,9 @@
             // 
             // LbUnqualifiedCnt
             // 
+            this.LbUnqualifiedCnt.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.LbUnqualifiedCnt.AutoSize = true;
-            this.LbUnqualifiedCnt.Location = new System.Drawing.Point(568, 480);
+            this.LbUnqualifiedCnt.Location = new System.Drawing.Point(356, 582);
             this.LbUnqualifiedCnt.Name = "LbUnqualifiedCnt";
             this.LbUnqualifiedCnt.Size = new System.Drawing.Size(59, 12);
             this.LbUnqualifiedCnt.TabIndex = 5;
@@ -150,18 +156,31 @@
             // 
             // LbTotalCnt
             // 
+            this.LbTotalCnt.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
             this.LbTotalCnt.AutoSize = true;
-            this.LbTotalCnt.Location = new System.Drawing.Point(728, 480);
+            this.LbTotalCnt.Location = new System.Drawing.Point(503, 582);
             this.LbTotalCnt.Name = "LbTotalCnt";
             this.LbTotalCnt.Size = new System.Drawing.Size(35, 12);
             this.LbTotalCnt.TabIndex = 5;
             this.LbTotalCnt.Text = "总数:";
             // 
+            // pB_Image
+            // 
+            this.pB_Image.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pB_Image.Location = new System.Drawing.Point(22, 58);
+            this.pB_Image.Name = "pB_Image";
+            this.pB_Image.Size = new System.Drawing.Size(694, 489);
+            this.pB_Image.TabIndex = 6;
+            this.pB_Image.TabStop = false;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(866, 521);
+            this.ClientSize = new System.Drawing.Size(743, 614);
+            this.Controls.Add(this.pB_Image);
             this.Controls.Add(this.LbTotalCnt);
             this.Controls.Add(this.LbUnqualifiedCnt);
             this.Controls.Add(this.LbQualifiedCnt);
@@ -174,10 +193,12 @@
             this.Controls.Add(this.bnSettings);
             this.Controls.Add(this.bnStart);
             this.Controls.Add(this.cmbDevices);
-            this.Controls.Add(this.panelVideo);
             this.Name = "MainForm";
             this.Text = "输液器检测";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.ResizeEnd += new System.EventHandler(this.MainForm_ResizeEnd);
+            this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
+            ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -185,7 +206,6 @@
 
         #endregion
 
-        private System.Windows.Forms.Panel panelVideo;
         private System.Windows.Forms.ComboBox cmbDevices;
         private System.Windows.Forms.Button bnStart;
         private System.Windows.Forms.Button bnSettings;
@@ -198,6 +218,7 @@
         private System.Windows.Forms.Label LbQualifiedCnt;
         private System.Windows.Forms.Label LbUnqualifiedCnt;
         private System.Windows.Forms.Label LbTotalCnt;
+        private System.Windows.Forms.PictureBox pB_Image;
     }
 }
 

@@ -180,7 +180,7 @@ namespace BLTransfusion
                 if (DeviceStatus.STATUS_OK == devStatus)
                 {
                     ReceiveFrameProc rfCallBack = new ReceiveFrameProc(OnReceiveFrame);
-                    devStatus = CGAPI.DeviceInit(mDeviceHandle, panelVideo.Handle, false, true);
+                    devStatus = CGAPI.DeviceInit(mDeviceHandle, pB_Image.Handle, false, true);
                     if (DeviceStatus.STATUS_OK == devStatus)
                     {
                     }

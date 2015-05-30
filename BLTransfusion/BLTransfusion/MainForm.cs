@@ -47,5 +47,15 @@ namespace BLTransfusion
         {
             Camera_SelectedChanged();
         }
+
+        private void MainForm_SizeChanged(object sender, EventArgs e)
+        {
+            MessageBox.Show(String.Format("Image Width:{0}, Hight:{1}", this.pB_Image.Size.Width.ToString(), this.pB_Image.Size.Height.ToString()));
+        }
+
+        private void MainForm_ResizeEnd(object sender, EventArgs e)
+        {
+            //Camera_SelectedChanged();
+        }
     }
 }
