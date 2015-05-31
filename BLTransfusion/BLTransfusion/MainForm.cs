@@ -16,6 +16,7 @@ namespace BLTransfusion
             InitializeComponent();
 
             Camera_Init();
+            SP_Init();
         }
 
         private void bnStart_Click(object sender, EventArgs e)
@@ -50,12 +51,20 @@ namespace BLTransfusion
 
         private void MainForm_SizeChanged(object sender, EventArgs e)
         {
-            MessageBox.Show(String.Format("Image Width:{0}, Hight:{1}", this.pB_Image.Size.Width.ToString(), this.pB_Image.Size.Height.ToString()));
+            //MessageBox.Show(String.Format("Image Width:{0}, Hight:{1}", this.pB_Image.Size.Width.ToString(), this.pB_Image.Size.Height.ToString()));
         }
 
         private void MainForm_ResizeEnd(object sender, EventArgs e)
         {
             //Camera_SelectedChanged();
+        }
+
+        private void btn_Send_Click(object sender, EventArgs e)
+        {
+            SPCommand_OpenRelay1();
+            SPCommand_OpenRelay2();
+            //SPCommand_CloseRelay1();
+            //SPCommand_CloseRelay2();
         }
     }
 }

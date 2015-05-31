@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.cmbDevices = new System.Windows.Forms.ComboBox();
             this.bnStart = new System.Windows.Forms.Button();
             this.bnSettings = new System.Windows.Forms.Button();
@@ -41,6 +42,8 @@
             this.LbUnqualifiedCnt = new System.Windows.Forms.Label();
             this.LbTotalCnt = new System.Windows.Forms.Label();
             this.pB_Image = new System.Windows.Forms.PictureBox();
+            this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
+            this.btn_Send = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).BeginInit();
             this.SuspendLayout();
             // 
@@ -175,11 +178,22 @@
             this.pB_Image.TabIndex = 6;
             this.pB_Image.TabStop = false;
             // 
+            // btn_Send
+            // 
+            this.btn_Send.Location = new System.Drawing.Point(657, 9);
+            this.btn_Send.Name = "btn_Send";
+            this.btn_Send.Size = new System.Drawing.Size(78, 28);
+            this.btn_Send.TabIndex = 7;
+            this.btn_Send.Text = "Modbus命令";
+            this.btn_Send.UseVisualStyleBackColor = true;
+            this.btn_Send.Click += new System.EventHandler(this.btn_Send_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 614);
+            this.Controls.Add(this.btn_Send);
             this.Controls.Add(this.pB_Image);
             this.Controls.Add(this.LbTotalCnt);
             this.Controls.Add(this.LbUnqualifiedCnt);
@@ -219,6 +233,8 @@
         private System.Windows.Forms.Label LbUnqualifiedCnt;
         private System.Windows.Forms.Label LbTotalCnt;
         private System.Windows.Forms.PictureBox pB_Image;
+        private System.IO.Ports.SerialPort serialPort1;
+        private System.Windows.Forms.Button btn_Send;
     }
 }
 
