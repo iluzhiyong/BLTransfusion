@@ -138,20 +138,19 @@ namespace BLTransfusion
 
         private int Camera_Snapshot()
         {
-            if (mDeviceHandle != DeviceHandle.Zero)
+            if ((mDeviceHandle != DeviceHandle.Zero) && (1 == CGAPI.IsReceivingData(mDeviceHandle)))
             {
-                DateTime time = DateTime.Now;
-                string strFile = @"Image" + time.ToFileTime();
+                string strFile = @"Image";
                 DeviceStatus devStatus = CGAPI.CaptureFile(mDeviceHandle, strFile, emDSFileType.FILE_BMP);
-                strFile += ".bmp";
-                if (DeviceStatus.STATUS_OK == devStatus)
-                {
-                    MessageBox.Show(strFile, "保存成功");
-                }
-                else
-                {
-                    MessageBox.Show(strFile, "保存失败");
-                }
+                //strFile += ".bmp";
+                //if (DeviceStatus.STATUS_OK == devStatus)
+                //{
+                //    MessageBox.Show(strFile, "保存成功");
+                //}
+                //else
+                //{
+                //    MessageBox.Show(strFile, "保存失败");
+                //}
 
                 return 0;
             }

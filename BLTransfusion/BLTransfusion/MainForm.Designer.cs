@@ -44,6 +44,7 @@
             this.pB_Image = new System.Windows.Forms.PictureBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.btn_Send = new System.Windows.Forms.Button();
+            this.CameraSnapTimer = new System.Windows.Forms.Timer(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).BeginInit();
             this.SuspendLayout();
             // 
@@ -188,6 +189,12 @@
             this.btn_Send.UseVisualStyleBackColor = true;
             this.btn_Send.Click += new System.EventHandler(this.btn_Send_Click);
             // 
+            // CameraSnapTimer
+            // 
+            this.CameraSnapTimer.Enabled = true;
+            this.CameraSnapTimer.Interval = 2000;
+            this.CameraSnapTimer.Tick += new System.EventHandler(this.CameraSnapTimer_Tick);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -235,6 +242,7 @@
         private System.Windows.Forms.PictureBox pB_Image;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btn_Send;
+        private System.Windows.Forms.Timer CameraSnapTimer;
     }
 }
 

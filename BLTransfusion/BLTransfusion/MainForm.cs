@@ -66,5 +66,10 @@ namespace BLTransfusion
             //SPCommand_CloseRelay1();
             //SPCommand_CloseRelay2();
         }
+
+        private void CameraSnapTimer_Tick(object sender, EventArgs e)
+        {
+            Camera_Snapshot();
+        }
     }
 }
