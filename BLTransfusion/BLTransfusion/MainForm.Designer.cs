@@ -45,6 +45,7 @@
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.btn_Send = new System.Windows.Forms.Button();
             this.CameraSnapTimer = new System.Windows.Forms.Timer(this.components);
+            this.hWindowControl1 = new HalconDotNet.HWindowControl();
             ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).BeginInit();
             this.SuspendLayout();
             // 
@@ -175,7 +176,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.pB_Image.Location = new System.Drawing.Point(22, 58);
             this.pB_Image.Name = "pB_Image";
-            this.pB_Image.Size = new System.Drawing.Size(694, 489);
+            this.pB_Image.Size = new System.Drawing.Size(192, 167);
             this.pB_Image.TabIndex = 6;
             this.pB_Image.TabStop = false;
             // 
@@ -195,11 +196,23 @@
             this.CameraSnapTimer.Interval = 2000;
             this.CameraSnapTimer.Tick += new System.EventHandler(this.CameraSnapTimer_Tick);
             // 
+            // hWindowControl1
+            // 
+            this.hWindowControl1.BackColor = System.Drawing.Color.Black;
+            this.hWindowControl1.BorderColor = System.Drawing.Color.Black;
+            this.hWindowControl1.ImagePart = new System.Drawing.Rectangle(0, 0, 640, 480);
+            this.hWindowControl1.Location = new System.Drawing.Point(232, 58);
+            this.hWindowControl1.Name = "hWindowControl1";
+            this.hWindowControl1.Size = new System.Drawing.Size(486, 487);
+            this.hWindowControl1.TabIndex = 8;
+            this.hWindowControl1.WindowSize = new System.Drawing.Size(486, 487);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(743, 614);
+            this.Controls.Add(this.hWindowControl1);
             this.Controls.Add(this.btn_Send);
             this.Controls.Add(this.pB_Image);
             this.Controls.Add(this.LbTotalCnt);
@@ -243,6 +256,7 @@
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Button btn_Send;
         private System.Windows.Forms.Timer CameraSnapTimer;
+        private HalconDotNet.HWindowControl hWindowControl1;
     }
 }
 

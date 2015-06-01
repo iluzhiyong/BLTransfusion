@@ -15,8 +15,8 @@ namespace BLTransfusion
         {
             InitializeComponent();
 
-            Camera_Init();
-            SP_Init();
+            //Camera_Init();
+            //SP_Init();
         }
 
         private void bnStart_Click(object sender, EventArgs e)
@@ -36,7 +36,8 @@ namespace BLTransfusion
 
         private void bnImageProc_Click(object sender, EventArgs e)
         {
-
+            ImageProcessSettingWnd dlg = new ImageProcessSettingWnd();
+            dlg.Show();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
