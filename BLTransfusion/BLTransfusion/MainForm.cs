@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using HalconDotNet;
 
 namespace BLTransfusion
 {
@@ -34,9 +35,24 @@ namespace BLTransfusion
             Camera_Snapshot();
         }
 
+        private ImageProcess imageProcess = new ImageProcess();
+        public ImageProcess ImageProcess
+        {
+            get { return imageProcess; }
+            set { imageProcess = value; }
+        }
+
+        private string GetImagePath()
+        {
+            return "C:/Image.bmp";
+        }
+
+        
         private void bnImageProc_Click(object sender, EventArgs e)
         {
             ImageProcessSettingWnd dlg = new ImageProcessSettingWnd();
+            this.ImageProcess.LoadImage(GetImagePath());
+            dlg.ImageProcess = this.ImageProcess;
             dlg.Show();
         }
 
@@ -71,6 +87,12 @@ namespace BLTransfusion
         private void CameraSnapTimer_Tick(object sender, EventArgs e)
         {
             Camera_Snapshot();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            HOperatorSet.SetWindowAttr("background_color", "black");
+            HDevWindowStack.Push(hWindowControl1.HalconWindow); 
         }
     }
 }

@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using HalconDotNet;
+using System.Xml.Linq;
 
 namespace BLTransfusion
 {
@@ -19,7 +20,8 @@ namespace BLTransfusion
         HObject ho_SelectedRegions2 = null, ho_RegionErosion = null;
 
         // Local control variables 
-        HTuple hv_WindowHandle, hv_Width = new HTuple();
+        //HTuple hv_WindowHandle;
+        HTuple hv_Width = new HTuple();
         HTuple hv_Height = new HTuple(), hv_Number = new HTuple();
 
         public ImageProcess()
@@ -35,14 +37,18 @@ namespace BLTransfusion
             HOperatorSet.GenEmptyObj(out ho_RegionDilation);
             HOperatorSet.GenEmptyObj(out ho_SelectedRegions2);
             HOperatorSet.GenEmptyObj(out ho_RegionErosion);
+
+            this.LoadFromXml();
         }
 
         public bool LoadImage(string imagePath)
         {
             ho_Image.Dispose();
             HOperatorSet.ReadImage(out ho_Image, imagePath);
+            HOperatorSet.GetImageSize(ho_Image, out hv_Width, out hv_Height);
             if (HDevWindowStack.IsOpen())
             {
+                HOperatorSet.SetPart(HDevWindowStack.GetActive(), 0, 0, hv_Height - 1, hv_Width - 1);
                 HOperatorSet.DispObj(ho_Image, HDevWindowStack.GetActive());
             }
             return true;
@@ -92,7 +98,8 @@ namespace BLTransfusion
             HOperatorSet.ReduceDomain(ho_Image, ho_SelectedRegions, out ho_ImageReduced);
             if (HDevWindowStack.IsOpen())
             {
-                 HOperatorSet.DispObj(ho_ImageReduced, HDevWindowStack.GetActive());
+                HOperatorSet.ClearWindow(HDevWindowStack.GetActive());
+                HOperatorSet.DispObj(ho_ImageReduced, HDevWindowStack.GetActive());
             }
             return true;
         }
@@ -173,7 +180,7 @@ namespace BLTransfusion
             }
             HOperatorSet.CountObj(ho_RegionErosion, out hv_Number);
 
-            HOperatorSet.SetTposition(hv_WindowHandle, 100, 1);
+            HOperatorSet.SetTposition(HDevWindowStack.GetActive(), 100, 1);
 
             if (hv_Number > 0)
             {
@@ -181,13 +188,66 @@ namespace BLTransfusion
                 {
                     HOperatorSet.DispObj(ho_RegionErosion, HDevWindowStack.GetActive());
                 }
-                HOperatorSet.WriteString(hv_WindowHandle, "               不合格!");
+                HOperatorSet.WriteString(HDevWindowStack.GetActive(), "               不合格!");
             }
             else
             {
-                HOperatorSet.WriteString(hv_WindowHandle, "               合格!");
+                HOperatorSet.WriteString(HDevWindowStack.GetActive(), "               合格!");
             }
             return true;
+        }
+
+
+        private string imageProcSettingFilePath = "ImageProcessSetting.xml";
+        public string ImageProcSettingFilePath
+        {
+            get { return imageProcSettingFilePath; }
+            set { imageProcSettingFilePath = value; }
+        }
+
+        public void SaveToXml()
+        {
+            XDocument doc = new XDocument();
+            doc.Add(new XElement("ProcessSetting", 
+                new XAttribute("RoiMinGray", this.RoiMinGray),
+                new XAttribute( "RoiMaxGray", this.RoiMaxGray),
+                new XAttribute( "RoiMinArea", this.RoiMinArea),
+                new XAttribute( "RoiMaxArea", this.RoiMaxArea),
+                new XAttribute( "MaskWidth", this.MaskWidth),
+                new XAttribute( "MaskHeight", this.MaskHeight),
+                new XAttribute( "DynThreshOffset", this.DynThreshOffset),
+                new XAttribute( "DilationErosionRadius", this.DilationErosionRadius),
+                new XAttribute("TargetMinArea", this.TargetMinArea),
+                new XAttribute("TargetMaxArea", this.TargetMaxArea)));
+            doc.Save(ImageProcSettingFilePath);
+        }
+
+        public void LoadFromXml()
+        {
+            XDocument doc = XDocument.Load(ImageProcSettingFilePath);
+            XElement root = doc.Root;
+            try
+            {
+                this.RoiMinGray = byte.Parse(root.Attribute("RoiMinGray").Value);
+                this.RoiMaxGray = byte.Parse(root.Attribute("RoiMaxGray").Value);
+
+                this.RoiMinArea = int.Parse(root.Attribute("RoiMinArea").Value);
+                this.RoiMaxArea = int.Parse(root.Attribute("RoiMaxArea").Value);
+
+                this.MaskWidth = int.Parse(root.Attribute("MaskWidth").Value);
+                this.MaskHeight = int.Parse(root.Attribute("MaskHeight").Value);
+
+                this.DynThreshOffset = int.Parse(root.Attribute("DynThreshOffset").Value);
+
+                this.DilationErosionRadius = double.Parse(root.Attribute("DilationErosionRadius").Value);
+
+                this.TargetMinArea = int.Parse(root.Attribute("TargetMinArea").Value);
+                this.TargetMaxArea = int.Parse(root.Attribute("TargetMaxArea").Value); 
+            }
+            catch (Exception)
+            {
+
+            }
         }
     }
 }
