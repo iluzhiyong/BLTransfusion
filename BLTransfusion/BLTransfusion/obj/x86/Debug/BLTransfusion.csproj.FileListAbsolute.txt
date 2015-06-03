@@ -21,3 +21,16 @@ G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfu
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.MainForm.resources
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.Properties.Resources.resources
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.csproj.GenerateResource.Cache
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\BLTransfusion.exe.config
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.exe
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.pdb
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\BLTransfusion.exe
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\BLTransfusion.pdb
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\halcondotnet.dll
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\halcondotnet.xml
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\ResolveAssemblyReference.cache
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.ImageProcessSettingWnd.resources
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.MainForm.resources
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.Properties.Resources.resources
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\GenerateResource.read.1.tlog
+Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\GenerateResource.write.1.tlog
