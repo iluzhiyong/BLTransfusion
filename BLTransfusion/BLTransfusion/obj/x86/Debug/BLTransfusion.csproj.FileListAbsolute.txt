@@ -16,7 +16,6 @@ G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\BLTransfusion
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\BLTransfusion.pdb
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\halcondotnet.dll
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\bin\Debug\halcondotnet.xml
-G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.csprojResolveAssemblyReference.cache
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.ImageProcessSettingWnd.resources
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.MainForm.resources
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.Properties.Resources.resources

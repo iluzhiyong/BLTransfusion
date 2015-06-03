@@ -16,8 +16,8 @@ namespace BLTransfusion
         {
             InitializeComponent();
 
-            //Camera_Init();
-            //SP_Init();
+            Camera_Init();
+            SP_Init();
         }
 
         private void bnStart_Click(object sender, EventArgs e)
@@ -35,12 +35,12 @@ namespace BLTransfusion
             Camera_Snapshot();
         }
 
-        private ImageProcess imageProcess = new ImageProcess();
-        public ImageProcess ImageProcess
-        {
-            get { return imageProcess; }
-            set { imageProcess = value; }
-        }
+        //private ImageProcess imageProcess = new ImageProcess();
+        //public ImageProcess ImageProcess
+        //{
+        //    get { return imageProcess; }
+        //    set { imageProcess = value; }
+        //}
 
         private string GetImagePath()
         {
@@ -50,10 +50,10 @@ namespace BLTransfusion
         
         private void bnImageProc_Click(object sender, EventArgs e)
         {
-            ImageProcessSettingWnd dlg = new ImageProcessSettingWnd();
-            this.ImageProcess.LoadImage(GetImagePath());
-            dlg.ImageProcess = this.ImageProcess;
-            dlg.Show();
+            //ImageProcessSettingWnd dlg = new ImageProcessSettingWnd();
+            //this.ImageProcess.LoadImage(GetImagePath());
+            //dlg.ImageProcess = this.ImageProcess;
+            //dlg.Show();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)

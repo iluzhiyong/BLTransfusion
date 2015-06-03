@@ -171,12 +171,9 @@
             // 
             // pB_Image
             // 
-            this.pB_Image.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pB_Image.Location = new System.Drawing.Point(22, 58);
+            this.pB_Image.Location = new System.Drawing.Point(12, 58);
             this.pB_Image.Name = "pB_Image";
-            this.pB_Image.Size = new System.Drawing.Size(192, 167);
+            this.pB_Image.Size = new System.Drawing.Size(337, 487);
             this.pB_Image.TabIndex = 6;
             this.pB_Image.TabStop = false;
             // 
@@ -205,11 +202,11 @@
             this.hWindowControl1.BackColor = System.Drawing.Color.Black;
             this.hWindowControl1.BorderColor = System.Drawing.Color.Black;
             this.hWindowControl1.ImagePart = new System.Drawing.Rectangle(0, 0, 640, 480);
-            this.hWindowControl1.Location = new System.Drawing.Point(232, 58);
+            this.hWindowControl1.Location = new System.Drawing.Point(379, 58);
             this.hWindowControl1.Name = "hWindowControl1";
-            this.hWindowControl1.Size = new System.Drawing.Size(486, 487);
+            this.hWindowControl1.Size = new System.Drawing.Size(352, 487);
             this.hWindowControl1.TabIndex = 8;
-            this.hWindowControl1.WindowSize = new System.Drawing.Size(486, 487);
+            this.hWindowControl1.WindowSize = new System.Drawing.Size(352, 487);
             // 
             // MainForm
             // 
