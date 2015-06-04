@@ -15,45 +15,6 @@ namespace BLTransfusion
         public MainForm()
         {
             InitializeComponent();
-
-            Camera_Init();
-            SP_Init();
-        }
-
-        private void bnStart_Click(object sender, EventArgs e)
-        {
-            Camera_StartStop();
-        }
-
-        private void bnSettings_Click(object sender, EventArgs e)
-        {
-            Camera_SettingPage();
-        }
-
-        private void bnSnapShot_Click(object sender, EventArgs e)
-        {
-            Camera_Snapshot();
-        }
-
-        //private ImageProcess imageProcess = new ImageProcess();
-        //public ImageProcess ImageProcess
-        //{
-        //    get { return imageProcess; }
-        //    set { imageProcess = value; }
-        //}
-
-        private string GetImagePath()
-        {
-            return "C:/Image.bmp";
-        }
-
-        
-        private void bnImageProc_Click(object sender, EventArgs e)
-        {
-            //ImageProcessSettingWnd dlg = new ImageProcessSettingWnd();
-            //this.ImageProcess.LoadImage(GetImagePath());
-            //dlg.ImageProcess = this.ImageProcess;
-            //dlg.Show();
         }
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
@@ -61,38 +22,117 @@ namespace BLTransfusion
             Camera_Closed();
         }
 
-        private void cmbDevices_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            Camera_SelectedChanged();
-        }
-
-        private void MainForm_SizeChanged(object sender, EventArgs e)
-        {
-            //MessageBox.Show(String.Format("Image Width:{0}, Hight:{1}", this.pB_Image.Size.Width.ToString(), this.pB_Image.Size.Height.ToString()));
-        }
-
-        private void MainForm_ResizeEnd(object sender, EventArgs e)
-        {
-            //Camera_SelectedChanged();
-        }
-
-        private void btn_Send_Click(object sender, EventArgs e)
-        {
-            SPCommand_OpenRelay1();
-            SPCommand_OpenRelay2();
-            //SPCommand_CloseRelay1();
-            //SPCommand_CloseRelay2();
-        }
-
         private void CameraSnapTimer_Tick(object sender, EventArgs e)
         {
             Camera_Snapshot();
         }
 
-        private void MainForm_Load(object sender, EventArgs e)
+        private void MenuCamConnect_Click(object sender, EventArgs e)
         {
-            HOperatorSet.SetWindowAttr("background_color", "black");
-            HDevWindowStack.Push(hWindowControl1.HalconWindow); 
+            Camera_Init();
+        }
+
+        private void MenuCamSet_Click(object sender, EventArgs e)
+        {
+            Camera_SettingPage();
+        }
+
+        private void MenuCamSnap_Click(object sender, EventArgs e)
+        {
+            Camera_Snapshot();
+        }
+
+        private void MenuCamClose_Click(object sender, EventArgs e)
+        {
+            Camera_Closed();
+        }
+
+        private void MenuOpenUART_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SP_Open();
+                this.TsUartStatus.Text = "串口状态：打开";
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("打开串口失败！");
+            }
+        }
+
+        private void MenuCloseUART_Click(object sender, EventArgs e)
+        {
+            SP_Close();
+            this.TsUartStatus.Text = "串口状态：关闭";
+        }
+
+        private void MenuOpenRelay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SPCommand_OpenRelay1();
+                //SPCommand_OpenRelay2();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("打开继电器失败!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MenuCloseRelay_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                SPCommand_CloseRelay1();
+                //SPCommand_CloseRelay2();
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("关闭继电器失败!", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MenuImgProcOpen_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                HOperatorSet.SetWindowAttr("background_color", "black");
+                HDevWindowStack.Push(hWindowControl1.HalconWindow);
+                ImageProcess imageProcess = new ImageProcess();
+                imageProcess.LoadImage(ImagePath);
+
+                //定时拍摄图像
+                //this.CameraSnapTimer.Enabled = true;
+            }
+            catch (Exception)
+            {
+                this.CameraSnapTimer.Enabled = false;
+                MessageBox.Show("打开失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        ImgProcSetWnd ImgProcWnd;
+        private void MenuImgProcSet_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (ImgProcWnd == null || ImgProcWnd.IsDisposed)
+                {
+                    ImgProcWnd = new ImgProcSetWnd();
+                    ImageProcess imageProcess = new ImageProcess();
+                    imageProcess.LoadImage(ImagePath);
+                    ImgProcWnd.ImageProcess = imageProcess;
+                    ImgProcWnd.Show();
+                }
+                else
+                {
+                    ImgProcWnd.Show();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("图相处理设定窗口打开失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

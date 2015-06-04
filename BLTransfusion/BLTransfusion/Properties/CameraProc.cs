@@ -28,7 +28,6 @@ namespace BLTransfusion
             SearchDevices();
             if (mDeviceHandle != IntPtr.Zero)
             {
-                bnStart.Text = "停止";
                 CGAPI.Start(mDeviceHandle);
                 return 0;
             }
@@ -51,29 +50,34 @@ namespace BLTransfusion
                     devSatus = CGAPI.EnumDevice(ptr, ref iCameraCounts);
                     if (DeviceStatus.STATUS_OK == devSatus)
                     {
-                        for (int i = 0; i < iCameraCounts; i++)
+                        TsCameraStatus.Text = String.Format("相机状态： 未连接");
+                        if (IntPtr.Zero != mDeviceHandle)
                         {
-                            ComboBoxItem item = new ComboBoxItem();
-                            EnumDeviceParam edp = (EnumDeviceParam)Marshal.PtrToStructure((IntPtr)((int)ptr + i * Marshal.SizeOf(new EnumDeviceParam())), typeof(EnumDeviceParam));
-                            string strDevice = String.Format("{0} : {1}", edp.lpDeviceDesc, edp.devIndex);
-                            item.Text = strDevice;
-                            item.Value = ((edp.devIndex << 8) | edp.usbAddress);
-                            mThis.AddDevice(item);
+                            CGAPI.Stop(mDeviceHandle);
+                            CGAPI.SyncCloseDevice(mDeviceHandle);
+                            CGAPI.DeviceUnInit(mDeviceHandle);
+                            CGAPI.DeviceRelease(mDeviceHandle);
+                            mDeviceHandle = IntPtr.Zero;
+                        }
+                        else
+                        {
+                            DeviceStatus devStatus = CGAPI.OpenDeviceByUSBAddress(0, ref mDeviceHandle);
+                            if (DeviceStatus.STATUS_OK == devStatus)
+                            {
+                                ReceiveFrameProc rfCallBack = new ReceiveFrameProc(OnReceiveFrame);
+                                devStatus = CGAPI.DeviceInit(mDeviceHandle, pB_Image.Handle, false, true);
+                                if (DeviceStatus.STATUS_OK == devStatus)
+                                {
+                                    TsCameraStatus.Text = String.Format("相机状态： 正常");
+                                }
+                            }
                         }
                     }
                     Marshal.FreeHGlobal(ptr);
                 }
-                if (cmbDevices.Items.Count > 0)
-                {
-                    cmbDevices.SelectedIndex = 0;
-                }
             }
         }
 
-        private void AddDevice(ComboBoxItem item)
-        {
-            cmbDevices.Items.Add(item);
-        }
 
         private int Camera_Closed()
         {
@@ -94,97 +98,36 @@ namespace BLTransfusion
             }
         }
 
-         DeviceStatus STATUS_DEVICE_NOT_DETECTED { get; set; }
-         private int Camera_StartStop()
+        private void Camera_SettingPage()
         {
-            DeviceStatus devStatus = STATUS_DEVICE_NOT_DETECTED;
-            //if (mDeviceHandle == IntPtr.Zero && bnStart.Text.Equals("开始"))
-            //{
-            //    Camera_Init();
-            //    bnStart.Text = "停止";
-            //}
-            //if (mDeviceHandle != IntPtr.Zero && bnStart.Text.Equals("停止"))
-            //{
-            //    Camera_Closed();
-            //    bnStart.Text = "开始";
-            //}
-            if (mDeviceHandle != IntPtr.Zero)
+            if ((mDeviceHandle != DeviceHandle.Zero) && (1 == CGAPI.IsReceivingData(mDeviceHandle)))
             {
-                if (bnStart.Text.Equals("开始"))
-                {
-                    bnStart.Text = "停止";
-                    devStatus = CGAPI.Start(mDeviceHandle);
-                }
-                else
-                {
-                    bnStart.Text = "开始";
-                    devStatus = CGAPI.Stop(mDeviceHandle);
-                }
-                return 0;
+                DeviceStatus devStatus = CGAPI.DeviceCreateSettingPage(mDeviceHandle, mThis.Handle, "");
+                devStatus = CGAPI.DeviceShowSettingPage(mDeviceHandle, true);
             }
             else
             {
-                LbCameraStatus.Text = String.Format("{0}", devStatus);
-                return -1;
+                MessageBox.Show("相机未连接！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
-        private void Camera_SettingPage()
+        private string imagePath = "Image";
+        public string ImagePath
         {
-            DeviceStatus devStatus = CGAPI.DeviceCreateSettingPage(mDeviceHandle, mThis.Handle, "");
-            devStatus = CGAPI.DeviceShowSettingPage(mDeviceHandle, true);
-            LbCameraStatus.Text = String.Format("{0}", devStatus);
+            get { return imagePath; }
+            set { imagePath = value; }
         }
 
         private int Camera_Snapshot()
         {
             if ((mDeviceHandle != DeviceHandle.Zero) && (1 == CGAPI.IsReceivingData(mDeviceHandle)))
             {
-                string strFile = @"Image";
-                DeviceStatus devStatus = CGAPI.CaptureFile(mDeviceHandle, strFile, emDSFileType.FILE_BMP);
-                //strFile += ".bmp";
-                //if (DeviceStatus.STATUS_OK == devStatus)
-                //{
-                //    MessageBox.Show(strFile, "保存成功");
-                //}
-                //else
-                //{
-                //    MessageBox.Show(strFile, "保存失败");
-                //}
-
+                DeviceStatus devStatus = CGAPI.CaptureFile(mDeviceHandle, ImagePath, emDSFileType.FILE_BMP);
                 return 0;
             }
             else
             {
                 return -1;
-            }
-        }
-
-        private void Camera_SelectedChanged()
-        {
-            ComboBoxItem selItem = (ComboBoxItem)cmbDevices.SelectedItem;
-            byte byDev = (byte)((int)selItem.Value & 0xFF);
-            LbCameraStatus.Text = String.Format("select id:{0}", byDev);
-            if (IntPtr.Zero != mDeviceHandle)
-            {
-                CGAPI.Stop(mDeviceHandle);
-                CGAPI.SyncCloseDevice(mDeviceHandle);
-                CGAPI.DeviceUnInit(mDeviceHandle);
-                CGAPI.DeviceRelease(mDeviceHandle);
-                mDeviceHandle = IntPtr.Zero;
-            }
-            else
-            {
-                DeviceStatus devStatus = CGAPI.OpenDeviceByUSBAddress(byDev, ref mDeviceHandle);
-                if (DeviceStatus.STATUS_OK == devStatus)
-                {
-                    ReceiveFrameProc rfCallBack = new ReceiveFrameProc(OnReceiveFrame);
-                    devStatus = CGAPI.DeviceInit(mDeviceHandle, pB_Image.Handle, false, true);
-                    if (DeviceStatus.STATUS_OK == devStatus)
-                    {
-                    }
-                }
-                LbCameraStatus.Text = String.Format("{0}", devStatus);
             }
         }
 

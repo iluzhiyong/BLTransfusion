@@ -59,13 +59,12 @@
     <Compile Include="Properties\CameraProc.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ComboBoxItem.cs" />
     <Compile Include="ImageProc.cs" />
-    <Compile Include="ImageProcessSettingWnd.cs">
+    <Compile Include="ImgProcSetWnd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageProcessSettingWnd.Designer.cs">
-      <DependentUpon>ImageProcessSettingWnd.cs</DependentUpon>
+    <Compile Include="ImgProcSetWnd.Designer.cs">
+      <DependentUpon>ImgProcSetWnd.cs</DependentUpon>
     </Compile>
     <Compile Include="IOCtrl.cs">
       <SubType>Form</SubType>
@@ -78,8 +77,8 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="ImageProcessSettingWnd.resx">
-      <DependentUpon>ImageProcessSettingWnd.cs</DependentUpon>
+    <EmbeddedResource Include="ImgProcSetWnd.resx">
+      <DependentUpon>ImgProcSetWnd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>

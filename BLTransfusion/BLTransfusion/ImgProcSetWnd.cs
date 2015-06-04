@@ -10,7 +10,7 @@ using System.Xml.Linq;
 
 namespace BLTransfusion
 {
-    public partial class ImageProcessSettingWnd : Form
+    public partial class ImgProcSetWnd : Form
     {
         private ImageProcess imageProcess;
         public ImageProcess ImageProcess
@@ -39,7 +39,7 @@ namespace BLTransfusion
             }
         }
 
-        public ImageProcessSettingWnd()
+        public ImgProcSetWnd()
         {
             InitializeComponent();
         }

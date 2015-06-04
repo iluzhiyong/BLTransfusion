@@ -180,7 +180,7 @@ namespace BLTransfusion
             }
             HOperatorSet.CountObj(ho_RegionErosion, out hv_Number);
 
-            HOperatorSet.SetTposition(HDevWindowStack.GetActive(), 100, 1);
+            HOperatorSet.SetTposition(HDevWindowStack.GetActive(), 500, 1);
 
             if (hv_Number > 0)
             {
@@ -198,7 +198,7 @@ namespace BLTransfusion
         }
 
 
-        private string imageProcSettingFilePath = "ImageProcessSetting.xml";
+        private string imageProcSettingFilePath = "ImgProcConfig.xml";
         public string ImageProcSettingFilePath
         {
             get { return imageProcSettingFilePath; }
