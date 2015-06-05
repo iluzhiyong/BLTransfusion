@@ -24,7 +24,16 @@ namespace BLTransfusion
 
         private void CameraSnapTimer_Tick(object sender, EventArgs e)
         {
-            Camera_Snapshot();
+            if (Camera_Snapshot() == true)
+            {
+                if (this.ImageProcess.SelectROI())
+                {
+                    if (this.ImageProcess.DoProcess())
+                    {
+                        this.ImageProcess.CalculateResult();
+                    }
+                }
+            }
         }
 
         private void MenuCamConnect_Click(object sender, EventArgs e)
@@ -92,22 +101,38 @@ namespace BLTransfusion
             }
         }
 
-        private void MenuImgProcOpen_Click(object sender, EventArgs e)
+        private ImageProcess imageProcess;
+        public ImageProcess ImageProcess
+        {
+            get { return imageProcess; }
+            set
+            {
+                imageProcess = value;
+            }
+        }
+        private void MenuImgProcStart_Click(object sender, EventArgs e)
         {
             try
             {
                 HOperatorSet.SetWindowAttr("background_color", "black");
                 HDevWindowStack.Push(hWindowControl1.HalconWindow);
-                ImageProcess imageProcess = new ImageProcess();
-                imageProcess.LoadImage(ImagePath);
+                if (imageProcess == null)
+                {
+                    imageProcess = new ImageProcess();
+                    imageProcess.LoadImage(ImagePath);
+                }
+                else
+                {
+                    imageProcess.LoadImage(ImagePath);
+                }
 
                 //定时拍摄图像
-                //this.CameraSnapTimer.Enabled = true;
+                this.CameraSnapTimer.Enabled = true;
             }
             catch (Exception)
             {
                 this.CameraSnapTimer.Enabled = false;
-                MessageBox.Show("打开失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("启动失败！", "图相处理错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -118,9 +143,19 @@ namespace BLTransfusion
             {
                 if (ImgProcWnd == null || ImgProcWnd.IsDisposed)
                 {
+                    HOperatorSet.SetWindowAttr("background_color", "black");
+                    HDevWindowStack.Push(hWindowControl1.HalconWindow);
+                    
                     ImgProcWnd = new ImgProcSetWnd();
-                    ImageProcess imageProcess = new ImageProcess();
-                    imageProcess.LoadImage(ImagePath);
+                    if (imageProcess == null)
+                    {
+                        imageProcess = new ImageProcess();
+                        imageProcess.LoadImage(ImagePath);
+                    }
+                    else
+                    {
+                        imageProcess.LoadImage(ImagePath);
+                    }
                     ImgProcWnd.ImageProcess = imageProcess;
                     ImgProcWnd.Show();
                 }
@@ -131,8 +166,18 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                MessageBox.Show("图相处理设定窗口打开失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("设定窗口打开失败！", "图相处理错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void MenuImgProcStop_Click(object sender, EventArgs e)
+        {
+            this.CameraSnapTimer.Enabled = false;
+        }
+
+        private void MenuImgProcCntClear_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

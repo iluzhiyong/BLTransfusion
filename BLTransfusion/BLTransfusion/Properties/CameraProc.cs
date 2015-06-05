@@ -89,6 +89,7 @@ namespace BLTransfusion
                 CGAPI.DeviceRelease(mDeviceHandle);
                 mDeviceHandle = IntPtr.Zero;
                 CGAPI.DeviceUnInitialSDK();
+                TsCameraStatus.Text = String.Format("相机状态： 未连接");
 
                 return 0;
             }
@@ -118,16 +119,16 @@ namespace BLTransfusion
             set { imagePath = value; }
         }
 
-        private int Camera_Snapshot()
+        private bool Camera_Snapshot()
         {
             if ((mDeviceHandle != DeviceHandle.Zero) && (1 == CGAPI.IsReceivingData(mDeviceHandle)))
             {
                 DeviceStatus devStatus = CGAPI.CaptureFile(mDeviceHandle, ImagePath, emDSFileType.FILE_BMP);
-                return 0;
+                return true;
             }
             else
             {
-                return -1;
+                return false;
             }
         }
 
