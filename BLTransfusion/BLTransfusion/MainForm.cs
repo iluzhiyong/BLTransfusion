@@ -26,6 +26,7 @@ namespace BLTransfusion
         {
             if (Camera_Snapshot() == true)
             {
+                this.imageProcess.LoadImage(ImagePath);
                 if (this.ImageProcess.SelectROI())
                 {
                     if (this.ImageProcess.DoProcess())
