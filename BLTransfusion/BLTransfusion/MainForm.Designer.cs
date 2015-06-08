@@ -30,7 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.CameraSnapTimer = new System.Windows.Forms.Timer(this.components);
             this.hWindowControl1 = new HalconDotNet.HWindowControl();
             this.pB_Image = new System.Windows.Forms.PictureBox();
             this.TsCameraStatus = new System.Windows.Forms.ToolStripStatusLabel();
@@ -39,6 +38,8 @@
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.TsUartStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TsQualifiedCnt = new System.Windows.Forms.ToolStripStatusLabel();
+            this.TsUnqualifiedCnt = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.相机ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCamConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,24 +49,17 @@
             this.MenuItemImageProcOpen = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuImgProcStart = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuImgProcStop = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuImgProcCntClear = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuImgProcSet = new System.Windows.Forms.ToolStripMenuItem();
             this.iOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpenUART = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCloseUART = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpenRelay = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCloseRelay = new System.Windows.Forms.ToolStripMenuItem();
-            this.TsQualifiedCnt = new System.Windows.Forms.ToolStripStatusLabel();
-            this.TsUnqualifiedCnt = new System.Windows.Forms.ToolStripStatusLabel();
-            this.MenuImgProcCntClear = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).BeginInit();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // CameraSnapTimer
-            // 
-            this.CameraSnapTimer.Interval = 2000;
-            this.CameraSnapTimer.Tick += new System.EventHandler(this.CameraSnapTimer_Tick);
             // 
             // hWindowControl1
             // 
@@ -139,8 +133,20 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(556, 21);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(525, 21);
             this.toolStripStatusLabel1.Spring = true;
+            // 
+            // TsQualifiedCnt
+            // 
+            this.TsQualifiedCnt.Name = "TsQualifiedCnt";
+            this.TsQualifiedCnt.Size = new System.Drawing.Size(15, 21);
+            this.TsQualifiedCnt.Text = "0";
+            // 
+            // TsUnqualifiedCnt
+            // 
+            this.TsUnqualifiedCnt.Name = "TsUnqualifiedCnt";
+            this.TsUnqualifiedCnt.Size = new System.Drawing.Size(15, 21);
+            this.TsUnqualifiedCnt.Text = "0";
             // 
             // menuStrip1
             // 
@@ -171,28 +177,28 @@
             // MenuCamConnect
             // 
             this.MenuCamConnect.Name = "MenuCamConnect";
-            this.MenuCamConnect.Size = new System.Drawing.Size(152, 22);
+            this.MenuCamConnect.Size = new System.Drawing.Size(100, 22);
             this.MenuCamConnect.Text = "连接";
             this.MenuCamConnect.Click += new System.EventHandler(this.MenuCamConnect_Click);
             // 
             // MenuCamClose
             // 
             this.MenuCamClose.Name = "MenuCamClose";
-            this.MenuCamClose.Size = new System.Drawing.Size(152, 22);
+            this.MenuCamClose.Size = new System.Drawing.Size(100, 22);
             this.MenuCamClose.Text = "关闭";
             this.MenuCamClose.Click += new System.EventHandler(this.MenuCamClose_Click);
             // 
             // MenuCamSnap
             // 
             this.MenuCamSnap.Name = "MenuCamSnap";
-            this.MenuCamSnap.Size = new System.Drawing.Size(152, 22);
+            this.MenuCamSnap.Size = new System.Drawing.Size(100, 22);
             this.MenuCamSnap.Text = "拍摄";
             this.MenuCamSnap.Click += new System.EventHandler(this.MenuCamSnap_Click);
             // 
             // MenuCamSet
             // 
             this.MenuCamSet.Name = "MenuCamSet";
-            this.MenuCamSet.Size = new System.Drawing.Size(152, 22);
+            this.MenuCamSet.Size = new System.Drawing.Size(100, 22);
             this.MenuCamSet.Text = "设置";
             this.MenuCamSet.Click += new System.EventHandler(this.MenuCamSet_Click);
             // 
@@ -210,21 +216,28 @@
             // MenuImgProcStart
             // 
             this.MenuImgProcStart.Name = "MenuImgProcStart";
-            this.MenuImgProcStart.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcStart.Size = new System.Drawing.Size(124, 22);
             this.MenuImgProcStart.Text = "启动";
             this.MenuImgProcStart.Click += new System.EventHandler(this.MenuImgProcStart_Click);
             // 
             // MenuImgProcStop
             // 
             this.MenuImgProcStop.Name = "MenuImgProcStop";
-            this.MenuImgProcStop.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcStop.Size = new System.Drawing.Size(124, 22);
             this.MenuImgProcStop.Text = "停止";
             this.MenuImgProcStop.Click += new System.EventHandler(this.MenuImgProcStop_Click);
+            // 
+            // MenuImgProcCntClear
+            // 
+            this.MenuImgProcCntClear.Name = "MenuImgProcCntClear";
+            this.MenuImgProcCntClear.Size = new System.Drawing.Size(124, 22);
+            this.MenuImgProcCntClear.Text = "计数清零";
+            this.MenuImgProcCntClear.Click += new System.EventHandler(this.MenuImgProcCntClear_Click);
             // 
             // MenuImgProcSet
             // 
             this.MenuImgProcSet.Name = "MenuImgProcSet";
-            this.MenuImgProcSet.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcSet.Size = new System.Drawing.Size(124, 22);
             this.MenuImgProcSet.Text = "设置";
             this.MenuImgProcSet.Click += new System.EventHandler(this.MenuImgProcSet_Click);
             // 
@@ -267,25 +280,6 @@
             this.MenuCloseRelay.Text = "关闭继电器";
             this.MenuCloseRelay.Click += new System.EventHandler(this.MenuCloseRelay_Click);
             // 
-            // TsQualifiedCnt
-            // 
-            this.TsQualifiedCnt.Name = "TsQualifiedCnt";
-            this.TsQualifiedCnt.Size = new System.Drawing.Size(15, 21);
-            this.TsQualifiedCnt.Text = "0";
-            // 
-            // TsUnqualifiedCnt
-            // 
-            this.TsUnqualifiedCnt.Name = "TsUnqualifiedCnt";
-            this.TsUnqualifiedCnt.Size = new System.Drawing.Size(15, 21);
-            this.TsUnqualifiedCnt.Text = "0";
-            // 
-            // MenuImgProcCntClear
-            // 
-            this.MenuImgProcCntClear.Name = "MenuImgProcCntClear";
-            this.MenuImgProcCntClear.Size = new System.Drawing.Size(152, 22);
-            this.MenuImgProcCntClear.Text = "计数清零";
-            this.MenuImgProcCntClear.Click += new System.EventHandler(this.MenuImgProcCntClear_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -312,7 +306,6 @@
         #endregion
 
         private System.IO.Ports.SerialPort serialPort1;
-        private System.Windows.Forms.Timer CameraSnapTimer;
         private HalconDotNet.HWindowControl hWindowControl1;
         private System.Windows.Forms.PictureBox pB_Image;
         private System.Windows.Forms.ToolStripStatusLabel TsCameraStatus;

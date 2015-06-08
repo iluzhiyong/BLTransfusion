@@ -22,21 +22,6 @@ namespace BLTransfusion
             Camera_Closed();
         }
 
-        private void CameraSnapTimer_Tick(object sender, EventArgs e)
-        {
-            if (Camera_Snapshot() == true)
-            {
-                this.imageProcess.LoadImage(ImagePath);
-                if (this.ImageProcess.SelectROI())
-                {
-                    if (this.ImageProcess.DoProcess())
-                    {
-                        this.ImageProcess.CalculateResult();
-                    }
-                }
-            }
-        }
-
         private void MenuCamConnect_Click(object sender, EventArgs e)
         {
             Camera_Init();
@@ -111,8 +96,108 @@ namespace BLTransfusion
                 imageProcess = value;
             }
         }
+
+        BackgroundWorker processWorker;
+        public BackgroundWorker ProcessWorker
+        {
+            get 
+            {
+                if (processWorker == null)
+                {
+                    processWorker = new BackgroundWorker();
+                    processWorker.WorkerSupportsCancellation = true;
+                    processWorker.WorkerReportsProgress = true;
+                    processWorker.ProgressChanged += new ProgressChangedEventHandler(OnProgressChanged);
+                    processWorker.DoWork += new DoWorkEventHandler(OnProcessDoWork);
+                    processWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(OnProcessWorkerCompleted);
+                }
+                return processWorker; 
+            }
+        }
+
+        private void OnProgressChanged(object sender, ProgressChangedEventArgs e)
+        {
+            this.UpdateQualifiedCount();
+            this.UpdateUnqualifiedCount();
+        }
+
+        private void OnProcessWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Error != null)
+            {
+                MessageBox.Show(e.Error.Message);
+            }
+        }
+        
+        private void OnProcessDoWork(object sender, DoWorkEventArgs e)
+        {
+            //this.BeginInvoke(new Action(() =>
+            //{
+            //this.ClearQualifiedCount();
+            //this.ClearUnqualifiedCount();
+            //}), null);
+
+            this.ImageProcess.QualifiedCnt = 0;
+            this.ImageProcess.UnqualifiedCnt = 0;
+            try
+            {
+                while (true)
+                {
+                    if (this.ProcessWorker.CancellationPending)
+                    {
+                        e.Cancel = true;
+                        break;
+                    }
+                    System.Threading.Thread.Sleep(100);
+                    //if (Camera_Snapshot() == true)
+                    //{
+                    //    System.Threading.Thread.Sleep(100);
+                    //    if (this.ProcessWorker.CancellationPending)
+                    //    {
+                    //        e.Cancel = true;
+                    //        break;
+                    //    }
+                    //    this.imageProcess.LoadImage(ImagePath);
+
+                    //    if (this.ImageProcess.SelectROI())
+                    //    {
+                    //        if (this.ProcessWorker.CancellationPending)
+                    //        {
+                    //            e.Cancel = true;
+                    //            break;
+                    //        }
+                    //        if (this.ImageProcess.DoProcess())
+                    //        {
+                    //            if (this.ProcessWorker.CancellationPending)
+                    //            {
+                    //                e.Cancel = true;
+                    //                break;
+                    //            }
+                    //            if (this.ImageProcess.CalculateResult())
+                    //            {
+                                    //this.QualifiedCount = this.ImageProcess.QualifiedCnt;
+                                    //this.UnqualifiedCount = this.ImageProcess.UnqualifiedCnt;
+                                    this.QualifiedCount += 1;
+                                    this.UnqualifiedCount += 1;
+                                    this.ProcessWorker.ReportProgress(0);
+                            //    }
+                            //}
+                        //}
+                    //}
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
         private void MenuImgProcStart_Click(object sender, EventArgs e)
         {
+            if (this.ProcessWorker != null && this.ProcessWorker.IsBusy)
+            {
+                return;
+            }
             try
             {
                 HOperatorSet.SetWindowAttr("background_color", "black");
@@ -126,14 +211,13 @@ namespace BLTransfusion
                 {
                     imageProcess.LoadImage(ImagePath);
                 }
-
-                //定时拍摄图像
-                this.CameraSnapTimer.Enabled = true;
+                this.ClearQualifiedCount();
+                this.ClearUnqualifiedCount();
+                this.ProcessWorker.RunWorkerAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                this.CameraSnapTimer.Enabled = false;
-                MessageBox.Show("启动失败！", "图相处理错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("启动失败！\r\n{0}", ex.Message), "图相处理错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -173,12 +257,52 @@ namespace BLTransfusion
 
         private void MenuImgProcStop_Click(object sender, EventArgs e)
         {
-            this.CameraSnapTimer.Enabled = false;
+            if (this.ProcessWorker != null && this.ProcessWorker.IsBusy)
+            {
+                this.ProcessWorker.CancelAsync();
+            }
         }
 
         private void MenuImgProcCntClear_Click(object sender, EventArgs e)
         {
+            this.ClearQualifiedCount();
+            this.ClearUnqualifiedCount();
+        }
 
+        private int qualifiedCount;
+        public int QualifiedCount
+        {
+            get { return qualifiedCount; }
+            set { qualifiedCount = value; }
+        }
+
+        public void ClearQualifiedCount()
+        {
+            this.QualifiedCount = 0;
+            UpdateQualifiedCount();
+        }
+
+        public void UpdateQualifiedCount()
+        {
+           this.TsQualifiedCnt.Text = this.QualifiedCount.ToString();
+        }
+
+        private int unqualifiedCount;
+        public int UnqualifiedCount
+        {
+            get { return unqualifiedCount; }
+            set { unqualifiedCount = value; }
+        }
+
+        public void ClearUnqualifiedCount()
+        {
+            this.UnqualifiedCount = 0;
+            UpdateUnqualifiedCount();
+        }
+
+        public void UpdateUnqualifiedCount()
+        {
+            this.TsUnqualifiedCnt.Text = this.UnqualifiedCount.ToString();
         }
     }
 }

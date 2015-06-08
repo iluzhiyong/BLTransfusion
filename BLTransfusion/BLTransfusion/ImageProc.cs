@@ -42,7 +42,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                MessageBox.Show("初始化错误！", "图像处理错误");
+                //MessageBox.Show("初始化错误！", "图像处理错误");
             }
 
             this.LoadFromXml();
@@ -63,7 +63,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                MessageBox.Show("加载图片错误！", "图像处理错误");
+                //MessageBox.Show("加载图片错误！", "图像处理错误");
             }
 
             return true;
@@ -121,7 +121,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                MessageBox.Show("选择ROI错误！", "图像处理错误");
+                //MessageBox.Show("选择ROI错误！", "图像处理错误");
             }
 
             return true;
@@ -196,7 +196,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                MessageBox.Show("处理错误！", "图像处理错误");
+                //MessageBox.Show("处理错误！", "图像处理错误");
             }
 
             return true;
@@ -205,14 +205,14 @@ namespace BLTransfusion
         private int qualifiedCnt = 0;
         public int QualifiedCnt
         {
-            get { return targetMaxArea; }
-            set { targetMaxArea = value; }
+            get { return qualifiedCnt; }
+            set { qualifiedCnt = value; }
         }
         private int unqualifiedCnt = 0;
         public int UnqualifiedCnt
         {
-            get { return UnqualifiedCnt; }
-            set { UnqualifiedCnt = value; }
+            get { return unqualifiedCnt; }
+            set { unqualifiedCnt = value; }
         }
         public bool CalculateResult()
         {
@@ -243,7 +243,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                MessageBox.Show("计算结果错误！", "图像处理错误");
+                //MessageBox.Show("计算结果错误！", "图像处理错误");
             }
 
             return true;
@@ -277,7 +277,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                MessageBox.Show("保存参数失败！", "错误");
+                //MessageBox.Show("保存参数失败！", "错误");
             }
         }
 
@@ -305,7 +305,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                MessageBox.Show("加载参数失败！", "错误");
+                //MessageBox.Show("加载参数失败！", "错误");
             }
         }
     }
