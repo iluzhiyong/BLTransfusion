@@ -90,10 +90,13 @@ namespace BLTransfusion
         private ImageProcess imageProcess;
         public ImageProcess ImageProcess
         {
-            get { return imageProcess; }
-            set
+            get
             {
-                imageProcess = value;
+                if (imageProcess == null)
+                {
+                    imageProcess = new ImageProcess(GetHalconWindow());
+                }
+                return imageProcess; 
             }
         }
 
@@ -142,6 +145,7 @@ namespace BLTransfusion
                         e.Cancel = true;
                         break;
                     }
+
                     System.Threading.Thread.Sleep(100);
                     if (Camera_Snapshot() == true)
                     {
@@ -151,7 +155,8 @@ namespace BLTransfusion
                             e.Cancel = true;
                             break;
                         }
-                        this.imageProcess.LoadImage(ImagePath);
+
+                        this.ImageProcess.LoadImage(ImagePath);
 
                         if (this.ImageProcess.SelectROI())
                         {
@@ -171,8 +176,6 @@ namespace BLTransfusion
                                 {
                                     this.QualifiedCount = this.ImageProcess.QualifiedCnt;
                                     this.UnqualifiedCount = this.ImageProcess.UnqualifiedCnt;
-                                    this.QualifiedCount += 1;
-                                    this.UnqualifiedCount += 1;
                                     this.ProcessWorker.ReportProgress(0);
                                 }
                             }
@@ -186,6 +189,16 @@ namespace BLTransfusion
             }
         }
 
+        public HWindow GetHalconWindow()
+        {
+            return hWindowControl1.HalconWindow;
+        }
+
+        public void ResetControl()
+        {
+            GetHalconWindow().ClearWindow();
+        }
+
         private void MenuImgProcStart_Click(object sender, EventArgs e)
         {
             if (this.ProcessWorker != null && this.ProcessWorker.IsBusy)
@@ -194,17 +207,8 @@ namespace BLTransfusion
             }
             try
             {
-                HOperatorSet.SetWindowAttr("background_color", "black");
-                HDevWindowStack.Push(hWindowControl1.HalconWindow);
-                if (imageProcess == null)
-                {
-                    imageProcess = new ImageProcess();
-                    imageProcess.LoadImage(ImagePath);
-                }
-                else
-                {
-                    imageProcess.LoadImage(ImagePath);
-                }
+                this.ImageProcess.LoadImage(ImagePath);
+
                 this.ClearQualifiedCount();
                 this.ClearUnqualifiedCount();
                 this.ProcessWorker.RunWorkerAsync();
@@ -215,32 +219,22 @@ namespace BLTransfusion
             }
         }
 
-        ImgProcSetWnd ImgProcWnd;
+        private ImgProcSetWnd imgProcWnd;
         private void MenuImgProcSet_Click(object sender, EventArgs e)
         {
             try
             {
-                if (ImgProcWnd == null || ImgProcWnd.IsDisposed)
+                if (imgProcWnd == null || imgProcWnd.IsDisposed)
                 {
-                    HOperatorSet.SetWindowAttr("background_color", "black");
-                    HDevWindowStack.Push(hWindowControl1.HalconWindow);
-                    
-                    ImgProcWnd = new ImgProcSetWnd();
-                    if (imageProcess == null)
-                    {
-                        imageProcess = new ImageProcess();
-                        imageProcess.LoadImage(ImagePath);
-                    }
-                    else
-                    {
-                        imageProcess.LoadImage(ImagePath);
-                    }
-                    ImgProcWnd.ImageProcess = imageProcess;
-                    ImgProcWnd.Show();
+                    this.ImageProcess.LoadImage(ImagePath);
+
+                    this.imgProcWnd = new ImgProcSetWnd();
+                    this.imgProcWnd.ImageProcess = this.ImageProcess;
+                    this.imgProcWnd.Show();
                 }
                 else
                 {
-                    ImgProcWnd.Show();
+                    imgProcWnd.Show();
                 }
             }
             catch (Exception)

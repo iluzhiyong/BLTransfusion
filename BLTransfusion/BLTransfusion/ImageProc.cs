@@ -20,12 +20,17 @@ namespace BLTransfusion
         HObject ho_SelectedRegions2 = null, ho_RegionErosion = null;
 
         // Local control variables 
-        //HTuple hv_WindowHandle;
-        HTuple hv_Width = new HTuple();
-        HTuple hv_Height = new HTuple(), hv_Number = new HTuple();
 
-        public ImageProcess()
+        private HWindow windowHandle;
+        public HWindow WindowHandle
         {
+            get { return windowHandle; }
+        }
+
+        public ImageProcess(HWindow hWindow)
+        {
+            this.windowHandle = hWindow;
+
             try
             {
                 // Initialize local and output iconic variables 
@@ -48,6 +53,10 @@ namespace BLTransfusion
             this.LoadFromXml();
         }
 
+        HTuple hv_Width = new HTuple();
+        HTuple hv_Height = new HTuple(), hv_Number = new HTuple();
+
+
         public bool LoadImage(string imagePath)
         {
             try
@@ -55,11 +64,8 @@ namespace BLTransfusion
                 ho_Image.Dispose();
                 HOperatorSet.ReadImage(out ho_Image, imagePath);
                 HOperatorSet.GetImageSize(ho_Image, out hv_Width, out hv_Height);
-                if (HDevWindowStack.IsOpen())
-                {
-                    HOperatorSet.SetPart(HDevWindowStack.GetActive(), 0, 0, hv_Height - 1, hv_Width - 1);
-                    HOperatorSet.DispObj(ho_Image, HDevWindowStack.GetActive());
-                }
+                this.WindowHandle.SetPart(0, 0, hv_Height - 1, hv_Width - 1);
+                this.WindowHandle.DispObj(ho_Image);
             }
             catch (Exception)
             {
@@ -113,11 +119,9 @@ namespace BLTransfusion
                 //reduce_domain (Image, RegionFillUp, ImageReduced)
                 ho_ImageReduced.Dispose();
                 HOperatorSet.ReduceDomain(ho_Image, ho_SelectedRegions, out ho_ImageReduced);
-                if (HDevWindowStack.IsOpen())
-                {
-                    HOperatorSet.ClearWindow(HDevWindowStack.GetActive());
-                    HOperatorSet.DispObj(ho_ImageReduced, HDevWindowStack.GetActive());
-                }
+
+                this.WindowHandle.ClearWindow();
+                this.WindowHandle.DispObj(ho_ImageReduced);
             }
             catch (Exception)
             {
@@ -218,27 +222,20 @@ namespace BLTransfusion
         {
             try
             {
-                if (HDevWindowStack.IsOpen())
-                {
-                    HOperatorSet.DispObj(ho_Image, HDevWindowStack.GetActive());
-                }
+                this.WindowHandle.DispObj(ho_Image);
                 HOperatorSet.CountObj(ho_RegionErosion, out hv_Number);
-
-                HOperatorSet.SetTposition(HDevWindowStack.GetActive(), 500, 1);
+                this.WindowHandle.SetTposition(500, 1);
 
                 if (hv_Number > 0)
                 {
-                    if (HDevWindowStack.IsOpen())
-                    {
-                        HOperatorSet.DispObj(ho_RegionErosion, HDevWindowStack.GetActive());
-                    }
+                    this.WindowHandle.DispObj(ho_RegionErosion);
                     unqualifiedCnt++;
-                    HOperatorSet.WriteString(HDevWindowStack.GetActive(), "               不合格!");
+                    this.WindowHandle.WriteString("               不合格!");
                 }
                 else
                 {
                     qualifiedCnt++;
-                    HOperatorSet.WriteString(HDevWindowStack.GetActive(), "               合格!");
+                    this.WindowHandle.WriteString("               合格!");
                 }
             }
             catch (Exception)
