@@ -131,12 +131,6 @@ namespace BLTransfusion
         
         private void OnProcessDoWork(object sender, DoWorkEventArgs e)
         {
-            //this.BeginInvoke(new Action(() =>
-            //{
-            //this.ClearQualifiedCount();
-            //this.ClearUnqualifiedCount();
-            //}), null);
-
             this.ImageProcess.QualifiedCnt = 0;
             this.ImageProcess.UnqualifiedCnt = 0;
             try
@@ -149,41 +143,41 @@ namespace BLTransfusion
                         break;
                     }
                     System.Threading.Thread.Sleep(100);
-                    //if (Camera_Snapshot() == true)
-                    //{
-                    //    System.Threading.Thread.Sleep(100);
-                    //    if (this.ProcessWorker.CancellationPending)
-                    //    {
-                    //        e.Cancel = true;
-                    //        break;
-                    //    }
-                    //    this.imageProcess.LoadImage(ImagePath);
+                    if (Camera_Snapshot() == true)
+                    {
+                        System.Threading.Thread.Sleep(100);
+                        if (this.ProcessWorker.CancellationPending)
+                        {
+                            e.Cancel = true;
+                            break;
+                        }
+                        this.imageProcess.LoadImage(ImagePath);
 
-                    //    if (this.ImageProcess.SelectROI())
-                    //    {
-                    //        if (this.ProcessWorker.CancellationPending)
-                    //        {
-                    //            e.Cancel = true;
-                    //            break;
-                    //        }
-                    //        if (this.ImageProcess.DoProcess())
-                    //        {
-                    //            if (this.ProcessWorker.CancellationPending)
-                    //            {
-                    //                e.Cancel = true;
-                    //                break;
-                    //            }
-                    //            if (this.ImageProcess.CalculateResult())
-                    //            {
-                                    //this.QualifiedCount = this.ImageProcess.QualifiedCnt;
-                                    //this.UnqualifiedCount = this.ImageProcess.UnqualifiedCnt;
+                        if (this.ImageProcess.SelectROI())
+                        {
+                            if (this.ProcessWorker.CancellationPending)
+                            {
+                                e.Cancel = true;
+                                break;
+                            }
+                            if (this.ImageProcess.DoProcess())
+                            {
+                                if (this.ProcessWorker.CancellationPending)
+                                {
+                                    e.Cancel = true;
+                                    break;
+                                }
+                                if (this.ImageProcess.CalculateResult())
+                                {
+                                    this.QualifiedCount = this.ImageProcess.QualifiedCnt;
+                                    this.UnqualifiedCount = this.ImageProcess.UnqualifiedCnt;
                                     this.QualifiedCount += 1;
                                     this.UnqualifiedCount += 1;
                                     this.ProcessWorker.ReportProgress(0);
-                            //    }
-                            //}
-                        //}
-                    //}
+                                }
+                            }
+                        }
+                    }
                 }
             }
             catch (Exception ex)
