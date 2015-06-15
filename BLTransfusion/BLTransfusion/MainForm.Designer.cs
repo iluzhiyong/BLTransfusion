@@ -79,7 +79,7 @@
             // 
             this.pB_Image.Location = new System.Drawing.Point(26, 43);
             this.pB_Image.Name = "pB_Image";
-            this.pB_Image.Size = new System.Drawing.Size(157, 145);
+            this.pB_Image.Size = new System.Drawing.Size(336, 267);
             this.pB_Image.TabIndex = 9;
             this.pB_Image.TabStop = false;
             // 
@@ -133,7 +133,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(525, 21);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(556, 21);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // TsQualifiedCnt

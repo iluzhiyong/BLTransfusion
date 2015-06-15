@@ -31,6 +31,6 @@ Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.Mai
 Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.Properties.Resources.resources
 Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\GenerateResource.read.1.tlog
 Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\GenerateResource.write.1.tlog
-G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.csprojResolveAssemblyReference.cache
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.ImgProcSetWnd.resources
 Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.ImgProcSetWnd.resources
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.csprojResolveAssemblyReference.cache

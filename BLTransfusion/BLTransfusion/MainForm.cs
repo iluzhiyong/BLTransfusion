@@ -122,6 +122,7 @@ namespace BLTransfusion
         {
             this.UpdateQualifiedCount();
             this.UpdateUnqualifiedCount();
+            this.UpdateIOResult();
         }
 
         private void OnProcessWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -176,6 +177,7 @@ namespace BLTransfusion
                                 {
                                     this.QualifiedCount = this.ImageProcess.QualifiedCnt;
                                     this.UnqualifiedCount = this.ImageProcess.UnqualifiedCnt;
+                                    this.CurRetIsUnQualified = this.ImageProcess.IsUnqualified;
                                     this.ProcessWorker.ReportProgress(0);
                                 }
                             }
@@ -262,6 +264,26 @@ namespace BLTransfusion
         {
             get { return qualifiedCount; }
             set { qualifiedCount = value; }
+        }
+
+        private bool curRetIsUnQualified = false;
+        public bool CurRetIsUnQualified
+        {
+            get { return curRetIsUnQualified; }
+            set { curRetIsUnQualified = value; }
+        }
+
+        public void UpdateIOResult()
+        {
+            if (curRetIsUnQualified == true)
+            {
+                SPCommand_OpenRelay1();
+                //MessageBox.Show("不合格");
+            }
+            else
+            {
+                //MessageBox.Show("合格");
+            }
         }
 
         public void ClearQualifiedCount()

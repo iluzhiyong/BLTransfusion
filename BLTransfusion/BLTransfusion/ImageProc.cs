@@ -218,6 +218,12 @@ namespace BLTransfusion
             get { return unqualifiedCnt; }
             set { unqualifiedCnt = value; }
         }
+        private bool isUnqualified = false;
+        public bool IsUnqualified
+        {
+            get { return isUnqualified; }
+            set { isUnqualified = value; }
+        }
         public bool CalculateResult()
         {
             try
@@ -228,14 +234,16 @@ namespace BLTransfusion
 
                 if (hv_Number > 0)
                 {
+                    isUnqualified = true;
                     this.WindowHandle.DispObj(ho_RegionErosion);
                     unqualifiedCnt++;
-                    this.WindowHandle.WriteString("               不合格!");
+                    this.WindowHandle.WriteString("                                                      不合格!");
                 }
                 else
                 {
+                    isUnqualified = false;
                     qualifiedCnt++;
-                    this.WindowHandle.WriteString("               合格!");
+                    this.WindowHandle.WriteString("                                                      合格!");
                 }
             }
             catch (Exception)
