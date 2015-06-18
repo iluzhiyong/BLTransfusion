@@ -30,8 +30,6 @@
         {
             this.components = new System.ComponentModel.Container();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
-            this.hWindowControl1 = new HalconDotNet.HWindowControl();
-            this.pB_Image = new System.Windows.Forms.PictureBox();
             this.TsCameraStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsQualifiedCntTitle = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsUnqualifiedCntTitle = new System.Windows.Forms.ToolStripStatusLabel();
@@ -56,32 +54,13 @@
             this.MenuCloseUART = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpenRelay = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCloseRelay = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).BeginInit();
+            this.WndLayout = new System.Windows.Forms.ToolStripMenuItem();
+            this.WndLayoutHorizontal = new System.Windows.Forms.ToolStripMenuItem();
+            this.WndLayoutVertical = new System.Windows.Forms.ToolStripMenuItem();
+            this.WndLayoutCascade = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
-            // 
-            // hWindowControl1
-            // 
-            this.hWindowControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.hWindowControl1.BackColor = System.Drawing.Color.Black;
-            this.hWindowControl1.BorderColor = System.Drawing.Color.Black;
-            this.hWindowControl1.ImagePart = new System.Drawing.Rectangle(0, 0, 640, 480);
-            this.hWindowControl1.Location = new System.Drawing.Point(12, 28);
-            this.hWindowControl1.Name = "hWindowControl1";
-            this.hWindowControl1.Size = new System.Drawing.Size(921, 551);
-            this.hWindowControl1.TabIndex = 8;
-            this.hWindowControl1.WindowSize = new System.Drawing.Size(921, 551);
-            // 
-            // pB_Image
-            // 
-            this.pB_Image.Location = new System.Drawing.Point(26, 43);
-            this.pB_Image.Name = "pB_Image";
-            this.pB_Image.Size = new System.Drawing.Size(336, 267);
-            this.pB_Image.TabIndex = 9;
-            this.pB_Image.TabStop = false;
             // 
             // TsCameraStatus
             // 
@@ -155,7 +134,8 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.相机ToolStripMenuItem,
             this.MenuItemImageProcOpen,
-            this.iOToolStripMenuItem});
+            this.iOToolStripMenuItem,
+            this.WndLayout});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -280,6 +260,37 @@
             this.MenuCloseRelay.Text = "关闭继电器";
             this.MenuCloseRelay.Click += new System.EventHandler(this.MenuCloseRelay_Click);
             // 
+            // WndLayout
+            // 
+            this.WndLayout.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.WndLayoutHorizontal,
+            this.WndLayoutVertical,
+            this.WndLayoutCascade});
+            this.WndLayout.Name = "WndLayout";
+            this.WndLayout.Size = new System.Drawing.Size(44, 21);
+            this.WndLayout.Text = "窗口";
+            // 
+            // WndLayoutHorizontal
+            // 
+            this.WndLayoutHorizontal.Name = "WndLayoutHorizontal";
+            this.WndLayoutHorizontal.Size = new System.Drawing.Size(152, 22);
+            this.WndLayoutHorizontal.Text = "水平平铺";
+            this.WndLayoutHorizontal.Click += new System.EventHandler(this.WndLayoutHorizontal_Click);
+            // 
+            // WndLayoutVertical
+            // 
+            this.WndLayoutVertical.Name = "WndLayoutVertical";
+            this.WndLayoutVertical.Size = new System.Drawing.Size(152, 22);
+            this.WndLayoutVertical.Text = "垂直平铺";
+            this.WndLayoutVertical.Click += new System.EventHandler(this.WndLayoutVertical_Click);
+            // 
+            // WndLayoutCascade
+            // 
+            this.WndLayoutCascade.Name = "WndLayoutCascade";
+            this.WndLayoutCascade.Size = new System.Drawing.Size(152, 22);
+            this.WndLayoutCascade.Text = "层叠排列";
+            this.WndLayoutCascade.Click += new System.EventHandler(this.WndLayoutCascade_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -287,13 +298,12 @@
             this.ClientSize = new System.Drawing.Size(945, 614);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
-            this.Controls.Add(this.pB_Image);
-            this.Controls.Add(this.hWindowControl1);
+            this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "MainForm";
             this.Text = "输液器检测";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
-            ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).EndInit();
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
@@ -306,8 +316,6 @@
         #endregion
 
         private System.IO.Ports.SerialPort serialPort1;
-        private HalconDotNet.HWindowControl hWindowControl1;
-        private System.Windows.Forms.PictureBox pB_Image;
         private System.Windows.Forms.ToolStripStatusLabel TsCameraStatus;
         private System.Windows.Forms.ToolStripStatusLabel TsQualifiedCntTitle;
         private System.Windows.Forms.ToolStripStatusLabel TsUnqualifiedCntTitle;
@@ -332,6 +340,10 @@
         private System.Windows.Forms.ToolStripStatusLabel TsQualifiedCnt;
         private System.Windows.Forms.ToolStripStatusLabel TsUnqualifiedCnt;
         private System.Windows.Forms.ToolStripMenuItem MenuImgProcCntClear;
+        private System.Windows.Forms.ToolStripMenuItem WndLayout;
+        private System.Windows.Forms.ToolStripMenuItem WndLayoutHorizontal;
+        private System.Windows.Forms.ToolStripMenuItem WndLayoutVertical;
+        private System.Windows.Forms.ToolStripMenuItem WndLayoutCascade;
     }
 }
 

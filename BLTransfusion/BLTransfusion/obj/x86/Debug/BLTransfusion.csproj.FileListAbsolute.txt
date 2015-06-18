@@ -34,3 +34,5 @@ Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\GenerateResource.
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.ImgProcSetWnd.resources
 Y:\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.ImgProcSetWnd.resources
 G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.csprojResolveAssemblyReference.cache
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.ImageDispForm.resources
+G:\Project\TransfusionDevice\BLTransfusion\BLTransfusion\obj\x86\Debug\BLTransfusion.ImageProcForm.resources

@@ -56,6 +56,18 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ImageDispForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageDispForm.Designer.cs">
+      <DependentUpon>ImageDispForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageProcForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageProcForm.Designer.cs">
+      <DependentUpon>ImageProcForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\CameraProc.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -77,6 +89,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ImageDispForm.resx">
+      <DependentUpon>ImageDispForm.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageProcForm.resx">
+      <DependentUpon>ImageProcForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImgProcSetWnd.resx">
       <DependentUpon>ImgProcSetWnd.cs</DependentUpon>
     </EmbeddedResource>

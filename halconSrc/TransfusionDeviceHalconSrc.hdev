@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<hdevelop file_version="1.0" halcon_version="10.0" cs="-708494539">
+<hdevelop file_version="1.0" halcon_version="10.0" cs="-198944464">
 <procedure name="main">
 <interface/>
 <body>
@@ -8,7 +8,7 @@
 <c>************************打开图片*********************************************</c>
 <c>*----------------------------------------------------------------------------</c>
 <l>try</l>
-<l>read_image(Image,'G:/Project/TransfusionDevice/Pic/Image.bmp')</l>
+<l>read_image(Image,'G:/Project/TransfusionDevice/halconSrc/Image.bmp')</l>
 <l>get_image_size(Image, Width, Height)</l>
 <l>dev_close_window()</l>
 <l>dev_open_window(0, 0, Width / 2, Height / 2, 'black', WindowHandle)</l>
@@ -27,7 +27,7 @@
 <l>threshold (Image, Regions, 30, 255)</l>
 <l>connection(Regions, ConnectedRegions)</l>
 <c>*面积可外部调节</c>
-<l>select_shape (ConnectedRegions, SelectedRegions, 'area', 'and', 800, 5000000)</l>
+<l>select_shape (ConnectedRegions, SelectedRegions, 'area', 'and', 80000, 50000000)</l>
 <c>*执行填充后，获得完整区域，但，中间的黑色区域可能对下面的提取造成影响</c>
 <l>* fill_up(SelectedRegions, RegionFillUp)</l>
 <l>* reduce_domain(Image, RegionFillUp,ImageReduced)</l>
@@ -48,14 +48,16 @@
 <l>dyn_threshold (ImageReduced, ImageMean, RegionDynThresh, 10, 'dark')</l>
 <c>*膨胀用结构元素半径可外部调节</c>
 <l>dilation_circle(RegionDynThresh, RegionDilation, 3.5)</l>
-<l>connection (RegionDilation, ConnectedRegions)</l>
+<l>connection (RegionDilation, ConnectedRegions1)</l>
 <c>*检测目标面积可外部调节</c>
-<l>select_shape (ConnectedRegions, SelectedRegions2, 'area', 'and', 7000, 8000)</l>
+<l>stop()</l>
+<l>select_shape (ConnectedRegions1, SelectedRegions2, 'area', 'and', 2500, 3000)</l>
+<c></c>
 <c>*获得Region的骨架（执行时间54.994ms）</c>
 <l>* skeleton(SelectedRegions2, Skeleton)</l>
 <c>*使用相同的结构元素进行腐蚀，可以恢复到膨胀前的Region，而且已经是连同的Region</c>
 <c>*腐蚀执行时间（14.566ms）</c>
-<l>erosion_circle(SelectedRegions2, RegionErosion, 3.5)</l>
+<l>erosion_circle(SelectedRegions2, RegionErosion1, 3.5)</l>
 <l>catch(Exception)</l>
 <l>    dev_clear_window()</l>
 <l>    set_tposition (WindowHandle, 100, 1)</l>

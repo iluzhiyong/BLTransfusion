@@ -65,7 +65,7 @@ namespace BLTransfusion
                             if (DeviceStatus.STATUS_OK == devStatus)
                             {
                                 ReceiveFrameProc rfCallBack = new ReceiveFrameProc(OnReceiveFrame);
-                                devStatus = CGAPI.DeviceInit(mDeviceHandle, pB_Image.Handle, false, true);
+                                devStatus = CGAPI.DeviceInit(mDeviceHandle, this.imageDispWnd.pB_Image.Handle, false, true);
                                 if (DeviceStatus.STATUS_OK == devStatus)
                                 {
                                     TsCameraStatus.Text = String.Format("相机状态： 正常");

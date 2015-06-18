@@ -15,7 +15,18 @@ namespace BLTransfusion
         public MainForm()
         {
             InitializeComponent();
+
+            imageDispWnd = ImageDispForm.CreateFrom();
+            imageDispWnd.MdiParent = this;
+            imageDispWnd.Show();
+
+            ImageProcWnd = ImageProcForm.CreateFrom();
+            ImageProcWnd.MdiParent = this;
+            ImageProcWnd.Show();
         }
+
+        private ImageDispForm imageDispWnd;
+        private ImageProcForm ImageProcWnd;
 
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -193,7 +204,7 @@ namespace BLTransfusion
 
         public HWindow GetHalconWindow()
         {
-            return hWindowControl1.HalconWindow;
+            return this.ImageProcWnd.hWindowControl1.HalconWindow;
         }
 
         public void ResetControl()
@@ -313,6 +324,26 @@ namespace BLTransfusion
         public void UpdateUnqualifiedCount()
         {
             this.TsUnqualifiedCnt.Text = this.UnqualifiedCount.ToString();
+        }
+
+        private void WndLayoutHorizontal_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.TileHorizontal);
+        }
+
+        private void WndLayoutVertical_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.TileVertical);
+        }
+
+        private void WndLayoutCascade_Click(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.Cascade);
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
+            LayoutMdi(MdiLayout.TileVertical);
         }
     }
 }
