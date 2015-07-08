@@ -38,7 +38,6 @@
             this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsQualifiedCnt = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsUnqualifiedCnt = new System.Windows.Forms.ToolStripStatusLabel();
-            this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.相机ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCamConnect = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,6 +49,7 @@
             this.MenuImgProcStop = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuImgProcCntClear = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuImgProcSet = new System.Windows.Forms.ToolStripMenuItem();
+            this.DrawRoiMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.iOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpenUART = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCloseUART = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +59,6 @@
             this.WndLayoutHorizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.WndLayoutVertical = new System.Windows.Forms.ToolStripMenuItem();
             this.WndLayoutCascade = new System.Windows.Forms.ToolStripMenuItem();
-            this.DrawRoiMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
@@ -97,8 +96,7 @@
             this.TsQualifiedCntTitle,
             this.TsQualifiedCnt,
             this.TsUnqualifiedCntTitle,
-            this.TsUnqualifiedCnt,
-            this.toolStripStatusLabel2});
+            this.TsUnqualifiedCnt});
             this.statusStrip1.Location = new System.Drawing.Point(0, 588);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
@@ -116,7 +114,7 @@
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(425, 21);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(556, 21);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // TsQualifiedCnt
@@ -130,12 +128,6 @@
             this.TsUnqualifiedCnt.Name = "TsUnqualifiedCnt";
             this.TsUnqualifiedCnt.Size = new System.Drawing.Size(15, 21);
             this.TsUnqualifiedCnt.Text = "0";
-            // 
-            // toolStripStatusLabel2
-            // 
-            this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
-            this.toolStripStatusLabel2.Size = new System.Drawing.Size(131, 21);
-            this.toolStripStatusLabel2.Text = "toolStripStatusLabel2";
             // 
             // menuStrip1
             // 
@@ -207,30 +199,37 @@
             // MenuImgProcStart
             // 
             this.MenuImgProcStart.Name = "MenuImgProcStart";
-            this.MenuImgProcStart.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcStart.Size = new System.Drawing.Size(148, 22);
             this.MenuImgProcStart.Text = "启动";
             this.MenuImgProcStart.Click += new System.EventHandler(this.MenuImgProcStart_Click);
             // 
             // MenuImgProcStop
             // 
             this.MenuImgProcStop.Name = "MenuImgProcStop";
-            this.MenuImgProcStop.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcStop.Size = new System.Drawing.Size(148, 22);
             this.MenuImgProcStop.Text = "停止";
             this.MenuImgProcStop.Click += new System.EventHandler(this.MenuImgProcStop_Click);
             // 
             // MenuImgProcCntClear
             // 
             this.MenuImgProcCntClear.Name = "MenuImgProcCntClear";
-            this.MenuImgProcCntClear.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcCntClear.Size = new System.Drawing.Size(148, 22);
             this.MenuImgProcCntClear.Text = "计数清零";
             this.MenuImgProcCntClear.Click += new System.EventHandler(this.MenuImgProcCntClear_Click);
             // 
             // MenuImgProcSet
             // 
             this.MenuImgProcSet.Name = "MenuImgProcSet";
-            this.MenuImgProcSet.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcSet.Size = new System.Drawing.Size(148, 22);
             this.MenuImgProcSet.Text = "设置";
             this.MenuImgProcSet.Click += new System.EventHandler(this.MenuImgProcSet_Click);
+            // 
+            // DrawRoiMenuItem
+            // 
+            this.DrawRoiMenuItem.Name = "DrawRoiMenuItem";
+            this.DrawRoiMenuItem.Size = new System.Drawing.Size(148, 22);
+            this.DrawRoiMenuItem.Text = "选择目标区域";
+            this.DrawRoiMenuItem.Click += new System.EventHandler(this.DrawRoiMenuItem_Click);
             // 
             // iOToolStripMenuItem
             // 
@@ -302,13 +301,6 @@
             this.WndLayoutCascade.Text = "层叠排列";
             this.WndLayoutCascade.Click += new System.EventHandler(this.WndLayoutCascade_Click);
             // 
-            // DrawRoiMenuItem
-            // 
-            this.DrawRoiMenuItem.Name = "DrawRoiMenuItem";
-            this.DrawRoiMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.DrawRoiMenuItem.Text = "选择目标区域";
-            this.DrawRoiMenuItem.Click += new System.EventHandler(this.DrawRoiMenuItem_Click);
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -362,7 +354,6 @@
         private System.Windows.Forms.ToolStripMenuItem WndLayoutHorizontal;
         private System.Windows.Forms.ToolStripMenuItem WndLayoutVertical;
         private System.Windows.Forms.ToolStripMenuItem WndLayoutCascade;
-        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
         private System.Windows.Forms.ToolStripMenuItem DrawRoiMenuItem;
     }
 }
