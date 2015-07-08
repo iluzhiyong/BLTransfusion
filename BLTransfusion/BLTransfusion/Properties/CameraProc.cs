@@ -78,7 +78,6 @@ namespace BLTransfusion
             }
         }
 
-
         private int Camera_Closed()
         {
             if (mDeviceHandle != IntPtr.Zero)

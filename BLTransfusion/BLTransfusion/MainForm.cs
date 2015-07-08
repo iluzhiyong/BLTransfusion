@@ -345,5 +345,16 @@ namespace BLTransfusion
         {
             LayoutMdi(MdiLayout.TileVertical);
         }
+
+        private void TsCameraStatus_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void DrawRoiMenuItem_Click(object sender, EventArgs e)
+        {
+            var rect = DrawROI.DrawRectangle(this.GetHalconWindow());
+            System.Windows.Forms.MessageBox.Show(rect.ToString(), "",  MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
     }
 }
