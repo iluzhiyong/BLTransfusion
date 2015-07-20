@@ -73,5 +73,10 @@ namespace BLTransfusion
             this.DialogResult = DialogResult.Cancel;
             this.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            imageProcess.RoiMinGray = (byte)(imageProcess.RoiMinGray + 1);
+        }
     }
 }

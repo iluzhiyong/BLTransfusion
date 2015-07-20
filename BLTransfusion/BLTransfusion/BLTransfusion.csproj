@@ -56,30 +56,29 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DrawROI.cs" />
-    <Compile Include="ImageDispForm.cs">
+    <Compile Include="Model\CameraController.cs" />
+    <Compile Include="Model\DrawROI.cs" />
+    <Compile Include="View\ImageDispForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageDispForm.Designer.cs">
+    <Compile Include="View\ImageDispForm.Designer.cs">
       <DependentUpon>ImageDispForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="ImageProcForm.cs">
+    <Compile Include="View\ImageProcForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageProcForm.Designer.cs">
+    <Compile Include="View\ImageProcForm.Designer.cs">
       <DependentUpon>ImageProcForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Properties\CameraProc.cs">
+    <Compile Include="Model\ModelProcessor.cs" />
+    <Compile Include="Model\ImageProcess.cs" />
+    <Compile Include="View\ImgProcSetWnd.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ImageProc.cs" />
-    <Compile Include="ImgProcSetWnd.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="ImgProcSetWnd.Designer.cs">
+    <Compile Include="View\ImgProcSetWnd.Designer.cs">
       <DependentUpon>ImgProcSetWnd.cs</DependentUpon>
     </Compile>
-    <Compile Include="IOCtrl.cs">
+    <Compile Include="View\IOCtrl.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="MainForm.cs">
@@ -90,14 +89,23 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RectangleInfo.cs" />
-    <EmbeddedResource Include="ImageDispForm.resx">
+    <Compile Include="Model\ModelInfo.cs" />
+    <Compile Include="Utility\FilePathUtility.cs" />
+    <Compile Include="Utility\HalconUtility.cs" />
+    <Compile Include="Utility\RelayCommand.cs" />
+    <Compile Include="View\SelectModels.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SelectModels.Designer.cs">
+      <DependentUpon>SelectModels.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="View\ImageDispForm.resx">
       <DependentUpon>ImageDispForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImageProcForm.resx">
+    <EmbeddedResource Include="View\ImageProcForm.resx">
       <DependentUpon>ImageProcForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ImgProcSetWnd.resx">
+    <EmbeddedResource Include="View\ImgProcSetWnd.resx">
       <DependentUpon>ImgProcSetWnd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
@@ -114,6 +122,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\SelectModels.resx">
+      <DependentUpon>SelectModels.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -125,6 +136,7 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

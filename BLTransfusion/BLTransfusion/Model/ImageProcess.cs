@@ -11,8 +11,20 @@ using System.Xml.Linq;
 
 namespace BLTransfusion
 {
-    public class ImageProcess
+    public class ImageProcess : INotifyPropertyChanged
     {
+
+        #region INotifyPropertyChanged
+        public event PropertyChangedEventHandler PropertyChanged;
+        private void OnPropertyChanged(string propertyName)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+        #endregion
+
         // Local iconic variables 
         HObject ho_Image = null, ho_Regions = null, ho_ConnectedRegions = null;
         HObject ho_SelectedRegions = null, ho_ImageReduced = null, ho_ImageMean = null;
@@ -56,7 +68,6 @@ namespace BLTransfusion
         HTuple hv_Width = new HTuple();
         HTuple hv_Height = new HTuple(), hv_Number = new HTuple();
 
-
         public bool LoadImage(string imagePath)
         {
             try
@@ -79,7 +90,7 @@ namespace BLTransfusion
         public byte RoiMinGray
         {
             get { return roiMinGray; }
-            set { roiMinGray = value; }
+            set { roiMinGray = value; OnPropertyChanged("RoiMinGray"); }
         }
 
         private byte roiMaxGray = 255;

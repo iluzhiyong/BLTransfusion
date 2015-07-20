@@ -4,11 +4,11 @@ using System.Linq;
 using System.Text;
 using HalconDotNet;
 
-namespace BLTransfusion
+namespace BLTransfusion.Model
 {
     public class DrawROI
     {
-        public static RectangleInfo DrawRectangle(HWindow windowHandle)
+        public static ModelInfo DrawRectangle(HWindow windowHandle)
         {
             double hv_Row1, hv_Column1, hv_Row2, hv_Column2;
             windowHandle.SetLineWidth(2);
@@ -25,13 +25,14 @@ namespace BLTransfusion
             windowHandle.SetColor("blue");
             windowHandle.DispObj(ho_Rectangle);
 
-            var rectInfo = new RectangleInfo()
+            var rectInfo = new ModelInfo()
             {
                 RowTop = hv_Row1,
                 ColumnLeft = hv_Column1,
                 RowBottom = hv_Row2,
                 ColumnRight = hv_Column2,
             };
+
             return rectInfo;
         }
     }
