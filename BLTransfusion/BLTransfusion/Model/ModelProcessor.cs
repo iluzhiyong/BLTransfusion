@@ -59,7 +59,7 @@ namespace BLTransfusion.Model
                 windowHandle.SetPart(0, 0, hv_height - 1, hv_width - 1);
                 windowHandle.DispObj(ho_Image);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 return false;
             }

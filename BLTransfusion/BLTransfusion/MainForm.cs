@@ -38,32 +38,29 @@ namespace BLTransfusion
         private ImageDispForm imageDispWnd;
         private ImageProcForm imageProcWnd;
 
+        private ImageProcess imageProcess;
+        public ImageProcess ImageProcess
+        {
+            get
+            {
+                if (imageProcess == null)
+                {
+                    imageProcess = new ImageProcess(GetHalconWindow());
+                }
+                return imageProcess;
+            }
+        }
 
-        #region Old 代码
-        
+        private string imagePath = "Image";
+        public string ImagePath
+        {
+            get { return imagePath; }
+            set { imagePath = value; }
+        }
+
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
-            Camera_Closed();
-        }
-
-        private void MenuCamConnect_Click(object sender, EventArgs e)
-        {
-            Camera_Init();
-        }
-
-        private void MenuCamSet_Click(object sender, EventArgs e)
-        {
-            Camera_SettingPage();
-        }
-
-        private void MenuCamSnap_Click(object sender, EventArgs e)
-        {
-            Camera_Snapshot();
-        }
-
-        private void MenuCamClose_Click(object sender, EventArgs e)
-        {
-            Camera_Closed();
+            CloseCamera();
         }
 
         private void MenuOpenUART_Click(object sender, EventArgs e)
@@ -111,135 +108,6 @@ namespace BLTransfusion
             }
         }
 
-        private ImageProcess imageProcess;
-        public ImageProcess ImageProcess
-        {
-            get
-            {
-                if (imageProcess == null)
-                {
-                    imageProcess = new ImageProcess(GetHalconWindow());
-                }
-                return imageProcess; 
-            }
-        }
-
-        BackgroundWorker processWorker;
-        public BackgroundWorker ProcessWorker
-        {
-            get 
-            {
-                if (processWorker == null)
-                {
-                    processWorker = new BackgroundWorker();
-                    processWorker.WorkerSupportsCancellation = true;
-                    processWorker.WorkerReportsProgress = true;
-                    processWorker.ProgressChanged += new ProgressChangedEventHandler(OnProgressChanged);
-                    processWorker.DoWork += new DoWorkEventHandler(OnProcessDoWork);
-                    processWorker.RunWorkerCompleted += new RunWorkerCompletedEventHandler(OnProcessWorkerCompleted);
-                }
-                return processWorker; 
-            }
-        }
-
-        private void OnProgressChanged(object sender, ProgressChangedEventArgs e)
-        {
-            this.UpdateQualifiedCount();
-            this.UpdateUnqualifiedCount();
-            this.UpdateIOResult();
-        }
-
-        private void OnProcessWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        {
-            if (e.Error != null)
-            {
-                MessageBox.Show(e.Error.Message);
-            }
-        }
-        
-        private void OnProcessDoWork(object sender, DoWorkEventArgs e)
-        {
-            this.ImageProcess.QualifiedCnt = 0;
-            this.ImageProcess.UnqualifiedCnt = 0;
-            try
-            {
-                while (true)
-                {
-                    if (this.ProcessWorker.CancellationPending)
-                    {
-                        e.Cancel = true;
-                        break;
-                    }
-
-                    System.Threading.Thread.Sleep(100);
-                    if (Camera_Snapshot() == true)
-                    {
-                        System.Threading.Thread.Sleep(100);
-                        if (this.ProcessWorker.CancellationPending)
-                        {
-                            e.Cancel = true;
-                            break;
-                        }
-
-                        this.ImageProcess.LoadImage(ImagePath);
-
-                        if (this.ImageProcess.SelectROI())
-                        {
-                            if (this.ProcessWorker.CancellationPending)
-                            {
-                                e.Cancel = true;
-                                break;
-                            }
-                            if (this.ImageProcess.DoProcess())
-                            {
-                                if (this.ProcessWorker.CancellationPending)
-                                {
-                                    e.Cancel = true;
-                                    break;
-                                }
-                                if (this.ImageProcess.CalculateResult())
-                                {
-                                    this.QualifiedCount = this.ImageProcess.QualifiedCnt;
-                                    this.UnqualifiedCount = this.ImageProcess.UnqualifiedCnt;
-                                    this.CurRetIsUnQualified = this.ImageProcess.IsUnqualified;
-                                    this.ProcessWorker.ReportProgress(0);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-        }
-
-        public void ResetControl()
-        {
-            GetHalconWindow().ClearWindow();
-        }
-
-        private void MenuImgProcStart_Click(object sender, EventArgs e)
-        {
-            if (this.ProcessWorker != null && this.ProcessWorker.IsBusy)
-            {
-                return;
-            }
-            try
-            {
-                this.ImageProcess.LoadImage(ImagePath);
-
-                this.ClearQualifiedCount();
-                this.ClearUnqualifiedCount();
-                this.ProcessWorker.RunWorkerAsync();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(string.Format("启动失败！\r\n{0}", ex.Message), "图相处理错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
         private ImgProcSetWnd imgProcWnd;
         private void MenuImgProcSet_Click(object sender, EventArgs e)
         {
@@ -264,77 +132,6 @@ namespace BLTransfusion
             }
         }
 
-        private void MenuImgProcStop_Click(object sender, EventArgs e)
-        {
-            if (this.ProcessWorker != null && this.ProcessWorker.IsBusy)
-            {
-                this.ProcessWorker.CancelAsync();
-            }
-        }
-
-        private void MenuImgProcCntClear_Click(object sender, EventArgs e)
-        {
-            this.ClearQualifiedCount();
-            this.ClearUnqualifiedCount();
-            this.OkCount = 0;
-            this.NgCount = 0;
-        }
-
-        private int qualifiedCount;
-        public int QualifiedCount
-        {
-            get { return qualifiedCount; }
-            set { qualifiedCount = value; }
-        }
-
-        private bool curRetIsUnQualified = false;
-        public bool CurRetIsUnQualified
-        {
-            get { return curRetIsUnQualified; }
-            set { curRetIsUnQualified = value; }
-        }
-
-        public void UpdateIOResult()
-        {
-            if (curRetIsUnQualified == true)
-            {
-                SPCommand_OpenRelay1();
-                //MessageBox.Show("不合格");
-            }
-            else
-            {
-                //MessageBox.Show("合格");
-            }
-        }
-
-        public void ClearQualifiedCount()
-        {
-            this.QualifiedCount = 0;
-            UpdateQualifiedCount();
-        }
-
-        public void UpdateQualifiedCount()
-        {
-           this.TsQualifiedCnt.Text = this.QualifiedCount.ToString();
-        }
-
-        private int unqualifiedCount;
-        public int UnqualifiedCount
-        {
-            get { return unqualifiedCount; }
-            set { unqualifiedCount = value; }
-        }
-
-        public void ClearUnqualifiedCount()
-        {
-            this.UnqualifiedCount = 0;
-            UpdateUnqualifiedCount();
-        }
-
-        public void UpdateUnqualifiedCount()
-        {
-            this.TsUnqualifiedCnt.Text = this.UnqualifiedCount.ToString();
-        }
 
         private void WndLayoutHorizontal_Click(object sender, EventArgs e)
         {
@@ -357,147 +154,6 @@ namespace BLTransfusion
             UpdateMenuItems();
         }
 
-        private void TsCameraStatus_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void DrawRoiMenuItem_Click(object sender, EventArgs e)
-        {
-        }
-
-        #region Old 相机处理
-
-        static MainForm mThis;
-        DeviceHandle mDeviceHandle = IntPtr.Zero;
-
-        private int Camera_Init()
-        {
-            mThis = this;
-            uint[] adwVersion = new uint[4];
-            CGAPI.DeviceGetSDKVersion(adwVersion);
-            SearchDevices();
-            if (mDeviceHandle != IntPtr.Zero)
-            {
-                CGAPI.Start(mDeviceHandle);
-                return 0;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
-        private void SearchDevices()
-        {
-            DeviceStatus devSatus = CGAPI.DeviceInitialSDK(this.Handle, false);
-            if (DeviceStatus.STATUS_OK == devSatus)
-            {
-                int iCameraCounts = 0;
-                devSatus = CGAPI.EnumDevice(IntPtr.Zero, ref iCameraCounts);
-                if (DeviceStatus.STATUS_OK == devSatus)
-                {
-                    IntPtr ptr = Marshal.AllocHGlobal(Marshal.SizeOf(new EnumDeviceParam()) * iCameraCounts);
-                    devSatus = CGAPI.EnumDevice(ptr, ref iCameraCounts);
-                    if (DeviceStatus.STATUS_OK == devSatus)
-                    {
-                        TsCameraStatus.Text = String.Format("相机状态： 未连接");
-                        if (IntPtr.Zero != mDeviceHandle)
-                        {
-                            CGAPI.Stop(mDeviceHandle);
-                            CGAPI.SyncCloseDevice(mDeviceHandle);
-                            CGAPI.DeviceUnInit(mDeviceHandle);
-                            CGAPI.DeviceRelease(mDeviceHandle);
-                            mDeviceHandle = IntPtr.Zero;
-                        }
-                        else
-                        {
-                            DeviceStatus devStatus = CGAPI.OpenDeviceByUSBAddress(0, ref mDeviceHandle);
-                            if (DeviceStatus.STATUS_OK == devStatus)
-                            {
-                                ReceiveFrameProc rfCallBack = new ReceiveFrameProc(OnReceiveFrame);
-                                devStatus = CGAPI.DeviceInit(mDeviceHandle, this.imageDispWnd.pB_Image.Handle, false, true);
-                                if (DeviceStatus.STATUS_OK == devStatus)
-                                {
-                                    TsCameraStatus.Text = String.Format("相机状态： 正常");
-                                }
-                            }
-                        }
-                    }
-                    Marshal.FreeHGlobal(ptr);
-                }
-            }
-        }
-
-        private int Camera_Closed()
-        {
-            if (mDeviceHandle != IntPtr.Zero)
-            {
-                CGAPI.Stop(mDeviceHandle);
-                CGAPI.CloseDevice(mDeviceHandle);
-                CGAPI.DeviceUnInit(mDeviceHandle);
-                CGAPI.DeviceRelease(mDeviceHandle);
-                mDeviceHandle = IntPtr.Zero;
-                CGAPI.DeviceUnInitialSDK();
-                TsCameraStatus.Text = String.Format("相机状态： 未连接");
-
-                return 0;
-            }
-            else
-            {
-                return -1;
-            }
-        }
-
-        private void Camera_SettingPage()
-        {
-            if ((mDeviceHandle != DeviceHandle.Zero) && (1 == CGAPI.IsReceivingData(mDeviceHandle)))
-            {
-                DeviceStatus devStatus = CGAPI.DeviceCreateSettingPage(mDeviceHandle, mThis.Handle, "");
-                devStatus = CGAPI.DeviceShowSettingPage(mDeviceHandle, true);
-            }
-            else
-            {
-                MessageBox.Show("相机未连接！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private string imagePath = "Image";
-        public string ImagePath
-        {
-            get { return imagePath; }
-            set { imagePath = value; }
-        }
-
-        private bool Camera_Snapshot()
-        {
-            if ((mDeviceHandle != DeviceHandle.Zero) && (1 == CGAPI.IsReceivingData(mDeviceHandle)))
-            {
-                DeviceStatus devStatus = CGAPI.CaptureFile(mDeviceHandle, ImagePath, emDSFileType.FILE_BMP);
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        private void OnRecvFrame(IntPtr pDevice, IntPtr pImageBuffer, ref DeviceFrameInfo pFrInfo, IntPtr lParam)
-        {
-            IntPtr pRGB24Buff = IntPtr.Zero;
-            if ((pRGB24Buff = CGAPI.DeviceISP(mDeviceHandle, pImageBuffer, ref pFrInfo)) != null)
-            {
-            }
-        }
-
-        private static void OnReceiveFrame(IntPtr pDevice, IntPtr pImageBuffer, ref DeviceFrameInfo pFrInfo, IntPtr lParam)
-        {
-            mThis.OnRecvFrame(pDevice, pImageBuffer, ref pFrInfo, lParam);
-        }
-
-        #endregion
-
-        #endregion
 
         #region 模板图像处理部分
 
@@ -591,13 +247,14 @@ namespace BLTransfusion
                     return;
                 }
 
-                if (this.ModelProcessor.Detect())
+                if(Detect())
                 {
                     this.OkCount = this.OkCount + 1;
                 }
                 else
                 {
                     this.NgCount = this.NgCount + 1;
+                    SPCommand_OpenRelay1();
                 }
             }
             else
@@ -916,5 +573,16 @@ namespace BLTransfusion
             this.selectModelsMenuItem.Enabled = !this.IsDetecting;
             this.MenuImgProcSet.Enabled = !this.IsDetecting;
         }
+
+        private void WndLayoutHorizontal_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void WndLayoutVertical_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

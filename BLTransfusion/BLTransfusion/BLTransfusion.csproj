@@ -92,7 +92,6 @@
     <Compile Include="Model\ModelInfo.cs" />
     <Compile Include="Utility\FilePathUtility.cs" />
     <Compile Include="Utility\HalconUtility.cs" />
-    <Compile Include="Utility\RelayCommand.cs" />
     <Compile Include="View\SelectModels.cs">
       <SubType>Form</SubType>
     </Compile>
