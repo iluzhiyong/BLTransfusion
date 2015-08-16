@@ -19,7 +19,6 @@ namespace BLTransfusion
             set
             {
                 imageProcess = value;
-
                 this.tbRoiMinGray.DataBindings.Add("Text", imageProcess, "RoiMinGray");
                 this.tbRoiMaxGray.DataBindings.Add("Text", imageProcess, "RoiMaxGray");
 

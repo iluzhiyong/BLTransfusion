@@ -111,5 +111,40 @@ namespace BLTransfusion.View
                 MessageBox.Show("没有芯片模板数据！", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
+
+        private ShapeModelDialog shapeModelDialog = null;
+
+        private void InspectShapeModelBtn_Click(object sender, EventArgs e)
+        {
+            if (this.SelectedModel != null)
+            {
+                if (shapeModelDialog == null || shapeModelDialog.IsDisposed)
+                {
+                    shapeModelDialog = new ShapeModelDialog() { Owner = this };
+                    shapeModelDialog.ModelProcessor = this.ModelProcessor;
+                }
+                shapeModelDialog.SetModelInfo(this.SelectedModel as ShapeModelMatchProcess);
+                shapeModelDialog.Show();
+            }
+
+            //ShapeModelMatchProcess model = this.SelectedModel as ShapeModelMatchProcess;
+            //if (model != null)
+            //{
+            //    this.ModelProcessor.LoadImage();
+
+            //    model.Image = this.ModelProcessor.Ho_Image;
+
+            //    this.ModelProcessor.DisplayModelROI(model);
+            //    model.DoInspectShapeModel();           
+            //}
+        }
+
+        private void modelslistBox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.SelectedModel != null && shapeModelDialog != null && !shapeModelDialog.IsDisposed)
+            {
+                shapeModelDialog.SetModelInfo(this.SelectedModel as ShapeModelMatchProcess);
+            }
+        }
     }
 }

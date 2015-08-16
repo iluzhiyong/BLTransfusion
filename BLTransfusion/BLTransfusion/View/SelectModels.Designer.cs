@@ -37,6 +37,7 @@
             this.displayOneModel = new System.Windows.Forms.Button();
             this.displayALLModel = new System.Windows.Forms.Button();
             this.saveModels = new System.Windows.Forms.Button();
+            this.settingButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // modelslistBox
@@ -49,6 +50,7 @@
             this.modelslistBox.Name = "modelslistBox";
             this.modelslistBox.Size = new System.Drawing.Size(311, 400);
             this.modelslistBox.TabIndex = 0;
+            this.modelslistBox.SelectedIndexChanged += new System.EventHandler(this.modelslistBox_SelectedIndexChanged);
             // 
             // loadModelImage
             // 
@@ -130,11 +132,22 @@
             this.saveModels.UseVisualStyleBackColor = true;
             this.saveModels.Click += new System.EventHandler(this.saveModels_Click);
             // 
+            // settingButton
+            // 
+            this.settingButton.Location = new System.Drawing.Point(596, 28);
+            this.settingButton.Name = "settingButton";
+            this.settingButton.Size = new System.Drawing.Size(164, 23);
+            this.settingButton.TabIndex = 9;
+            this.settingButton.Text = "参数设定";
+            this.settingButton.UseVisualStyleBackColor = true;
+            this.settingButton.Click += new System.EventHandler(this.InspectShapeModelBtn_Click);
+            // 
             // SelectModels
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 426);
+            this.ClientSize = new System.Drawing.Size(817, 426);
+            this.Controls.Add(this.settingButton);
             this.Controls.Add(this.saveModels);
             this.Controls.Add(this.displayALLModel);
             this.Controls.Add(this.displayOneModel);
@@ -161,5 +174,6 @@
         private System.Windows.Forms.Button displayOneModel;
         private System.Windows.Forms.Button displayALLModel;
         private System.Windows.Forms.Button saveModels;
+        private System.Windows.Forms.Button settingButton;
     }
 }

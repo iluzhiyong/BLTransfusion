@@ -16,29 +16,29 @@ namespace BLTransfusion.Model
 
         public virtual XElement ToXElement()
         {
-            var icXElement = new XElement("ModelInfo");
+            var element = new XElement("ModelInfo");
 
             //icXElement.Add(new XAttribute("Label", this.Label.ToString()));    
 
-            icXElement.Add(new XAttribute("RowTop", this.RowTop.ToString()));      
-            icXElement.Add(new XAttribute("RowBottom", this.RowBottom.ToString()));
+            element.Add(new XAttribute("RowTop", this.RowTop.ToString()));      
+            element.Add(new XAttribute("RowBottom", this.RowBottom.ToString()));
 
-            icXElement.Add(new XAttribute("ColumnLeft", this.ColumnLeft.ToString()));
-            icXElement.Add(new XAttribute("ColumnRight", this.ColumnRight.ToString()));
+            element.Add(new XAttribute("ColumnLeft", this.ColumnLeft.ToString()));
+            element.Add(new XAttribute("ColumnRight", this.ColumnRight.ToString()));
 
-            return icXElement;
+            return element;
         }
 
-        public virtual bool FromXElement(XElement icXElement)
+        public virtual bool FromXElement(XElement element)
         {
             try
             {
                 //this.Label = icXElement.Attribute("Label").Value;
 
-                this.RowTop = double.Parse(icXElement.Attribute("RowTop").Value);
-                this.RowBottom = double.Parse(icXElement.Attribute("RowBottom").Value);
-                this.ColumnLeft = double.Parse(icXElement.Attribute("ColumnLeft").Value);
-                this.ColumnRight = double.Parse(icXElement.Attribute("ColumnRight").Value);
+                this.RowTop = double.Parse(element.Attribute("RowTop").Value);
+                this.RowBottom = double.Parse(element.Attribute("RowBottom").Value);
+                this.ColumnLeft = double.Parse(element.Attribute("ColumnLeft").Value);
+                this.ColumnRight = double.Parse(element.Attribute("ColumnRight").Value);
             }
             catch
             {

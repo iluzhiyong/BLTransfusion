@@ -98,6 +98,12 @@
     <Compile Include="View\SelectModels.Designer.cs">
       <DependentUpon>SelectModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\ShapeModelDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\ShapeModelDialog.Designer.cs">
+      <DependentUpon>ShapeModelDialog.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="View\ImageDispForm.resx">
       <DependentUpon>ImageDispForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -123,6 +129,9 @@
     </Compile>
     <EmbeddedResource Include="View\SelectModels.resx">
       <DependentUpon>SelectModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\ShapeModelDialog.resx">
+      <DependentUpon>ShapeModelDialog.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="app.config" />
     <None Include="Properties\Settings.settings">
