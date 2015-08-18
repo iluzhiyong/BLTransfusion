@@ -121,6 +121,12 @@ namespace BLTransfusion.View
 
                 this.greedinessTextBox.DataBindings.Clear();
                 this.greedinessTextBox.DataBindings.Add("Text", ModelInfo, "MatchGreediness");
+
+                this.resultScoreTextBox.DataBindings.Clear();
+                this.resultScoreTextBox.DataBindings.Add("Text", ModelInfo, "ResultScore");
+
+                this.resultCountTextBox.DataBindings.Clear();
+                this.resultCountTextBox.DataBindings.Add("Text", ModelInfo, "ResultCount");
             }
         }
 

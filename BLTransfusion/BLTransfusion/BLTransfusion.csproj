@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Model\CameraController.cs" />
     <Compile Include="Model\DrawROI.cs" />
+    <Compile Include="Model\ShapeModelMatchProcess.cs" />
     <Compile Include="View\ImageDispForm.cs">
       <SubType>Form</SubType>
     </Compile>
