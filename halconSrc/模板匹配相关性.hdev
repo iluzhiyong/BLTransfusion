@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="12.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>**********************************************</c>
+<c>**            相关性匹配（NCC）</c>
+<c>**********************************************</c>
+<l>read_image(Image1, 'G:/Project/TransfusionDevice/halconSrc/Image模板匹配.bmp')</l>
+<c>* 剪切图像区域</c>
+<l>crop_part (Image1, ImageReduced, 413, 623, 1518-623, 930-413)</l>
+<l>dev_display(Image1)</l>
+<l>dev_set_draw ('margin')</l>
+<c></c>
+<l>mean_image (Image1, ImageMean, 19, 19)</l>
+<c></c>
+<c>* 生成模板</c>
+<l>create_ncc_model (ImageReduced, 10,0,0,1, 'use_polarity',ModelID)</l>
+<c></c>
+<c>* 保存NCC模板</c>
+<l>write_ncc_model(ModelID, 'G:/Project/TransfusionDevice/halconSrc/NccModel.ncm')</l>
+<c></c>
+<l>clear_ncc_model (ModelID)</l>
+<c></c>
+<c>* 读取NCC模板</c>
+<l>read_ncc_model('G:/Project/TransfusionDevice/halconSrc/NccModel.ncm', ModelID1)</l>
+<c></c>
+<c>* 旋转图像</c>
+<l>* rotate_image (ImageMean, ImageRotate, -40, 'constant')</l>
+<c></c>
+<c>* 模板匹配</c>
+<l>find_ncc_model (ImageMean, ModelID1, 0, 0, 0.5, 1, 0.5, 'true', 4, Row, Column, Angle, Score)</l>
+<c></c>
+<l>if(Score &gt; 0.5)</l>
+<l>    gen_rectangle2(rect1, Row, Column, Angle, (1518-623)/2, (930-413)/2)</l>
+<l>endif</l>
+<c></c>
+<l>clear_ncc_model (ModelID1)</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

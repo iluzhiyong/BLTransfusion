@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="12.0">
+<procedure name="main">
+<interface/>
+<body>
+<c>**********************************************</c>
+<c>**            匹配金字塔图像带旋转</c>
+<c>**********************************************</c>
+<l>read_image(Image1, 'G:/Project/TransfusionDevice/halconSrc/Image_0614091238.bmp')</l>
+<l>dev_set_draw ('margin')</l>
+<c></c>
+<c>*创建ROI</c>
+<l>gen_rectangle1 (Rectangle, 413, 623, 930, 1518)</l>
+<l>reduce_domain(Image1, Rectangle,ImageReduced)</l>
+<c></c>
+<l>rotate_image (Image1, ImageRotate, -25, 'constant')</l>
+<l>create_template_rot(ImageReduced, 4, -0.99, 0.79, 0.01, 'sort', 'original', TemplateID)</l>
+<c></c>
+<c>********************************************</c>
+<c>**  保存模板和读取模板特别耗时，模板文件很大</c>
+<c>********************************************</c>
+<c>* 保存模板</c>
+<l>write_template (TemplateID, 'grayTemplate')</l>
+<l>clear_template (TemplateID)</l>
+<c>* 读取模板</c>
+<l>read_template ('grayTemplate', TemplateID)</l>
+<c></c>
+<c>* 搜索</c>
+<l>best_match_rot_mg(ImageRotate, TemplateID, -1, 0.79, 40, 'true', 4, Row2, Column2, Angle1, Error2)</l>
+<l>dev_display(ImageRotate)</l>
+<c></c>
+<l>if(Error2 &lt; 255)</l>
+<l>     gen_rectangle2(rect2, Row2, Column2, Angle1, (1518-623)/2, (930-413)/2)</l>
+<l>endif</l>
+<c></c>
+<l>clear_template (TemplateID)</l>
+<l>stop()</l>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>
