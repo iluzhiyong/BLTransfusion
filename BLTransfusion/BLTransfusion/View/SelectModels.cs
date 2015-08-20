@@ -89,14 +89,14 @@ namespace BLTransfusion.View
         {
             if (this.SelectedModel != null)
             {
-                this.ModelProcessor.LoadImage();
+                this.ModelProcessor.LoadModelImage();
                 this.ModelProcessor.DisplayModelROI(this.SelectedModel);
             }
         }
 
         private void displayALLModel_Click(object sender, EventArgs e)
         {
-            this.ModelProcessor.LoadImage();
+            this.ModelProcessor.LoadModelImage();
             this.ModelProcessor.DisplayALLModelsROI();
         }
 
@@ -108,7 +108,7 @@ namespace BLTransfusion.View
             }
             else
             {
-                MessageBox.Show("没有芯片模板数据！", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("没有模板数据！", "", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -126,17 +126,6 @@ namespace BLTransfusion.View
                 shapeModelDialog.SetModelInfo(this.SelectedModel as ShapeModelMatchProcess);
                 shapeModelDialog.Show();
             }
-
-            //ShapeModelMatchProcess model = this.SelectedModel as ShapeModelMatchProcess;
-            //if (model != null)
-            //{
-            //    this.ModelProcessor.LoadImage();
-
-            //    model.Image = this.ModelProcessor.Ho_Image;
-
-            //    this.ModelProcessor.DisplayModelROI(model);
-            //    model.DoInspectShapeModel();           
-            //}
         }
 
         private void modelslistBox_SelectedIndexChanged(object sender, EventArgs e)

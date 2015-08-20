@@ -87,8 +87,6 @@ namespace BLTransfusion.Model
             return true;
         }
 
-
-
         #endregion
 
         #region 加载模板图片
@@ -109,10 +107,6 @@ namespace BLTransfusion.Model
             return this.LoadImage(filePath);
         }
 
-        public void ResetModelImageFile()
-        {
-            this.ModelImagePath = "Model";
-        }
         #endregion
 
         #region 绘制/显示 模板

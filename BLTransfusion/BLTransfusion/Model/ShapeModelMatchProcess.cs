@@ -67,9 +67,7 @@ namespace BLTransfusion.Model
         }
 
         HObject ho_Rectangle, ho_ImageRegion;
-        HObject ho_ModelImages, ho_ModelRegions, ho_ModelContours;
-        HObject ho_ContoursAffinTrans = null;
-        HTuple hv_HomMat2DScale = new HTuple();
+        HObject ho_ModelImages, ho_ModelRegions;
 
         public ShapeModelMatchProcess()
         {
@@ -77,8 +75,6 @@ namespace BLTransfusion.Model
             HOperatorSet.GenEmptyObj(out ho_ImageRegion);
             HOperatorSet.GenEmptyObj(out ho_ModelImages);
             HOperatorSet.GenEmptyObj(out ho_ModelRegions);
-            HOperatorSet.GenEmptyObj(out ho_ModelContours);
-            HOperatorSet.GenEmptyObj(out ho_ContoursAffinTrans);
         }
 
         public bool DoInspectShapeModel()
@@ -107,7 +103,7 @@ namespace BLTransfusion.Model
             HOperatorSet.CreateScaledShapeModel(ho_ImageRegion,
                 (NumLevelsAuto) ? new HTuple("auto") : new HTuple(NumLevels),
                 (new HTuple(AngleStart)).TupleRad(), (new HTuple(AngleExtent)).TupleRad(),
-                (AngleStepAuto) ? new HTuple("auto") : new HTuple(AngleStep),
+                (AngleStepAuto) ? new HTuple("auto") : (new HTuple(AngleStep)).TupleRad(),
                 ScaleMin, ScaleMax,
                 (ScaleStepAuto) ? new HTuple("auto") : new HTuple(ScaleStep), Optimization.ToString(), Metric.ToString(),
                 (Contrast == ContrastType.user_defined) ? new HTuple(ContrastValue) : new HTuple(new string[] { Contrast.ToString() }),
@@ -130,10 +126,11 @@ namespace BLTransfusion.Model
         public bool DoFindScaledShapeModel()
         {
             HTuple hv_Row, hv_Column;
-            HTuple hv_Angle, hv_Scale, hv_Score, hv_I, hv_HomMat2DRotate = new HTuple();
+            HTuple hv_Angle, hv_Scale, hv_Score, hv_I;
 
-            HOperatorSet.FindScaledShapeModel(Image, ModelID, (new HTuple(MatchAngleStart)).TupleRad(),
-                (new HTuple(MatchAngleExtent)).TupleRad(), MatchScaleMin, MatchScaleMax, MatchMinScore, NumMatches,
+            HOperatorSet.FindScaledShapeModel(Image, ModelID,
+                (new HTuple(MatchAngleStart)).TupleRad(), (new HTuple(MatchAngleExtent)).TupleRad(),
+                MatchScaleMin, MatchScaleMax, MatchMinScore, NumMatches,
                 MaxOverlap, SubPixelString, MatchNumLevels, MatchGreediness,
                 out hv_Row, out hv_Column, out hv_Angle, out hv_Scale, out hv_Score);
 
@@ -164,8 +161,6 @@ namespace BLTransfusion.Model
             ho_ImageRegion.Dispose();
             ho_ModelImages.Dispose();
             ho_ModelRegions.Dispose();
-            ho_ModelContours.Dispose();
-            ho_ContoursAffinTrans.Dispose();
         }
 
         public int ModelIndex { get; set; }
@@ -179,7 +174,7 @@ namespace BLTransfusion.Model
         }
 
         //InspectShapeModel
-        private int inspectNumLevels = 4;
+        private int inspectNumLevels = 10;
         public int InspectNumLevels
         {
             get { return inspectNumLevels; }
@@ -194,7 +189,7 @@ namespace BLTransfusion.Model
         }
 
         //CreateScaledShapeModel
-        private int numLevels = 4;
+        private int numLevels = 10;
         public int NumLevels
         {
             get { return numLevels; }
@@ -208,21 +203,21 @@ namespace BLTransfusion.Model
             set { numLevelsAuto = value; }
         }
 
-        private double angleStart = -0.39;
+        private double angleStart = 0;
         public double AngleStart
         {
             get { return angleStart; }
             set { angleStart = value; }
         }
 
-        private double angleExtent = 0.79;
+        private double angleExtent = 90;
         public double AngleExtent
         {
             get { return angleExtent; }
             set { angleExtent = value; }
         }
 
-        private double angleStep = 0.0175;
+        private double angleStep = 10;
         public double AngleStep
         {
             get { return angleStep; }
@@ -236,14 +231,14 @@ namespace BLTransfusion.Model
             set { angleStepAuto = value; }
         }
 
-        private double scaleMin = 0.9;
+        private double scaleMin = 0.8;
         public double ScaleMin
         {
             get { return scaleMin; }
             set { scaleMin = value; }
         }
 
-        private double scaleMax = 1.1;
+        private double scaleMax = 1.2;
         public double ScaleMax
         {
             get { return scaleMax; }
@@ -285,7 +280,7 @@ namespace BLTransfusion.Model
             set { contrast = value; }
         }
 
-        private int contrastValue = 10;
+        private int contrastValue = 60;
         public int ContrastValue
         {
             get { return contrastValue; }
@@ -307,35 +302,35 @@ namespace BLTransfusion.Model
         }
 
         //FindScaledShapeModel
-        private double matchAngleStart = -0.39;
+        private double matchAngleStart = 0;
         public double MatchAngleStart
         {
             get { return matchAngleStart; }
             set { matchAngleStart = value; }
         }
 
-        private double matchAngleExtent = 0.78;
+        private double matchAngleExtent = 90;
         public double MatchAngleExtent
         {
             get { return matchAngleExtent; }
             set { matchAngleExtent = value; }
         }
 
-        private double matchScaleMin = 0.9;
+        private double matchScaleMin = 0.8;
         public double MatchScaleMin
         {
             get { return matchScaleMin; }
             set { matchScaleMin = value; }
         }
 
-        private double matchScaleMax = 1.1;
+        private double matchScaleMax = 1.2;
         public double MatchScaleMax
         {
             get { return matchScaleMax; }
             set { matchScaleMax = value; }
         }
 
-        private double matchMinScore = 0.5;
+        private double matchMinScore = 0.8;
         public double MatchMinScore
         {
             get { return matchMinScore; }
@@ -356,7 +351,7 @@ namespace BLTransfusion.Model
             set { maxOverlap = value; }
         }
 
-        private SubPixelType subPixel = SubPixelType.least_squares;
+        private SubPixelType subPixel = SubPixelType.none;
         public SubPixelType SubPixel
         {
             get { return subPixel; }
@@ -425,7 +420,7 @@ namespace BLTransfusion.Model
         }
 
         //结果设定 
-        private double resultScore = 0.5;
+        private double resultScore = 0.9;
         public double ResultScore
         {
             get { return resultScore; }
