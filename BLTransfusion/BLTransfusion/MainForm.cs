@@ -292,7 +292,7 @@ namespace BLTransfusion
         {
             if (!this.ModelProcessor.LoadModels())
             {
-                MessageBox.Show("加载芯片模板失败！", "",  MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("加载模板失败！", "",  MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
             }
             return true;

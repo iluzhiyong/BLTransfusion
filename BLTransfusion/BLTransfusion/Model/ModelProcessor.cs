@@ -216,6 +216,7 @@ namespace BLTransfusion.Model
             }
 
             HOperatorSet.ClearAllShapeModels();
+            this.LoadModelImage();
 
             foreach (var model in this.Models)
             {

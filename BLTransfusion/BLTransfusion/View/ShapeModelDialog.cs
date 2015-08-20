@@ -26,7 +26,7 @@ namespace BLTransfusion.View
         {
             if (this.ModelInfo != null && this.ModelProcessor != null)
             {
-                this.ModelProcessor.LoadImage();
+                this.ModelProcessor.LoadModelImage();
                 this.ModelInfo.Image = this.ModelProcessor.Ho_Image;
                 this.ModelInfo.DoInspectShapeModel();
             }
@@ -181,7 +181,7 @@ namespace BLTransfusion.View
             {
                 try
                 {
-                    this.ModelProcessor.LoadImage();
+                    this.ModelProcessor.LoadModelImage();
                     this.ModelInfo.Image = this.ModelProcessor.Ho_Image;
 
                     HOperatorSet.ClearAllShapeModels();
@@ -220,7 +220,7 @@ namespace BLTransfusion.View
             {
                 try
                 {
-                    this.ModelProcessor.LoadImage();
+                    this.ModelProcessor.LoadModelImage();
                     this.ModelInfo.Image = this.ModelProcessor.Ho_Image;
 
                     HOperatorSet.ClearAllShapeModels();
@@ -229,18 +229,26 @@ namespace BLTransfusion.View
                     {
                         if (this.ModelInfo.DoCreateShapeModel())
                         {
+                            this.ModelProcessor.LoadImage();
+                            this.ModelInfo.Image = this.ModelProcessor.Ho_Image;
                             this.ModelProcessor.DisplayImage();
-                            this.ModelInfo.DoFindScaledShapeModel();
+
+                            if (this.ModelInfo.DoFindScaledShapeModel() == true)
+                            {
+                                MessageBox.Show(this, "Succeed to find shape model.", "Test find Shape Model");
+                            }
+                            else
+                            {
+                                MessageBox.Show(this, "Failed to find shape model.", "Test Create Shape Model");
+                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(this, string.Format("Failed to find shape model : {0}", ex.Message), "Test Create Shape Model");
+                    MessageBox.Show(this, string.Format("Exception : {0}", ex.Message), "Test Create Shape Model");
                     return;
                 }
-
-                MessageBox.Show(this, "Succeed to find shape model.", "Test find Shape Model");
             }
         }
 

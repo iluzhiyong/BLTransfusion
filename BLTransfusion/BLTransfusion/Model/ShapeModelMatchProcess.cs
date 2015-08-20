@@ -137,25 +137,6 @@ namespace BLTransfusion.Model
                 MaxOverlap, SubPixelString, MatchNumLevels, MatchGreediness,
                 out hv_Row, out hv_Column, out hv_Angle, out hv_Scale, out hv_Score);
 
-            //ho_ModelContours.Dispose();
-            //HOperatorSet.GetShapeModelContours(out ho_ModelContours, ModelID, 1);
-
-            ////循环显示模板位置
-            //for (hv_I = 0; (int)hv_I <= (int)((new HTuple(hv_Score.TupleLength())) - 1); hv_I = (int)hv_I + 1)
-            //{
-            //    //通过点角度生成其次变换矩阵（包括旋转平移）
-            //    HOperatorSet.VectorAngleToRigid(0, 0, 0, hv_Row.TupleSelect(hv_I), hv_Column.TupleSelect(
-            //        hv_I), hv_Angle.TupleSelect(hv_I), out hv_HomMat2DRotate);
-            //    //增加缩放到其次变换矩阵
-            //    HOperatorSet.HomMat2dScale(hv_HomMat2DRotate, hv_Scale.TupleSelect(hv_I), hv_Scale.TupleSelect(
-            //        hv_I), hv_Column.TupleSelect(hv_I), hv_Row.TupleSelect(hv_I), out hv_HomMat2DScale);
-            //    //实现仿射变换
-            //    ho_ContoursAffinTrans.Dispose();
-            //    HOperatorSet.AffineTransContourXld(ho_ModelContours, out ho_ContoursAffinTrans,
-            //        hv_HomMat2DScale);
-            //    this.WindowHandle.DispObj(ho_ContoursAffinTrans);
-            //}
-
             //TODO: 判断有没有找到结果 ResultScore & ResultCount
             int count = 0;
             double w = this.ColumnRight - this.ColumnLeft;
