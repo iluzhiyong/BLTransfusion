@@ -135,17 +135,17 @@ namespace BLTransfusion.Model
                 MaxOverlap, SubPixelString, MatchNumLevels, MatchGreediness,
                 out hv_Row, out hv_Column, out hv_Angle, out hv_Scale, out hv_Score);
 
-            if (dispRslt == true)
-            {
-                MessageBox.Show(string.Format("检测结果：行坐标={0:0.0}，列坐标={1:0.0}，角度={2:0.0}，缩放比={3:0.0}%，相似度={4:0.0}% 。", hv_Row.TupleSelect(0).D, hv_Column.TupleSelect(0).D, hv_Angle.TupleSelect(0).D, hv_Scale.TupleSelect(0).D*100, hv_Score.TupleSelect(0).D*100));
-            }
-
             //TODO: 判断有没有找到结果 ResultScore & ResultCount
             int count = 0;
             double w = this.ColumnRight - this.ColumnLeft;
             double h = this.RowBottom - this.RowTop;
             for (hv_I = 0; (int)hv_I <= (int)((new HTuple(hv_Score.TupleLength())) - 1); hv_I = (int)hv_I + 1)
             {
+                if (dispRslt == true)
+                {
+                    MessageBox.Show(string.Format("检测结果：行坐标={0:0.0}，列坐标={1:0.0}，角度={2:0.0}，缩放比={3:0.0}%，相似度={4:0.0}% 。", hv_Row.TupleSelect(0).D, hv_Column.TupleSelect(0).D, hv_Angle.TupleSelect(0).D, hv_Scale.TupleSelect(0).D * 100, hv_Score.TupleSelect(0).D * 100));
+                }
+                
                 if (hv_Score.TupleSelect(hv_I) >= this.ResultScore)
                 {
                     count++;
