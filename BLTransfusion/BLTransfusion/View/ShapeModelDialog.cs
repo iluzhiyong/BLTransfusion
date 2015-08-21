@@ -233,7 +233,7 @@ namespace BLTransfusion.View
                             this.ModelInfo.Image = this.ModelProcessor.Ho_Image;
                             this.ModelProcessor.DisplayImage();
 
-                            if (this.ModelInfo.DoFindScaledShapeModel() == true)
+                            if (this.ModelInfo.DoFindScaledShapeModel(true) == true)
                             {
                                 MessageBox.Show(this, "Succeed to find shape model.", "Test find Shape Model");
                             }

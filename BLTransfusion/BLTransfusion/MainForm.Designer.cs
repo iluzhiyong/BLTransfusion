@@ -46,13 +46,13 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.cameraSettingMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuItemImageProcOpen = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuImgProcSet = new System.Windows.Forms.ToolStripMenuItem();
             this.manualDetect = new System.Windows.Forms.ToolStripMenuItem();
             this.autoDetect = new System.Windows.Forms.ToolStripMenuItem();
             this.stopDetect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.clearRecordMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.selectModelsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuImgProcSet = new System.Windows.Forms.ToolStripMenuItem();
             this.iOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpenUART = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCloseUART = new System.Windows.Forms.ToolStripMenuItem();
@@ -99,7 +99,7 @@
             this.TsQualifiedCnt,
             this.TsUnqualifiedCntTitle,
             this.TsUnqualifiedCnt});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 315);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 543);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
             this.statusStrip1.Size = new System.Drawing.Size(945, 26);
@@ -206,13 +206,6 @@
             this.MenuItemImageProcOpen.Size = new System.Drawing.Size(68, 21);
             this.MenuItemImageProcOpen.Text = "图像处理";
             // 
-            // MenuImgProcSet
-            // 
-            this.MenuImgProcSet.Name = "MenuImgProcSet";
-            this.MenuImgProcSet.Size = new System.Drawing.Size(152, 22);
-            this.MenuImgProcSet.Text = "设置";
-            this.MenuImgProcSet.Click += new System.EventHandler(this.MenuImgProcSet_Click);
-            // 
             // manualDetect
             // 
             this.manualDetect.Name = "manualDetect";
@@ -253,6 +246,13 @@
             this.selectModelsMenuItem.Text = "模板设定";
             this.selectModelsMenuItem.Click += new System.EventHandler(this.selectModelsMenuItem_Click);
             // 
+            // MenuImgProcSet
+            // 
+            this.MenuImgProcSet.Name = "MenuImgProcSet";
+            this.MenuImgProcSet.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcSet.Text = "设置";
+            this.MenuImgProcSet.Click += new System.EventHandler(this.MenuImgProcSet_Click);
+            // 
             // iOToolStripMenuItem
             // 
             this.iOToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -267,28 +267,28 @@
             // MenuOpenUART
             // 
             this.MenuOpenUART.Name = "MenuOpenUART";
-            this.MenuOpenUART.Size = new System.Drawing.Size(152, 22);
+            this.MenuOpenUART.Size = new System.Drawing.Size(136, 22);
             this.MenuOpenUART.Text = "打开串口";
             this.MenuOpenUART.Click += new System.EventHandler(this.MenuOpenUART_Click);
             // 
             // MenuCloseUART
             // 
             this.MenuCloseUART.Name = "MenuCloseUART";
-            this.MenuCloseUART.Size = new System.Drawing.Size(152, 22);
+            this.MenuCloseUART.Size = new System.Drawing.Size(136, 22);
             this.MenuCloseUART.Text = "关闭串口";
             this.MenuCloseUART.Click += new System.EventHandler(this.MenuCloseUART_Click);
             // 
             // MenuOpenRelay
             // 
             this.MenuOpenRelay.Name = "MenuOpenRelay";
-            this.MenuOpenRelay.Size = new System.Drawing.Size(152, 22);
+            this.MenuOpenRelay.Size = new System.Drawing.Size(136, 22);
             this.MenuOpenRelay.Text = "打开继电器";
             this.MenuOpenRelay.Click += new System.EventHandler(this.MenuOpenRelay_Click);
             // 
             // MenuCloseRelay
             // 
             this.MenuCloseRelay.Name = "MenuCloseRelay";
-            this.MenuCloseRelay.Size = new System.Drawing.Size(152, 22);
+            this.MenuCloseRelay.Size = new System.Drawing.Size(136, 22);
             this.MenuCloseRelay.Text = "关闭继电器";
             this.MenuCloseRelay.Click += new System.EventHandler(this.MenuCloseRelay_Click);
             // 
@@ -305,21 +305,21 @@
             // WndLayoutHorizontal
             // 
             this.WndLayoutHorizontal.Name = "WndLayoutHorizontal";
-            this.WndLayoutHorizontal.Size = new System.Drawing.Size(152, 22);
+            this.WndLayoutHorizontal.Size = new System.Drawing.Size(124, 22);
             this.WndLayoutHorizontal.Text = "水平平铺";
             this.WndLayoutHorizontal.Click += new System.EventHandler(this.WndLayoutHorizontal_Click);
             // 
             // WndLayoutVertical
             // 
             this.WndLayoutVertical.Name = "WndLayoutVertical";
-            this.WndLayoutVertical.Size = new System.Drawing.Size(152, 22);
+            this.WndLayoutVertical.Size = new System.Drawing.Size(124, 22);
             this.WndLayoutVertical.Text = "垂直平铺";
             this.WndLayoutVertical.Click += new System.EventHandler(this.WndLayoutVertical_Click);
             // 
             // WndLayoutCascade
             // 
             this.WndLayoutCascade.Name = "WndLayoutCascade";
-            this.WndLayoutCascade.Size = new System.Drawing.Size(152, 22);
+            this.WndLayoutCascade.Size = new System.Drawing.Size(124, 22);
             this.WndLayoutCascade.Text = "层叠排列";
             this.WndLayoutCascade.Click += new System.EventHandler(this.WndLayoutCascade_Click);
             // 
@@ -327,7 +327,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(945, 341);
+            this.ClientSize = new System.Drawing.Size(945, 569);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;

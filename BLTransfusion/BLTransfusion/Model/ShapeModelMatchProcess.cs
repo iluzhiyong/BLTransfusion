@@ -6,6 +6,7 @@ using HalconDotNet;
 using System.Xml.Linq;
 using System.IO;
 using BLTransfusion.Utility;
+using System.Windows;
 
 namespace BLTransfusion.Model
 {
@@ -123,7 +124,7 @@ namespace BLTransfusion.Model
             return true;
         }
 
-        public bool DoFindScaledShapeModel()
+        public bool DoFindScaledShapeModel(Boolean dispRslt = false)
         {
             HTuple hv_Row, hv_Column;
             HTuple hv_Angle, hv_Scale, hv_Score, hv_I;
@@ -133,6 +134,11 @@ namespace BLTransfusion.Model
                 MatchScaleMin, MatchScaleMax, MatchMinScore, NumMatches,
                 MaxOverlap, SubPixelString, MatchNumLevels, MatchGreediness,
                 out hv_Row, out hv_Column, out hv_Angle, out hv_Scale, out hv_Score);
+
+            if (dispRslt == true)
+            {
+                MessageBox.Show(string.Format("检测结果：行坐标={0:0.0}，列坐标={1:0.0}，角度={2:0.0}，缩放比={3:0.0}%，相似度={4:0.0}% 。", hv_Row.TupleSelect(0).D, hv_Column.TupleSelect(0).D, hv_Angle.TupleSelect(0).D, hv_Scale.TupleSelect(0).D*100, hv_Score.TupleSelect(0).D*100));
+            }
 
             //TODO: 判断有没有找到结果 ResultScore & ResultCount
             int count = 0;
