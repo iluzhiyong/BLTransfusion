@@ -10,11 +10,11 @@ using BLTransfusion.Model;
 
 namespace BLTransfusion.View
 {
-    public partial class SelectModels : Form
+    public partial class ModelSetForm : Form
     {
         public ModelProcessor ModelProcessor { get; private set; }
 
-        public SelectModels(ModelProcessor modelProcessor)
+        public ModelSetForm(ModelProcessor modelProcessor)
         {
             this.ModelProcessor = modelProcessor;
             InitializeComponent();

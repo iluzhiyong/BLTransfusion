@@ -51,8 +51,7 @@
             this.stopDetect = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.clearRecordMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.selectModelsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MenuImgProcSet = new System.Windows.Forms.ToolStripMenuItem();
+            this.MenuImgProcAlgorithmSet = new System.Windows.Forms.ToolStripMenuItem();
             this.iOToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpenUART = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCloseUART = new System.Windows.Forms.ToolStripMenuItem();
@@ -162,33 +161,33 @@
             // openCameraMenuItem
             // 
             this.openCameraMenuItem.Name = "openCameraMenuItem";
-            this.openCameraMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openCameraMenuItem.Size = new System.Drawing.Size(124, 22);
             this.openCameraMenuItem.Text = "启动相机";
             this.openCameraMenuItem.Click += new System.EventHandler(this.openCameraMenuItem_Click);
             // 
             // snapshotMenuItem
             // 
             this.snapshotMenuItem.Name = "snapshotMenuItem";
-            this.snapshotMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.snapshotMenuItem.Size = new System.Drawing.Size(124, 22);
             this.snapshotMenuItem.Text = "拍摄照片";
             this.snapshotMenuItem.Click += new System.EventHandler(this.snapshotMenuItem_Click);
             // 
             // closeCameraMenuItem
             // 
             this.closeCameraMenuItem.Name = "closeCameraMenuItem";
-            this.closeCameraMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeCameraMenuItem.Size = new System.Drawing.Size(124, 22);
             this.closeCameraMenuItem.Text = "关闭相机";
             this.closeCameraMenuItem.Click += new System.EventHandler(this.closeCameraMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(121, 6);
             // 
             // cameraSettingMenuItem
             // 
             this.cameraSettingMenuItem.Name = "cameraSettingMenuItem";
-            this.cameraSettingMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cameraSettingMenuItem.Size = new System.Drawing.Size(124, 22);
             this.cameraSettingMenuItem.Text = "相机设定";
             this.cameraSettingMenuItem.Click += new System.EventHandler(this.cameraSettingMenuItem_Click);
             // 
@@ -200,8 +199,7 @@
             this.stopDetect,
             this.toolStripMenuItem3,
             this.clearRecordMenuItem,
-            this.selectModelsMenuItem,
-            this.MenuImgProcSet});
+            this.MenuImgProcAlgorithmSet});
             this.MenuItemImageProcOpen.Name = "MenuItemImageProcOpen";
             this.MenuItemImageProcOpen.Size = new System.Drawing.Size(68, 21);
             this.MenuItemImageProcOpen.Text = "图像处理";
@@ -239,19 +237,12 @@
             this.clearRecordMenuItem.Text = "清空记录";
             this.clearRecordMenuItem.Click += new System.EventHandler(this.clearRecordMenuItem_Click);
             // 
-            // selectModelsMenuItem
+            // MenuImgProcAlgorithmSet
             // 
-            this.selectModelsMenuItem.Name = "selectModelsMenuItem";
-            this.selectModelsMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.selectModelsMenuItem.Text = "模板设定";
-            this.selectModelsMenuItem.Click += new System.EventHandler(this.selectModelsMenuItem_Click);
-            // 
-            // MenuImgProcSet
-            // 
-            this.MenuImgProcSet.Name = "MenuImgProcSet";
-            this.MenuImgProcSet.Size = new System.Drawing.Size(152, 22);
-            this.MenuImgProcSet.Text = "设置";
-            this.MenuImgProcSet.Click += new System.EventHandler(this.MenuImgProcSet_Click);
+            this.MenuImgProcAlgorithmSet.Name = "MenuImgProcAlgorithmSet";
+            this.MenuImgProcAlgorithmSet.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcAlgorithmSet.Text = "算法设置";
+            this.MenuImgProcAlgorithmSet.Click += new System.EventHandler(this.MenuImgProcAlgorithmSet_Click);
             // 
             // iOToolStripMenuItem
             // 
@@ -355,7 +346,6 @@
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem 相机ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuItemImageProcOpen;
-        private System.Windows.Forms.ToolStripMenuItem MenuImgProcSet;
         private System.Windows.Forms.ToolStripMenuItem iOToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuOpenRelay;
         private System.Windows.Forms.ToolStripMenuItem MenuOpenUART;
@@ -368,7 +358,6 @@
         private System.Windows.Forms.ToolStripMenuItem WndLayoutHorizontal;
         private System.Windows.Forms.ToolStripMenuItem WndLayoutVertical;
         private System.Windows.Forms.ToolStripMenuItem WndLayoutCascade;
-        private System.Windows.Forms.ToolStripMenuItem selectModelsMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualDetect;
         private System.Windows.Forms.ToolStripMenuItem autoDetect;
         private System.Windows.Forms.ToolStripMenuItem stopDetect;
@@ -379,6 +368,7 @@
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem cameraSettingMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearRecordMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem MenuImgProcAlgorithmSet;
     }
 }
 

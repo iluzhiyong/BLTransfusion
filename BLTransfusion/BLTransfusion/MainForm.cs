@@ -38,16 +38,16 @@ namespace BLTransfusion
         private ImageDispForm imageDispWnd;
         private ImageProcForm imageProcWnd;
 
-        private ImageProcess imageProcess;
-        public ImageProcess ImageProcess
+        private JunkDetector junkDetector;
+        public JunkDetector JunkDetector
         {
             get
             {
-                if (imageProcess == null)
+                if (junkDetector == null)
                 {
-                    imageProcess = new ImageProcess(GetHalconWindow());
+                    junkDetector = new JunkDetector(GetHalconWindow());
                 }
-                return imageProcess;
+                return junkDetector;
             }
         }
 
@@ -108,31 +108,6 @@ namespace BLTransfusion
             }
         }
 
-        private ImgProcSetWnd imgProcWnd;
-        private void MenuImgProcSet_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (imgProcWnd == null || imgProcWnd.IsDisposed)
-                {
-                    this.ImageProcess.LoadImage(ImagePath);
-
-                    this.imgProcWnd = new ImgProcSetWnd();
-                    this.imgProcWnd.ImageProcess = this.ImageProcess;
-                    this.imgProcWnd.Show();
-                }
-                else
-                {
-                    imgProcWnd.Show();
-                }
-            }
-            catch (Exception)
-            {
-                MessageBox.Show("设定窗口打开失败！", "图相处理错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-
         private void WndLayoutHorizontal_Click(object sender, EventArgs e)
         {
             LayoutMdi(MdiLayout.TileHorizontal);
@@ -162,16 +137,16 @@ namespace BLTransfusion
             return this.imageProcWnd.hWindowControl1.HalconWindow;
         }
 
-        private ModelProcessor modelProcessor;
-        public ModelProcessor ModelProcessor
+        private ModelProcessor modelDetector;
+        public ModelProcessor ModelDetector
         {
             get
             {
-                if (modelProcessor == null)
+                if (modelDetector == null)
                 {
-                    modelProcessor = new ModelProcessor(GetHalconWindow());
+                    modelDetector = new ModelProcessor(GetHalconWindow());
                 }
-                return modelProcessor;
+                return modelDetector;
             }
         }
 
@@ -213,24 +188,6 @@ namespace BLTransfusion
                     }));
             }
         }
-        
-        private SelectModels selectModelsWnd;
-        private void selectModelsMenuItem_Click(object sender, EventArgs e)
-        {
-            try
-            {
-                if (selectModelsWnd == null || selectModelsWnd.IsDisposed)
-                {
-                    this.selectModelsWnd = new SelectModels(this.ModelProcessor) { Owner = this };
-                }
-                selectModelsWnd.Show();
-            }
-            catch (Exception ex)
-            {
-                ex.GetType();
-                MessageBox.Show("设定窗口打开失败！", "图相处理错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
 
         private void manualDetect_Click(object sender, EventArgs e)
         {
@@ -242,7 +199,7 @@ namespace BLTransfusion
             this.IsDetecting = true;
             if (this.CameraController.Snapshot())
             {
-                if (!LoadICModels())
+                if (!LoadModels())
                 {
                     return;
                 }
@@ -288,9 +245,9 @@ namespace BLTransfusion
             this.NgCount = 0;
         }
 
-        public bool LoadICModels()
+        public bool LoadModels()
         {
-            if (!this.ModelProcessor.LoadModels())
+            if (!this.ModelDetector.LoadModels())
             {
                 MessageBox.Show("加载模板失败！", "",  MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return false;
@@ -300,7 +257,7 @@ namespace BLTransfusion
 
         public bool CheckModelFile()
         {
-            if (!this.ModelProcessor.HasValidModelFile())
+            if (!this.ModelDetector.HasValidModelFile())
             {
                 System.Windows.MessageBox.Show("没有有效的模板文件");
                 return false;
@@ -310,26 +267,33 @@ namespace BLTransfusion
 
         public bool Detect()
         {
-            bool result = false;
-            //头发检测
-            if (this.ImageProcess.LoadImage(this.ImagePath))
+            if (DoJunkDetectFlag == false && DoModelDetectFlag == false)
             {
-                if (this.ImageProcess.DoProcess())
+                MessageBox.Show("请选择检测项目！", "错误");
+                return false;
+            }
+            
+            bool junkResult = false;
+            //头发检测
+            if ((DoJunkDetectFlag == true) && (this.JunkDetector.LoadImage(this.ImagePath)))
+            {
+                if (this.JunkDetector.DoProcess())
                 {
-                    result = true;
+                    junkResult = true;
                 }
             }
 
             //模板匹配
-            if (this.ModelProcessor.LoadImage())
+            bool modelResult = false;
+            if ((DoModelDetectFlag == true) && (this.ModelDetector.LoadImage()))
             {
-                if (!this.ModelProcessor.Detect())
+                if (!this.ModelDetector.Detect())
                 {
-                    result = false;
+                    modelResult = false;
                 }
             }
 
-            return result;
+            return (junkResult == true && modelResult == true);
         }
 
         private BackgroundWorker worker;
@@ -360,7 +324,7 @@ namespace BLTransfusion
             }
             this.IsDetecting = true;
 
-            if (!LoadICModels())
+            if (!LoadModels())
             {
                 return false;
             }
@@ -485,7 +449,7 @@ namespace BLTransfusion
             else
             {
                 System.Threading.Thread.Sleep(100);
-                this.ModelProcessor.LoadImage();
+                this.ModelDetector.LoadImage();
             }
         }
 
@@ -569,19 +533,64 @@ namespace BLTransfusion
             this.manualDetect.Enabled = this.CameraIsOpen && !this.IsDetecting;
             this.autoDetect.Enabled = this.CameraIsOpen && !this.IsDetecting;
             this.stopDetect.Enabled = this.IsDetecting;
-
-            this.selectModelsMenuItem.Enabled = !this.IsDetecting;
-            this.MenuImgProcSet.Enabled = !this.IsDetecting;
         }
 
-        private void WndLayoutHorizontal_Click_1(object sender, EventArgs e)
+        private AlgorithmForm algorithmForm;
+        private void MenuImgProcAlgorithmSet_Click(object sender, EventArgs e)
         {
-
+            try
+            {
+                if (algorithmForm == null || algorithmForm.IsDisposed)
+                {
+                    this.algorithmForm = new AlgorithmForm();
+                    this.algorithmForm.JunkDetector = this.JunkDetector;
+                    this.algorithmForm.ModelDetector = this.ModelDetector;
+                    this.algorithmForm.Show();
+                }
+                else
+                {
+                    algorithmForm.Show();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("算法窗口打开失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
-        private void WndLayoutVertical_Click_1(object sender, EventArgs e)
+        private Boolean doJunkDetectFlag = false;
+        public Boolean DoJunkDetectFlag
         {
+            get
+            {
+                if (algorithmForm != null)
+                {
+                    return algorithmForm.DoJunkDetectFlag;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            private set { doJunkDetectFlag = value; }
+        }
 
+        private Boolean doModelDetectFlag = false;
+
+        public Boolean DoModelDetectFlag
+        {
+            get 
+            {
+                if (algorithmForm != null)
+                {
+                    return algorithmForm.DoModelDetectFlag;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            private set { doModelDetectFlag = value; }
         }
 
     }

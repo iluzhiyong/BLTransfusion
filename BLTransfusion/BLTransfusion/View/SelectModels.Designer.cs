@@ -1,6 +1,6 @@
 ﻿namespace BLTransfusion.View
 {
-    partial class SelectModels
+    partial class ModelSetForm
     {
         /// <summary>
         /// Required designer variable.

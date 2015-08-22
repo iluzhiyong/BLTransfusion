@@ -59,6 +59,15 @@
     <Compile Include="Model\CameraController.cs" />
     <Compile Include="Model\DrawROI.cs" />
     <Compile Include="Model\ShapeModelMatchProcess.cs" />
+    <Compile Include="Utility\IOUtility.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AlgorithmForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\AlgorithmForm.Designer.cs">
+      <DependentUpon>AlgorithmForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ImageDispForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,15 +81,12 @@
       <DependentUpon>ImageProcForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Model\ModelProcessor.cs" />
-    <Compile Include="Model\ImageProcess.cs" />
-    <Compile Include="View\ImgProcSetWnd.cs">
+    <Compile Include="Model\JunkDetector.cs" />
+    <Compile Include="View\JunkDetectorSetForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="View\ImgProcSetWnd.Designer.cs">
-      <DependentUpon>ImgProcSetWnd.cs</DependentUpon>
-    </Compile>
-    <Compile Include="View\IOCtrl.cs">
-      <SubType>Form</SubType>
+    <Compile Include="View\JunkDetectorSetForm.Designer.cs">
+      <DependentUpon>JunkDetectorSetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="MainForm.cs">
       <SubType>Form</SubType>
@@ -105,14 +111,17 @@
     <Compile Include="View\ShapeModelDialog.Designer.cs">
       <DependentUpon>ShapeModelDialog.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="View\AlgorithmForm.resx">
+      <DependentUpon>AlgorithmForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\ImageDispForm.resx">
       <DependentUpon>ImageDispForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ImageProcForm.resx">
       <DependentUpon>ImageProcForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="View\ImgProcSetWnd.resx">
-      <DependentUpon>ImgProcSetWnd.cs</DependentUpon>
+    <EmbeddedResource Include="View\JunkDetectorSetForm.resx">
+      <DependentUpon>JunkDetectorSetForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
