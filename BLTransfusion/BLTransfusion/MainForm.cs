@@ -51,6 +51,19 @@ namespace BLTransfusion
             }
         }
 
+        private RGBDetector rgbDetector;
+        public RGBDetector RgbDetector
+        {
+            get
+            {
+                if (rgbDetector == null)
+                {
+                    rgbDetector = new RGBDetector(GetHalconWindow());
+                }
+                return rgbDetector;
+            }
+        }
+
         private string imagePath = "Image";
         public string ImagePath
         {
@@ -267,7 +280,7 @@ namespace BLTransfusion
 
         public bool Detect()
         {
-            if (DoJunkDetectFlag == false && DoModelDetectFlag == false)
+            if (DoJunkDetectFlag == false && DoModelDetectFlag == false && DoRgbDetectFlag == false)
             {
                 MessageBox.Show("请选择检测项目！", "错误");
                 return false;
@@ -287,13 +300,54 @@ namespace BLTransfusion
             bool modelResult = false;
             if ((DoModelDetectFlag == true) && (this.ModelDetector.LoadImage()))
             {
-                if (!this.ModelDetector.Detect())
+                if (this.ModelDetector.Detect())
                 {
-                    modelResult = false;
+                    modelResult = true;
                 }
             }
 
-            return (junkResult == true && modelResult == true);
+            //RGB检测
+            bool rgbResult = false;
+            if ((DoRgbDetectFlag == true) && (RgbDetector.LoadImage(this.ImagePath)))
+            {
+                if (RgbDetector.DoDetect() == true)
+                {
+                    rgbResult = true;
+                }
+            }
+
+            if ((DoJunkDetectFlag == true) && (DoModelDetectFlag == true) && (DoRgbDetectFlag == true))
+            {
+                return ((junkResult == false) && (modelResult == true) && (rgbResult == true));
+            }
+            else if ((DoJunkDetectFlag == true) && (DoModelDetectFlag == true) && (DoRgbDetectFlag == false))
+            {
+                return ((junkResult == false) && (modelResult == true));
+            }
+            else if ((DoJunkDetectFlag == true) && (DoModelDetectFlag == false) && (DoRgbDetectFlag == true))
+            {
+                return ((junkResult == false) && (rgbResult == true));
+            }
+            else if ((DoJunkDetectFlag == false) && (DoModelDetectFlag == true) && (DoRgbDetectFlag == true))
+            {
+                return ((modelResult == true) && (rgbResult == true));
+            }
+            else if ((DoJunkDetectFlag == true) && (DoModelDetectFlag == false) && (DoRgbDetectFlag == false))
+            {
+                return (junkResult == false);
+            }
+            else if ((DoJunkDetectFlag == false) && (DoModelDetectFlag == true) && (DoRgbDetectFlag == false))
+            {
+                return (modelResult == true);
+            }
+            else if ((DoJunkDetectFlag == false) && (DoModelDetectFlag == false) && (DoRgbDetectFlag == true))
+            {
+                return (rgbResult == true);
+            }
+            else
+            {
+                return false;
+            }
         }
 
         private BackgroundWorker worker;
@@ -545,6 +599,7 @@ namespace BLTransfusion
                     this.algorithmForm = new AlgorithmForm();
                     this.algorithmForm.JunkDetector = this.JunkDetector;
                     this.algorithmForm.ModelDetector = this.ModelDetector;
+                    this.algorithmForm.RgbDetector = this.RgbDetector;
                     this.algorithmForm.Show();
                 }
                 else
@@ -591,6 +646,24 @@ namespace BLTransfusion
                 }
             }
             private set { doModelDetectFlag = value; }
+        }
+
+        private Boolean doRgbDetectFlag = false;
+
+        public Boolean DoRgbDetectFlag
+        {
+            get
+            {
+                if (algorithmForm != null)
+                {
+                    return algorithmForm.DoRgbDetectFlag;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            set { doRgbDetectFlag = value; }
         }
 
     }

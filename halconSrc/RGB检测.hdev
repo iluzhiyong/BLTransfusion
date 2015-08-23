@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<hdevelop file_version="1.1" halcon_version="12.0">
+<procedure name="main">
+<interface/>
+<body>
+<l>read_image (Rgb, 'G:/Project/TransfusionDevice/BLTransfusion/BLTransfusion/bin/Debug/Image.JPG')</l>
+<l>decompose3(Rgb, ImageR, ImageG, ImageB)</l>
+<c></c>
+<l>threshold(ImageR, RegionR, 140, 180)</l>
+<l>threshold(ImageG, RegionG, 80, 170)</l>
+<l>threshold(ImageB, RegionB, 14, 90)</l>
+<c></c>
+<l>intersection(RegionR, RegionG, RGIntersection)</l>
+<l>intersection(RegionB, RGIntersection, RegionIntersection)</l>
+<c></c>
+<l>connection(RegionIntersection, ConnectedRegions)</l>
+<l>select_shape(ConnectedRegions, SelectedRegions, 'area', 'and', 1000, 99999)</l>
+<l>count_obj (SelectedRegions, Number)</l>
+<c></c>
+<l>if (Number &gt;= 1)</l>
+<l>    dev_set_color ('green')</l>
+<l>    fill_up(SelectedRegions, RegionFillUp)</l>
+<l>    gen_contour_region_xld(RegionFillUp, Contours, 'border')</l>
+<l>    dev_clear_window()</l>
+<l>    dev_display(Contours)</l>
+<l>endif</l>
+<c></c>
+<c></c>
+</body>
+<docu id="main">
+<parameters/>
+</docu>
+</procedure>
+</hdevelop>

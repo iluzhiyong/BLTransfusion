@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Model\CameraController.cs" />
     <Compile Include="Model\DrawROI.cs" />
+    <Compile Include="Model\RGBDetector.cs" />
     <Compile Include="Model\ShapeModelMatchProcess.cs" />
     <Compile Include="Utility\IOUtility.cs">
       <SubType>Form</SubType>
@@ -99,6 +100,12 @@
     <Compile Include="Model\ModelInfo.cs" />
     <Compile Include="Utility\FilePathUtility.cs" />
     <Compile Include="Utility\HalconUtility.cs" />
+    <Compile Include="View\RGBDetectorSetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\RGBDetectorSetForm.Designer.cs">
+      <DependentUpon>RGBDetectorSetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\SelectModels.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -137,6 +144,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="View\RGBDetectorSetForm.resx">
+      <DependentUpon>RGBDetectorSetForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="View\SelectModels.resx">
       <DependentUpon>SelectModels.cs</DependentUpon>
     </EmbeddedResource>
