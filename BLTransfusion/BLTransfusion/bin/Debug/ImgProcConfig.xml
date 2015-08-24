@@ -1,2 +1,0 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<ProcessSetting RoiMinGray="30" RoiMaxGray="255" RoiMinArea="80000" RoiMaxArea="50000000" MaskWidth="9" MaskHeight="9" DynThreshOffset="9" DilationErosionRadius="3.5" TargetMinArea="3000" TargetMaxArea="9000" />

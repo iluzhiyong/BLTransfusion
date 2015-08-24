@@ -271,17 +271,19 @@ namespace BLTransfusion
                     new XAttribute("BlueMaxGray", this.BlueMaxGray),
                     new XAttribute("MinArea", this.MinArea),
                     new XAttribute("MaxArea", this.MaxArea)));
-                doc.Save("RGBConfig.xml");
+                doc.Save("RGBDetectorConfig.xml");
+
+                MessageBox.Show("保存参数成功！");
             }
             catch (Exception)
             {
-                //MessageBox.Show("保存参数失败！", "错误");
+                MessageBox.Show("保存参数失败！", "错误");
             }
         }
 
         public void LoadFromXml()
         {
-            XDocument doc = XDocument.Load("RGBConfig.xml");
+            XDocument doc = XDocument.Load("RGBDetectorConfig.xml");
             XElement root = doc.Root;
             try
             {

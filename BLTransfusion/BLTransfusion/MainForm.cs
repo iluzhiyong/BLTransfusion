@@ -290,7 +290,7 @@ namespace BLTransfusion
             //头发检测
             if ((DoJunkDetectFlag == true) && (this.JunkDetector.LoadImage(this.ImagePath)))
             {
-                if (this.JunkDetector.DoProcess())
+                if (this.JunkDetector.Detect())
                 {
                     junkResult = true;
                 }

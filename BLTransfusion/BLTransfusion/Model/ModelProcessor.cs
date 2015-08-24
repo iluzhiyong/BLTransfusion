@@ -192,14 +192,6 @@ namespace BLTransfusion.Model
         #endregion
 
         #region 保存/加载 模板文件
-        private string modelsFilePath = "Models.xml";
-        public string ModelsFilePath
-        {
-            get
-            {
-                return Path.Combine(FilePathUtility.GetAssemblyPath(), modelsFilePath);
-            }
-        }
 
         public virtual bool SaveModels()
         {
@@ -237,7 +229,7 @@ namespace BLTransfusion.Model
                     }
                 }
                 doc.Add(models);
-                doc.Save(this.ModelsFilePath);
+                doc.Save("ModelsDetectorConfig.xml");
             }
             catch(Exception ex)
             {
@@ -253,7 +245,7 @@ namespace BLTransfusion.Model
         {
             try
             {
-                XDocument doc = XDocument.Load(this.ModelsFilePath);
+                XDocument doc = XDocument.Load("ModelsDetectorConfig.xml");
                 if (doc.Root != null && doc.Root.Elements("ModelInfo") != null && doc.Root.Elements("ModelInfo").Count() > 0)
                 {
                     this.Models.Clear();

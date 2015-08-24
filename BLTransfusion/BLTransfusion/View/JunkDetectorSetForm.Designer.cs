@@ -54,6 +54,10 @@
             this.label5 = new System.Windows.Forms.Label();
             this.SaveBtn = new System.Windows.Forms.Button();
             this.CancelBtn = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.tbTargetMinRect = new System.Windows.Forms.TextBox();
+            this.tbTargetMaxRect = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
@@ -157,12 +161,16 @@
             // groupBox2
             // 
             this.groupBox2.Controls.Add(this.DoProcBtn);
+            this.groupBox2.Controls.Add(this.tbTargetMaxRect);
+            this.groupBox2.Controls.Add(this.tbTargetMinRect);
             this.groupBox2.Controls.Add(this.tbTargetMaxArea);
             this.groupBox2.Controls.Add(this.tbTartgetMinArea);
             this.groupBox2.Controls.Add(this.tbDilaEroRadius);
             this.groupBox2.Controls.Add(this.tbDynThrehOffset);
             this.groupBox2.Controls.Add(this.tbMaskHeight);
+            this.groupBox2.Controls.Add(this.label12);
             this.groupBox2.Controls.Add(this.tbMaskWidth);
+            this.groupBox2.Controls.Add(this.label11);
             this.groupBox2.Controls.Add(this.label10);
             this.groupBox2.Controls.Add(this.label9);
             this.groupBox2.Controls.Add(this.label8);
@@ -171,14 +179,14 @@
             this.groupBox2.Controls.Add(this.label5);
             this.groupBox2.Location = new System.Drawing.Point(12, 165);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(387, 185);
+            this.groupBox2.Size = new System.Drawing.Size(387, 233);
             this.groupBox2.TabIndex = 2;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "图像处理";
             // 
             // DoProcBtn
             // 
-            this.DoProcBtn.Location = new System.Drawing.Point(296, 148);
+            this.DoProcBtn.Location = new System.Drawing.Point(296, 202);
             this.DoProcBtn.Name = "DoProcBtn";
             this.DoProcBtn.Size = new System.Drawing.Size(75, 23);
             this.DoProcBtn.TabIndex = 2;
@@ -284,7 +292,7 @@
             // 
             // SaveBtn
             // 
-            this.SaveBtn.Location = new System.Drawing.Point(228, 366);
+            this.SaveBtn.Location = new System.Drawing.Point(217, 413);
             this.SaveBtn.Name = "SaveBtn";
             this.SaveBtn.Size = new System.Drawing.Size(75, 23);
             this.SaveBtn.TabIndex = 3;
@@ -294,7 +302,7 @@
             // 
             // CancelBtn
             // 
-            this.CancelBtn.Location = new System.Drawing.Point(319, 366);
+            this.CancelBtn.Location = new System.Drawing.Point(308, 413);
             this.CancelBtn.Name = "CancelBtn";
             this.CancelBtn.Size = new System.Drawing.Size(75, 23);
             this.CancelBtn.TabIndex = 4;
@@ -302,11 +310,43 @@
             this.CancelBtn.UseVisualStyleBackColor = true;
             this.CancelBtn.Click += new System.EventHandler(this.CancelBtn_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(70, 181);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(89, 12);
+            this.label11.TabIndex = 0;
+            this.label11.Text = "目标最小矩形度";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(70, 207);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(89, 12);
+            this.label12.TabIndex = 0;
+            this.label12.Text = "目标最大矩形度";
+            // 
+            // tbTargetMinRect
+            // 
+            this.tbTargetMinRect.Location = new System.Drawing.Point(177, 177);
+            this.tbTargetMinRect.Name = "tbTargetMinRect";
+            this.tbTargetMinRect.Size = new System.Drawing.Size(100, 21);
+            this.tbTargetMinRect.TabIndex = 1;
+            // 
+            // tbTargetMaxRect
+            // 
+            this.tbTargetMaxRect.Location = new System.Drawing.Point(177, 203);
+            this.tbTargetMaxRect.Name = "tbTargetMaxRect";
+            this.tbTargetMaxRect.Size = new System.Drawing.Size(100, 21);
+            this.tbTargetMaxRect.TabIndex = 1;
+            // 
             // ImgProcSetWnd
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(411, 404);
+            this.ClientSize = new System.Drawing.Size(411, 456);
             this.Controls.Add(this.CancelBtn);
             this.Controls.Add(this.SaveBtn);
             this.Controls.Add(this.groupBox2);
@@ -349,5 +389,9 @@
         private System.Windows.Forms.Button DoProcBtn;
         private System.Windows.Forms.Button SaveBtn;
         private System.Windows.Forms.Button CancelBtn;
+        private System.Windows.Forms.TextBox tbTargetMaxRect;
+        private System.Windows.Forms.TextBox tbTargetMinRect;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label11;
     }
 }

@@ -48,13 +48,13 @@
             this.modelslistBox.ItemHeight = 12;
             this.modelslistBox.Location = new System.Drawing.Point(14, 11);
             this.modelslistBox.Name = "modelslistBox";
-            this.modelslistBox.Size = new System.Drawing.Size(311, 400);
+            this.modelslistBox.Size = new System.Drawing.Size(311, 424);
             this.modelslistBox.TabIndex = 0;
             this.modelslistBox.SelectedIndexChanged += new System.EventHandler(this.modelslistBox_SelectedIndexChanged);
             // 
             // loadModelImage
             // 
-            this.loadModelImage.Location = new System.Drawing.Point(387, 28);
+            this.loadModelImage.Location = new System.Drawing.Point(368, 24);
             this.loadModelImage.Name = "loadModelImage";
             this.loadModelImage.Size = new System.Drawing.Size(123, 23);
             this.loadModelImage.TabIndex = 1;
@@ -64,7 +64,7 @@
             // 
             // loadExistedModels
             // 
-            this.loadExistedModels.Location = new System.Drawing.Point(387, 75);
+            this.loadExistedModels.Location = new System.Drawing.Point(368, 71);
             this.loadExistedModels.Name = "loadExistedModels";
             this.loadExistedModels.Size = new System.Drawing.Size(123, 23);
             this.loadExistedModels.TabIndex = 2;
@@ -74,7 +74,7 @@
             // 
             // addModel
             // 
-            this.addModel.Location = new System.Drawing.Point(387, 122);
+            this.addModel.Location = new System.Drawing.Point(368, 118);
             this.addModel.Name = "addModel";
             this.addModel.Size = new System.Drawing.Size(123, 23);
             this.addModel.TabIndex = 3;
@@ -84,7 +84,7 @@
             // 
             // deletedModel
             // 
-            this.deletedModel.Location = new System.Drawing.Point(387, 169);
+            this.deletedModel.Location = new System.Drawing.Point(368, 165);
             this.deletedModel.Name = "deletedModel";
             this.deletedModel.Size = new System.Drawing.Size(123, 23);
             this.deletedModel.TabIndex = 4;
@@ -94,7 +94,7 @@
             // 
             // clearModels
             // 
-            this.clearModels.Location = new System.Drawing.Point(387, 216);
+            this.clearModels.Location = new System.Drawing.Point(368, 212);
             this.clearModels.Name = "clearModels";
             this.clearModels.Size = new System.Drawing.Size(123, 23);
             this.clearModels.TabIndex = 5;
@@ -104,7 +104,7 @@
             // 
             // displayOneModel
             // 
-            this.displayOneModel.Location = new System.Drawing.Point(387, 263);
+            this.displayOneModel.Location = new System.Drawing.Point(368, 259);
             this.displayOneModel.Name = "displayOneModel";
             this.displayOneModel.Size = new System.Drawing.Size(123, 23);
             this.displayOneModel.TabIndex = 6;
@@ -114,7 +114,7 @@
             // 
             // displayALLModel
             // 
-            this.displayALLModel.Location = new System.Drawing.Point(387, 310);
+            this.displayALLModel.Location = new System.Drawing.Point(368, 306);
             this.displayALLModel.Name = "displayALLModel";
             this.displayALLModel.Size = new System.Drawing.Size(123, 23);
             this.displayALLModel.TabIndex = 7;
@@ -124,7 +124,7 @@
             // 
             // saveModels
             // 
-            this.saveModels.Location = new System.Drawing.Point(387, 357);
+            this.saveModels.Location = new System.Drawing.Point(368, 353);
             this.saveModels.Name = "saveModels";
             this.saveModels.Size = new System.Drawing.Size(123, 23);
             this.saveModels.TabIndex = 8;
@@ -134,19 +134,19 @@
             // 
             // settingButton
             // 
-            this.settingButton.Location = new System.Drawing.Point(596, 28);
+            this.settingButton.Location = new System.Drawing.Point(368, 400);
             this.settingButton.Name = "settingButton";
-            this.settingButton.Size = new System.Drawing.Size(164, 23);
+            this.settingButton.Size = new System.Drawing.Size(123, 23);
             this.settingButton.TabIndex = 9;
             this.settingButton.Text = "参数设定";
             this.settingButton.UseVisualStyleBackColor = true;
             this.settingButton.Click += new System.EventHandler(this.InspectShapeModelBtn_Click);
             // 
-            // SelectModels
+            // ModelSetForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(817, 426);
+            this.ClientSize = new System.Drawing.Size(513, 451);
             this.Controls.Add(this.settingButton);
             this.Controls.Add(this.saveModels);
             this.Controls.Add(this.displayALLModel);
@@ -157,7 +157,7 @@
             this.Controls.Add(this.loadExistedModels);
             this.Controls.Add(this.loadModelImage);
             this.Controls.Add(this.modelslistBox);
-            this.Name = "SelectModels";
+            this.Name = "ModelSetForm";
             this.Text = "SelectModels";
             this.ResumeLayout(false);
 

@@ -1,0 +1,4 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Models>
+  <ModelInfo RowTop="489.011746680286" RowBottom="924.133299284985" ColumnLeft="201.678649237473" ColumnRight="702.245098039216" InspectNumLevels="10" InspectContrast="60" NumLevels="10" NumLevelsAuto="True" AngleStart="0" AngleExtent="90" AngleStep="10" AngleStepAuto="True" ScaleMin="0.8" ScaleMax="1.2" ScaleStep="0.1" ScaleStepAuto="True" Optimization="auto" Metric="use_polarity" Contrast="user_defined" ContrastValue="60" MinContrast="1" MinContrastAuto="True" MatchAngleStart="0" MatchAngleExtent="90" MatchScaleMin="0.8" MatchScaleMax="1.2" MatchMinScore="0.8" NumMatches="1" MaxOverlap="0.5" SubPixel="none" MatchNumLevels="0" MatchGreediness="0.9" ModelID="0" ModelIndex="0" ResultScore="0.9" ResultCount="1" />
+</Models>

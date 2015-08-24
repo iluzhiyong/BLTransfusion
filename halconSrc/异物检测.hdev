@@ -3,85 +3,47 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dev_set_check('give_error')</l>
 <l>dev_open_window(0, 0, 640, 480, 'black', WindowHandle)</l>
 <c>************************打开图片*********************************************</c>
 <c>*----------------------------------------------------------------------------</c>
-<l>try</l>
-<l>read_image(Image,'G:/Project/TransfusionDevice/Pic/Image_0519202522.bmp')</l>
-<l>get_image_size(Image, Width, Height)</l>
-<l>dev_close_window()</l>
-<l>dev_open_window(0, 0, Width / 2, Height / 2, 'black', WindowHandle)</l>
+<l>read_image(Image,'G:/Project/TransfusionDevice/Pic/IMG_1147.JPG')</l>
 <l>dev_display(Image)</l>
-<l>catch(Exception)</l>
-<l>    dev_clear_window()</l>
-<l>    set_tposition (WindowHandle, 100, 1)</l>
-<l>    write_string (WindowHandle, '               Read image failed!')</l>
-<l>endtry</l>
 <c>*----------------------------------------------------------------------------</c>
 <c></c>
 <c>************************选择ROI**********************************************</c>
 <c>*----------------------------------------------------------------------------</c>
-<l>try</l>
-<c>*阈值可外部调节</c>
+<c>*阈值,可外部设置选择条件</c>
 <l>threshold (Image, Regions, 30, 255)</l>
 <l>connection(Regions, ConnectedRegions)</l>
-<c>*面积可外部调节</c>
-<l>select_shape (ConnectedRegions, SelectedRegions, 'area', 'and', 800, 1500000)</l>
-<c>*执行填充后，获得完整区域，但，中间的黑色区域可能对下面的提取造成影响</c>
-<l>* fill_up(SelectedRegions, RegionFillUp)</l>
-<l>* reduce_domain(Image, RegionFillUp,ImageReduced)</l>
+<c>*面积,可外部设置选择条件</c>
+<l>select_shape (ConnectedRegions, SelectedRegions, 'area', 'and', 800, 150000000)</l>
 <l>reduce_domain(Image, SelectedRegions,ImageReduced)</l>
-<l>catch(Exception)</l>
-<l>    dev_clear_window()</l>
-<l>    set_tposition (WindowHandle, 100, 1)</l>
-<l>    write_string (WindowHandle, '               Get ROI failed!')</l>
-<l>endtry</l>
 <c>*----------------------------------------------------------------------------</c>
 <c></c>
 <c>************************提取被测物*******************************************</c>
 <c>*----------------------------------------------------------------------------</c>
-<l>try</l>
-<c>*Mask宽度、高度可外部调节</c>
+<c>*Mask宽度、高度,可外部设置选择条件</c>
 <l>mean_image (ImageReduced, ImageMean, 9, 9) </l>
 <c>*Offset可外部调节</c>
 <l>dyn_threshold (ImageReduced, ImageMean, RegionDynThresh, 9, 'dark')</l>
-<c>*膨胀用结构元素半径可外部调节</c>
-<l>dilation_circle(RegionDynThresh, RegionDilation, 3.5)</l>
+<c>*膨胀用结构元素半径,可外部设置选择条件</c>
+<l>dilation_circle(RegionDynThresh, RegionDilation, 10)</l>
 <l>connection (RegionDilation, ConnectedRegions)</l>
-<c>*检测目标面积可外部调节</c>
-<l>select_shape (ConnectedRegions, SelectedRegions2, 'area', 'and', 1500, 3000)</l>
-<c>*获得Region的骨架（执行时间54.994ms）</c>
-<l>* skeleton(SelectedRegions2, Skeleton)</l>
-<c>*使用相同的结构元素进行腐蚀，可以恢复到膨胀前的Region，而且已经是连同的Region</c>
-<c>*腐蚀执行时间（14.566ms）</c>
-<l>erosion_circle(SelectedRegions2, RegionErosion, 3.5)</l>
-<l>catch(Exception)</l>
-<l>    dev_clear_window()</l>
-<l>    set_tposition (WindowHandle, 100, 1)</l>
-<l>    write_string (WindowHandle, '               Extraction failed!')</l>
-<l>endtry</l>
+<l>stop()</l>
+<c>*检测目标面积,可外部设置选择条件</c>
+<l>select_shape (ConnectedRegions, TargetRegions, ['area', 'rectangularity'], 'and', [100000, 0], [300000,0.2])</l>
+<l>erosion_circle(TargetRegions, RegionErosion, 10)</l>
 <c>*----------------------------------------------------------------------------</c>
 <c></c>
 <c>************************显示结果**********************************************</c>
 <c>*----------------------------------------------------------------------------</c>
-<l>try</l>
 <l>dev_clear_window()</l>
 <l>dev_display(Image)</l>
 <l>count_obj(RegionErosion, Number)</l>
-<l>set_tposition (WindowHandle, 100, 1)</l>
-<l>if(Number != 0)</l>
+<l>if(Number &gt;= 1)</l>
 <l>    dev_display (RegionErosion)</l>
-<l>    write_string (WindowHandle, '               不合格!')</l>
-<l>    stop()</l>
 <l>endif</l>
-<l>catch(Exception)</l>
-<l>    dev_clear_window()</l>
-<l>    set_tposition (WindowHandle, 100, 1)</l>
-<l>    write_string (WindowHandle, '               Display result failed!')</l>
-<l>endtry</l>
 <c>*----------------------------------------------------------------------------</c>
-<l>stop()</l>
 </body>
 <docu id="main">
 <parameters/>

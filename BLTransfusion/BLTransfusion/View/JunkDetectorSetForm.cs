@@ -30,12 +30,13 @@ namespace BLTransfusion
                 this.tbMaskHeight.DataBindings.Add("Text", detector, "MaskHeight");
 
                 this.tbDynThrehOffset.DataBindings.Add("Text", detector, "DynThreshOffset");
-
                 this.tbDilaEroRadius.DataBindings.Add("Text", detector, "DilationErosionRadius");
 
                 this.tbTartgetMinArea.DataBindings.Add("Text", detector, "TargetMinArea");
-
                 this.tbTargetMaxArea.DataBindings.Add("Text", detector, "TargetMaxArea");
+
+                this.tbTargetMinRect.DataBindings.Add("Text", detector, "TargetMinRect");
+                this.tbTargetMaxRect.DataBindings.Add("Text", detector, "TargetMaxRect");
             }
         }
 
@@ -53,9 +54,13 @@ namespace BLTransfusion
         {
             if (this.Detctor.SelectROI())
             {
-                if (this.Detctor.DoProcess())
+                if (this.Detctor.Detect() == true)
                 {
-                    this.Detctor.CalculateResult();
+                    MessageBox.Show("检测到目标！");
+                }
+                else
+                {
+                    MessageBox.Show("未检测到目标！");
                 }
             }
         }

@@ -29,7 +29,7 @@ namespace BLTransfusion
         HObject ho_Image = null, ho_Regions = null, ho_ConnectedRegions = null;
         HObject ho_SelectedRegions = null, ho_ImageReduced = null, ho_ImageMean = null;
         HObject ho_RegionDynThresh = null, ho_RegionDilation = null;
-        HObject ho_SelectedRegions2 = null, ho_RegionErosion = null;
+        HObject ho_TargetRegions = null, ho_RegionErosion = null;
 
         // Local control variables 
 
@@ -54,12 +54,12 @@ namespace BLTransfusion
                 HOperatorSet.GenEmptyObj(out ho_ImageMean);
                 HOperatorSet.GenEmptyObj(out ho_RegionDynThresh);
                 HOperatorSet.GenEmptyObj(out ho_RegionDilation);
-                HOperatorSet.GenEmptyObj(out ho_SelectedRegions2);
+                HOperatorSet.GenEmptyObj(out ho_TargetRegions);
                 HOperatorSet.GenEmptyObj(out ho_RegionErosion);
             }
             catch (Exception)
             {
-                //MessageBox.Show("初始化错误！", "图像处理错误");
+
             }
 
             this.LoadFromXml();
@@ -80,7 +80,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                //MessageBox.Show("加载图片错误！", "图像处理错误");
+                
             }
 
             return true;
@@ -90,7 +90,7 @@ namespace BLTransfusion
         public byte RoiMinGray
         {
             get { return roiMinGray; }
-            set { roiMinGray = value; OnPropertyChanged("RoiMinGray"); }
+            set { roiMinGray = value; }
         }
 
         private byte roiMaxGray = 255;
@@ -114,6 +114,22 @@ namespace BLTransfusion
             set { roiMaxArea = value; }
         }
 
+        private float targetMinRect = 0.0f;
+
+        public float TargetMinRect
+        {
+            get { return targetMinRect; }
+            set { targetMinRect = value; }
+        }
+
+        private float targetMaxRect = 0.2f;
+
+        public float TargetMaxRect
+        {
+            get { return targetMaxRect; }
+            set { targetMaxRect = value; }
+        }
+
         public bool SelectROI()
         {
             try
@@ -122,12 +138,9 @@ namespace BLTransfusion
                 HOperatorSet.Threshold(ho_Image, out ho_Regions, RoiMinGray, RoiMaxGray);
                 ho_ConnectedRegions.Dispose();
                 HOperatorSet.Connection(ho_Regions, out ho_ConnectedRegions);
-                //面积可外部调节
+
                 ho_SelectedRegions.Dispose();
                 HOperatorSet.SelectShape(ho_ConnectedRegions, out ho_SelectedRegions, "area", "and", RoiMinArea, RoiMaxArea);
-                //执行填充后，获得完整区域，但，中间的黑色区域可能对下面的提取造成影响
-                //fill_up (SelectedRegions, RegionFillUp)
-                //reduce_domain (Image, RegionFillUp, ImageReduced)
                 ho_ImageReduced.Dispose();
                 HOperatorSet.ReduceDomain(ho_Image, ho_SelectedRegions, out ho_ImageReduced);
 
@@ -136,7 +149,7 @@ namespace BLTransfusion
             }
             catch (Exception)
             {
-                //MessageBox.Show("选择ROI错误！", "图像处理错误");
+                
             }
 
             return true;
@@ -170,90 +183,79 @@ namespace BLTransfusion
             set { dilationErosionRadius = value; }
         }
 
-        private int targetMinArea = 1500;
+        private int targetMinArea = 100000;
         public int TargetMinArea
         {
             get { return targetMinArea; }
             set { targetMinArea = value; }
         }
 
-        private int targetMaxArea = 3000;
+        private int targetMaxArea = 300000;
         public int TargetMaxArea
         {
             get { return targetMaxArea; }
             set { targetMaxArea = value; }
         }
 
-        public bool DoProcess()
+        public bool Detect()
         {
+            bool result = false;
             try
             {
-                //Mask宽度、高度可外部调节
                 ho_ImageMean.Dispose();
                 HOperatorSet.MeanImage(ho_ImageReduced, out ho_ImageMean, MaskWidth, MaskHeight);
-                //Offset可外部调节
+
                 ho_RegionDynThresh.Dispose();
                 HOperatorSet.DynThreshold(ho_ImageReduced, ho_ImageMean, out ho_RegionDynThresh, DynThreshOffset, "dark");
-                //膨胀用结构元素半径可外部调节
+
                 ho_RegionDilation.Dispose();
                 HOperatorSet.DilationCircle(ho_RegionDynThresh, out ho_RegionDilation, DilationErosionRadius);
+                
                 ho_ConnectedRegions.Dispose();
                 HOperatorSet.Connection(ho_RegionDilation, out ho_ConnectedRegions);
-                //检测目标面积可外部调节
-                ho_SelectedRegions2.Dispose();
-                HOperatorSet.SelectShape(ho_ConnectedRegions, out ho_SelectedRegions2, "area", "and", TargetMinArea, TargetMaxArea);
-                //获得Region的骨架（执行时间54.994ms）
-                //skeleton (SelectedRegions2, Skeleton)
-                //使用相同的结构元素进行腐蚀，可以恢复到膨胀前的Region，而且已经是连同的Region
-                //腐蚀执行时间（14.566ms）
+
+                ho_TargetRegions.Dispose();
+                HOperatorSet.SelectShape(ho_ConnectedRegions, out ho_TargetRegions,
+                    (new HTuple("area")).TupleConcat("rectangularity"), "and", (new HTuple(TargetMinArea)).TupleConcat(TargetMinRect), (new HTuple(TargetMaxArea)).TupleConcat(TargetMaxRect));
+
                 ho_RegionErosion.Dispose();
-                HOperatorSet.ErosionCircle(ho_SelectedRegions2, out ho_RegionErosion, DilationErosionRadius);
+                HOperatorSet.ErosionCircle(ho_TargetRegions, out ho_RegionErosion, DilationErosionRadius);
+
+                //显示结果
+                this.WindowHandle.DispObj(ho_Image);
+                HOperatorSet.CountObj(ho_RegionErosion, out hv_Number);
+                if ((int)(new HTuple(hv_Number.TupleGreaterEqual(1))) != 0)
+                {
+                    WindowHandle.DispObj(ho_RegionErosion);
+                    result = true;
+                }
+                else
+                {
+                    result = false;
+                }
             }
             catch (Exception)
             {
-                //MessageBox.Show("处理错误！", "图像处理错误");
+                result = false;
             }
 
-            return true;
+            return result;
         }
 
-        private int qualifiedCnt = 0;
-        public int QualifiedCnt
-        {
-            get { return qualifiedCnt; }
-            set { qualifiedCnt = value; }
-        }
-        private int unqualifiedCnt = 0;
-        public int UnqualifiedCnt
-        {
-            get { return unqualifiedCnt; }
-            set { unqualifiedCnt = value; }
-        }
-        private bool isUnqualified = false;
-        public bool IsUnqualified
-        {
-            get { return isUnqualified; }
-            set { isUnqualified = value; }
-        }
         public bool CalculateResult()
         {
             try
             {
                 this.WindowHandle.DispObj(ho_Image);
                 HOperatorSet.CountObj(ho_RegionErosion, out hv_Number);
-                this.WindowHandle.SetTposition(500, 1);
 
                 if (hv_Number > 0)
                 {
-                    isUnqualified = true;
                     this.WindowHandle.DispObj(ho_RegionErosion);
-                    unqualifiedCnt++;
                     this.WindowHandle.WriteString("                                                      不合格!");
                 }
                 else
                 {
-                    isUnqualified = false;
-                    qualifiedCnt++;
                     this.WindowHandle.WriteString("                                                      合格!");
                 }
             }
@@ -263,14 +265,6 @@ namespace BLTransfusion
             }
 
             return true;
-        }
-
-
-        private string imageProcSettingFilePath = "ImgProcConfig.xml";
-        public string ImageProcSettingFilePath
-        {
-            get { return imageProcSettingFilePath; }
-            set { imageProcSettingFilePath = value; }
         }
 
         public void SaveToXml()
@@ -288,18 +282,21 @@ namespace BLTransfusion
                     new XAttribute("DynThreshOffset", this.DynThreshOffset),
                     new XAttribute("DilationErosionRadius", this.DilationErosionRadius),
                     new XAttribute("TargetMinArea", this.TargetMinArea),
-                    new XAttribute("TargetMaxArea", this.TargetMaxArea)));
-                doc.Save(ImageProcSettingFilePath);
+                    new XAttribute("TargetMaxArea", this.TargetMaxArea),
+                    new XAttribute("TargetMinRect", this.TargetMinRect),
+                    new XAttribute("TargetMaxRect", this.TargetMaxRect)));
+                doc.Save("JunkDetectorConfig.xml");
+                MessageBox.Show("保存参数成功！");
             }
             catch (Exception)
             {
-                //MessageBox.Show("保存参数失败！", "错误");
+                MessageBox.Show("保存参数失败！", "错误");
             }
         }
 
         public void LoadFromXml()
         {
-            XDocument doc = XDocument.Load(ImageProcSettingFilePath);
+            XDocument doc = XDocument.Load("JunkDetectorConfig.xml");
             XElement root = doc.Root;
             try
             {
@@ -317,7 +314,10 @@ namespace BLTransfusion
                 this.DilationErosionRadius = double.Parse(root.Attribute("DilationErosionRadius").Value);
 
                 this.TargetMinArea = int.Parse(root.Attribute("TargetMinArea").Value);
-                this.TargetMaxArea = int.Parse(root.Attribute("TargetMaxArea").Value); 
+                this.TargetMaxArea = int.Parse(root.Attribute("TargetMaxArea").Value);
+
+                this.TargetMinRect = float.Parse(root.Attribute("TargetMinRect").Value);
+                this.TargetMaxRect = float.Parse(root.Attribute("TargetMaxRect").Value);
             }
             catch (Exception)
             {
