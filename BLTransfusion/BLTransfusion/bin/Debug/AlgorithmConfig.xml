@@ -1,2 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<AlgorithmConfig doJunkDetectFlag="true" doJunkModelFlag="true" />
+<AlgorithmConfig DoJunkDetectFlag="false" DoModelDetectFlag="false" DoRgbDetectFlag="false" />

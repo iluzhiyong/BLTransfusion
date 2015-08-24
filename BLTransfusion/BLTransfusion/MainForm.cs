@@ -16,6 +16,7 @@ using CGAPI = CGSDK.CGAPI;
 using FactoryHandle = System.IntPtr;
 using DeviceHandle = System.IntPtr;
 using System.Runtime.InteropServices;
+using System.Xml.Linq;
 
 
 namespace BLTransfusion
@@ -280,15 +281,16 @@ namespace BLTransfusion
 
         public bool Detect()
         {
-            if (DoJunkDetectFlag == false && DoModelDetectFlag == false && DoRgbDetectFlag == false)
+            LoadConfig();
+            if (doJunkDetectFlag == false && doModelDetectFlag == false && doRgbDetectFlag == false)
             {
                 MessageBox.Show("请选择检测项目！", "错误");
                 return false;
             }
-            
+
             bool junkResult = false;
             //头发检测
-            if ((DoJunkDetectFlag == true) && (this.JunkDetector.LoadImage(this.ImagePath)))
+            if ((doJunkDetectFlag == true) && (this.JunkDetector.LoadImage(this.ImagePath)))
             {
                 if (this.JunkDetector.Detect())
                 {
@@ -298,7 +300,7 @@ namespace BLTransfusion
 
             //模板匹配
             bool modelResult = false;
-            if ((DoModelDetectFlag == true) && (this.ModelDetector.LoadImage()))
+            if ((doModelDetectFlag == true) && (this.ModelDetector.LoadImage()))
             {
                 if (this.ModelDetector.Detect())
                 {
@@ -308,7 +310,7 @@ namespace BLTransfusion
 
             //RGB检测
             bool rgbResult = false;
-            if ((DoRgbDetectFlag == true) && (RgbDetector.LoadImage(this.ImagePath)))
+            if ((doRgbDetectFlag == true) && (RgbDetector.LoadImage(this.ImagePath)))
             {
                 if (RgbDetector.DoDetect() == true)
                 {
@@ -316,31 +318,31 @@ namespace BLTransfusion
                 }
             }
 
-            if ((DoJunkDetectFlag == true) && (DoModelDetectFlag == true) && (DoRgbDetectFlag == true))
+            if ((doJunkDetectFlag == true) && (doModelDetectFlag == true) && (doRgbDetectFlag == true))
             {
                 return ((junkResult == false) && (modelResult == true) && (rgbResult == true));
             }
-            else if ((DoJunkDetectFlag == true) && (DoModelDetectFlag == true) && (DoRgbDetectFlag == false))
+            else if ((doJunkDetectFlag == true) && (doModelDetectFlag == true) && (doRgbDetectFlag == false))
             {
                 return ((junkResult == false) && (modelResult == true));
             }
-            else if ((DoJunkDetectFlag == true) && (DoModelDetectFlag == false) && (DoRgbDetectFlag == true))
+            else if ((doJunkDetectFlag == true) && (doModelDetectFlag == false) && (doRgbDetectFlag == true))
             {
                 return ((junkResult == false) && (rgbResult == true));
             }
-            else if ((DoJunkDetectFlag == false) && (DoModelDetectFlag == true) && (DoRgbDetectFlag == true))
+            else if ((doJunkDetectFlag == false) && (doModelDetectFlag == true) && (doRgbDetectFlag == true))
             {
                 return ((modelResult == true) && (rgbResult == true));
             }
-            else if ((DoJunkDetectFlag == true) && (DoModelDetectFlag == false) && (DoRgbDetectFlag == false))
+            else if ((doJunkDetectFlag == true) && (doModelDetectFlag == false) && (doRgbDetectFlag == false))
             {
                 return (junkResult == false);
             }
-            else if ((DoJunkDetectFlag == false) && (DoModelDetectFlag == true) && (DoRgbDetectFlag == false))
+            else if ((doJunkDetectFlag == false) && (doModelDetectFlag == true) && (doRgbDetectFlag == false))
             {
                 return (modelResult == true);
             }
-            else if ((DoJunkDetectFlag == false) && (DoModelDetectFlag == false) && (DoRgbDetectFlag == true))
+            else if ((doJunkDetectFlag == false) && (doModelDetectFlag == false) && (doRgbDetectFlag == true))
             {
                 return (rgbResult == true);
             }
@@ -614,56 +616,23 @@ namespace BLTransfusion
         }
 
         private Boolean doJunkDetectFlag = false;
-        public Boolean DoJunkDetectFlag
-        {
-            get
-            {
-                if (algorithmForm != null)
-                {
-                    return algorithmForm.DoJunkDetectFlag;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            private set { doJunkDetectFlag = value; }
-        }
-
         private Boolean doModelDetectFlag = false;
-
-        public Boolean DoModelDetectFlag
-        {
-            get 
-            {
-                if (algorithmForm != null)
-                {
-                    return algorithmForm.DoModelDetectFlag;
-                }
-                else
-                {
-                    return false;
-                }
-            }
-            private set { doModelDetectFlag = value; }
-        }
-
         private Boolean doRgbDetectFlag = false;
 
-        public Boolean DoRgbDetectFlag
+        public void LoadConfig()
         {
-            get
+            XDocument doc = XDocument.Load("AlgorithmConfig.xml");
+            XElement root = doc.Root;
+            try
             {
-                if (algorithmForm != null)
-                {
-                    return algorithmForm.DoRgbDetectFlag;
-                }
-                else
-                {
-                    return false;
-                }
+                doJunkDetectFlag = bool.Parse(root.Attribute("DoJunkDetectFlag").Value);
+                doModelDetectFlag = bool.Parse(root.Attribute("DoRgbDetectFlag").Value);
+                doRgbDetectFlag = bool.Parse(root.Attribute("DoModelDetectFlag").Value);
             }
-            set { doRgbDetectFlag = value; }
+            catch (Exception)
+            {
+                //MessageBox.Show("加载参数失败！", "错误");
+            }
         }
 
     }

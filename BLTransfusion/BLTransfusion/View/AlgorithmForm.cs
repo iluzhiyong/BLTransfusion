@@ -16,6 +16,8 @@ namespace BLTransfusion.View
         public AlgorithmForm()
         {
             InitializeComponent();
+
+            LoadConfig();
         }
 
         private Boolean doJunkDetectFlag = false;
@@ -136,6 +138,52 @@ namespace BLTransfusion.View
             {
                 MessageBox.Show("设定窗口打开失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        public void LoadConfig()
+        {
+            XDocument doc = XDocument.Load("AlgorithmConfig.xml");
+            XElement root = doc.Root;
+            try
+            {
+                this.CB_Junk.Checked = bool.Parse(root.Attribute("DoJunkDetectFlag").Value);
+                this.CBRgb.Checked = bool.Parse(root.Attribute("DoRgbDetectFlag").Value);
+                this.CB_Model.Checked = bool.Parse(root.Attribute("DoModelDetectFlag").Value);
+            }
+            catch (Exception)
+            {
+                //MessageBox.Show("加载参数失败！", "错误");
+            }
+        }
+
+        public void SaveConfig()
+        {
+            try
+            {
+                XDocument doc = new XDocument();
+                doc.Add(new XElement("AlgorithmConfig",
+                    new XAttribute("DoJunkDetectFlag", this.CB_Junk.Checked),
+                    new XAttribute("DoModelDetectFlag", this.CB_Model.Checked),
+                    new XAttribute("DoRgbDetectFlag", this.CBRgb.Checked)));
+                doc.Save("AlgorithmConfig.xml");
+
+                MessageBox.Show("保存参数成功！");
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("保存参数失败！", "错误");
+            }
+        }
+
+        private void btnAlgSave_Click(object sender, EventArgs e)
+        {
+            SaveConfig();
+        }
+
+        private void btnAlgCancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
         }
     }
 }
