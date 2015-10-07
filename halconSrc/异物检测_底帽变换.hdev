@@ -6,24 +6,29 @@
 <l>* dev_open_window(0, 0, 512, 512, 'black', WindowHandle)</l>
 <l>read_image(Image, 'G:/Project/TransfusionDevice/Pic/IMG_1165')</l>
 <c></c>
+<c>*底帽变换，高亮图像中暗的像素点</c>
 <l>gen_disc_se(SE, 'byte', 3, 3, 0)</l>
 <l>gray_bothat(Image, SE, ImageBotHat)</l>
 <c></c>
+<c>*去除底帽变换后小的斑点</c>
 <l>threshold(ImageBotHat, Region, 20, 255)</l>
-<l>connection(Region, ConnectedRegions1)</l>
-<l>select_shape(ConnectedRegions1, SelectedRegions1, 'area', 'and', 5, 99999)</l>
+<l>connection(Region, ConnectedRegionsPre)</l>
+<l>select_shape(ConnectedRegionsPre, SelectedRegionsPre, 'area', 'and', 5, 99999)</l>
 <c></c>
+<c>*将分割的物体连接</c>
 <l>gen_ellipse(Ellipse, 200, 200, 0, 30, 30)</l>
-<l>dilation1(SelectedRegions1, Ellipse, RegionDilation, 1)</l>
+<l>dilation1(SelectedRegionsPre, Ellipse, RegionDilation, 1)</l>
 <l>union1(RegionDilation, RegionUnion)</l>
 <l>connection(RegionUnion, ConnectedRegions)</l>
 <c></c>
+<c>*目标选择</c>
 <l>select_shape(ConnectedRegions, SelectedRegions, \
              ['area', 'anisometry', 'outer_radius', 'dist_deviation'], 'and', \
              [15000, 1.5, 100, 40], [999999, 10, 2000, 300])</l>
 <l>count_obj(SelectedRegions, Number)</l>
 <c></c>
 <l>dev_clear_window()</l>
+<l>dev_set_color('red')</l>
 <l>dev_display(Image)</l>
 <l>if(Number&gt;0)</l>
 <l>    skeleton(SelectedRegions, Skeleton)</l>

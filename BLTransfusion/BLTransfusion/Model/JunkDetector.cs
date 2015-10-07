@@ -26,12 +26,13 @@ namespace BLTransfusion
         #endregion
 
         // Local iconic variables 
-        HObject ho_Image = null, ho_Regions = null, ho_ConnectedRegions = null;
-        HObject ho_SelectedRegions = null, ho_ImageReduced = null, ho_ImageMean = null;
-        HObject ho_RegionDynThresh = null, ho_RegionDilation = null;
-        HObject ho_TargetRegions = null, ho_RegionErosion = null;
+        HObject ho_Image, ho_SE, ho_ImageBotHat, ho_Region;
+        HObject ho_ConnectedRegionsPre, ho_SelectedRegionsPre, ho_Ellipse;
+        HObject ho_RegionDilation, ho_RegionUnion, ho_ConnectedRegions;
+        HObject ho_SelectedRegions, ho_Skeleton = null;
 
         // Local control variables 
+        HTuple hv_Number = null;
 
         private HWindow windowHandle;
         public HWindow WindowHandle
@@ -47,15 +48,17 @@ namespace BLTransfusion
             {
                 // Initialize local and output iconic variables 
                 HOperatorSet.GenEmptyObj(out ho_Image);
-                HOperatorSet.GenEmptyObj(out ho_Regions);
+                HOperatorSet.GenEmptyObj(out ho_SE);
+                HOperatorSet.GenEmptyObj(out ho_ImageBotHat);
+                HOperatorSet.GenEmptyObj(out ho_Region);
+                HOperatorSet.GenEmptyObj(out ho_ConnectedRegionsPre);
+                HOperatorSet.GenEmptyObj(out ho_SelectedRegionsPre);
+                HOperatorSet.GenEmptyObj(out ho_Ellipse);
+                HOperatorSet.GenEmptyObj(out ho_RegionDilation);
+                HOperatorSet.GenEmptyObj(out ho_RegionUnion);
                 HOperatorSet.GenEmptyObj(out ho_ConnectedRegions);
                 HOperatorSet.GenEmptyObj(out ho_SelectedRegions);
-                HOperatorSet.GenEmptyObj(out ho_ImageReduced);
-                HOperatorSet.GenEmptyObj(out ho_ImageMean);
-                HOperatorSet.GenEmptyObj(out ho_RegionDynThresh);
-                HOperatorSet.GenEmptyObj(out ho_RegionDilation);
-                HOperatorSet.GenEmptyObj(out ho_TargetRegions);
-                HOperatorSet.GenEmptyObj(out ho_RegionErosion);
+                HOperatorSet.GenEmptyObj(out ho_Skeleton);
             }
             catch (Exception)
             {
@@ -66,29 +69,43 @@ namespace BLTransfusion
         }
 
         HTuple hv_Width = new HTuple();
-        HTuple hv_Height = new HTuple(), hv_Number = new HTuple();
+        HTuple hv_Height = new HTuple();
 
         private string imagePath = "image";
-        public bool LoadImage(string imagePath)
+        public bool LoadImage(string imagepath)
         {
             try
             {
-                imagePath = imagePath;
+                imagePath = imagepath;
                 ho_Image.Dispose();
-                HOperatorSet.ReadImage(out ho_Image, imagePath);
+                HOperatorSet.ReadImage(out ho_Image, imagepath);
                 HOperatorSet.GetImageSize(ho_Image, out hv_Width, out hv_Height);
                 this.WindowHandle.SetPart(0, 0, hv_Height - 1, hv_Width - 1);
                 this.WindowHandle.DispObj(ho_Image);
+
+                return true;
             }
             catch (Exception)
             {
-                
+                return false;
             }
-
-            return true;
         }
 
-        private byte roiMinGray = 30;
+        private int seWidth = 3;
+        public int SeWidth
+        {
+            get { return seWidth; }
+            set { seWidth = value; }
+        }
+
+        private int seHeight = 3;
+        public int SeHeight
+        {
+            get { return seHeight; }
+            set { seHeight = value; }
+        }
+
+        private byte roiMinGray = 20;
         public byte RoiMinGray
         {
             get { return roiMinGray; }
@@ -102,34 +119,18 @@ namespace BLTransfusion
             set { roiMaxGray = value; }
         }
 
-        private int roiMinArea = 800;
+        private int roiMinArea = 5;
         public int RoiMinArea
         {
             get { return roiMinArea; }
             set { roiMinArea = value; }
         }
 
-        private int roiMaxArea = 1500000;
+        private int roiMaxArea = 99999;
         public int RoiMaxArea
         {
             get { return roiMaxArea; }
             set { roiMaxArea = value; }
-        }
-
-        private float targetMinRect = 0.0f;
-
-        public float TargetMinRect
-        {
-            get { return targetMinRect; }
-            set { targetMinRect = value; }
-        }
-
-        private float targetMaxRect = 0.2f;
-
-        public float TargetMaxRect
-        {
-            get { return targetMaxRect; }
-            set { targetMaxRect = value; }
         }
 
         public bool SelectROI()
@@ -137,67 +138,101 @@ namespace BLTransfusion
             try
             {
                 LoadImage(imagePath);
-                ho_Regions.Dispose();
-                HOperatorSet.Threshold(ho_Image, out ho_Regions, RoiMinGray, RoiMaxGray);
-                ho_ConnectedRegions.Dispose();
-                HOperatorSet.Connection(ho_Regions, out ho_ConnectedRegions);
 
-                ho_SelectedRegions.Dispose();
-                HOperatorSet.SelectShape(ho_ConnectedRegions, out ho_SelectedRegions, "area", "and", RoiMinArea, RoiMaxArea);
-                ho_ImageReduced.Dispose();
-                HOperatorSet.ReduceDomain(ho_Image, ho_SelectedRegions, out ho_ImageReduced);
+                //底帽变换，高亮图像中暗的像素点
+                ho_SE.Dispose();
+                HOperatorSet.GenDiscSe(out ho_SE, "byte", seWidth, seHeight, 0);
+                ho_ImageBotHat.Dispose();
+                HOperatorSet.GrayBothat(ho_Image, ho_SE, out ho_ImageBotHat);
+
+                //去除底帽变换后小的斑点
+                ho_Region.Dispose();
+                HOperatorSet.Threshold(ho_ImageBotHat, out ho_Region, RoiMinGray, RoiMaxGray);
+                ho_ConnectedRegionsPre.Dispose();
+                HOperatorSet.Connection(ho_Region, out ho_ConnectedRegionsPre);
+                ho_SelectedRegionsPre.Dispose();
+                HOperatorSet.SelectShape(ho_ConnectedRegionsPre, out ho_SelectedRegionsPre, "area",
+                    "and", RoiMinArea, RoiMaxArea);
 
                 this.WindowHandle.ClearWindow();
-                this.WindowHandle.DispObj(ho_ImageReduced);
+                this.WindowHandle.DispObj(ho_SelectedRegionsPre);
+
+                return true;
             }
             catch (Exception)
             {
-                
+                return false;
             }
-
-            return true;
         }
 
-        private int maskWidth = 9;
-        public int MaskWidth
+        private float maskWidth = 30;
+        public float MaskWidth
         {
             get { return maskWidth; }
             set { maskWidth = value; }
         }
 
-        private int maskHeight = 9;
-        public int MaskHeight
+        private float maskHeight = 30;
+        public float MaskHeight
         {
             get { return maskHeight; }
             set { maskHeight = value; }
         }
 
-        private int dynThreshOffset = 9;
-        public int DynThreshOffset
-        {
-            get { return dynThreshOffset; }
-            set { dynThreshOffset = value; }
-        }
-
-        private double dilationErosionRadius = 3.5;
-        public double DilationErosionRadius
-        {
-            get { return dilationErosionRadius; }
-            set { dilationErosionRadius = value; }
-        }
-
-        private int targetMinArea = 100000;
+        private int targetMinArea = 15000;
         public int TargetMinArea
         {
             get { return targetMinArea; }
             set { targetMinArea = value; }
         }
 
-        private int targetMaxArea = 300000;
+        private int targetMaxArea = 999999;
         public int TargetMaxArea
         {
             get { return targetMaxArea; }
             set { targetMaxArea = value; }
+        }
+
+        private float targetMinAnisometry = 1.5f;
+        public float TargetMinAnisometry
+        {
+            get { return targetMinAnisometry; }
+            set { targetMinAnisometry = value; }
+        }
+
+        private float targetMaxAnisometry = 10.0f;
+        public float TargetMaxAnisometry
+        {
+            get { return targetMaxAnisometry; }
+            set { targetMaxAnisometry = value; }
+        }
+
+        private int targetMinOuterRadius = 100;
+        public int TargetMinOuterRadius
+        {
+            get { return targetMinOuterRadius; }
+            set { targetMinOuterRadius = value; }
+        }
+
+        private int targetMaxOuterRadius = 2000;
+        public int TargetMaxOuterRadius
+        {
+            get { return targetMaxOuterRadius; }
+            set { targetMaxOuterRadius = value; }
+        }
+
+        private float targetMinDistDeviation = 40.0f;
+        public float TargetMinDistDeviation
+        {
+            get { return targetMinDistDeviation; }
+            set { targetMinDistDeviation = value; }
+        }
+
+        private float targetMaxDistDeviation = 300.0f;
+        public float TargetMaxDistDeviation
+        {
+            get { return targetMaxDistDeviation; }
+            set { targetMaxDistDeviation = value; }
         }
 
         public bool Detect()
@@ -205,31 +240,40 @@ namespace BLTransfusion
             bool result = false;
             try
             {
-                ho_ImageMean.Dispose();
-                HOperatorSet.MeanImage(ho_ImageReduced, out ho_ImageMean, MaskWidth, MaskHeight);
-
-                ho_RegionDynThresh.Dispose();
-                HOperatorSet.DynThreshold(ho_ImageReduced, ho_ImageMean, out ho_RegionDynThresh, DynThreshOffset, "dark");
-
-                ho_RegionDilation.Dispose();
-                HOperatorSet.DilationCircle(ho_RegionDynThresh, out ho_RegionDilation, DilationErosionRadius);
+                if (SelectROI() == false)
+                {
+                    return false;
+                }
                 
+                //将分割的物体连接
+                ho_Ellipse.Dispose();
+                HOperatorSet.GenEllipse(out ho_Ellipse, 200, 200, 0, maskWidth, maskHeight);
+                ho_RegionDilation.Dispose();
+                HOperatorSet.Dilation1(ho_SelectedRegionsPre, ho_Ellipse, out ho_RegionDilation, 1);
+                ho_RegionUnion.Dispose();
+                HOperatorSet.Union1(ho_RegionDilation, out ho_RegionUnion);
                 ho_ConnectedRegions.Dispose();
-                HOperatorSet.Connection(ho_RegionDilation, out ho_ConnectedRegions);
+                HOperatorSet.Connection(ho_RegionUnion, out ho_ConnectedRegions);
 
-                ho_TargetRegions.Dispose();
-                HOperatorSet.SelectShape(ho_ConnectedRegions, out ho_TargetRegions,
-                    (new HTuple("area")).TupleConcat("rectangularity"), "and", (new HTuple(TargetMinArea)).TupleConcat(TargetMinRect), (new HTuple(TargetMaxArea)).TupleConcat(TargetMaxRect));
-
-                ho_RegionErosion.Dispose();
-                HOperatorSet.ErosionCircle(ho_TargetRegions, out ho_RegionErosion, DilationErosionRadius);
+                //目标选择
+                ho_SelectedRegions.Dispose();
+                HOperatorSet.SelectShape(ho_ConnectedRegions, out ho_SelectedRegions, 
+                    (((new HTuple("area")).TupleConcat("anisometry")).TupleConcat("outer_radius")).TupleConcat("dist_deviation"),
+                    "and",
+                    (((new HTuple(targetMinArea)).TupleConcat(targetMinAnisometry)).TupleConcat(targetMinOuterRadius)).TupleConcat(targetMinDistDeviation),
+                    (((new HTuple(targetMaxArea)).TupleConcat(targetMaxAnisometry)).TupleConcat(targetMaxOuterRadius)).TupleConcat(targetMaxDistDeviation));
 
                 //显示结果
+                HOperatorSet.CountObj(ho_SelectedRegions, out hv_Number);
+                this.WindowHandle.ClearWindow();
                 this.WindowHandle.DispObj(ho_Image);
-                HOperatorSet.CountObj(ho_RegionErosion, out hv_Number);
-                if ((int)(new HTuple(hv_Number.TupleGreaterEqual(1))) != 0)
+                if ((int)(new HTuple(hv_Number.TupleGreater(0))) != 0)
                 {
-                    WindowHandle.DispObj(ho_RegionErosion);
+                    ho_Skeleton.Dispose();
+                    HOperatorSet.Skeleton(ho_SelectedRegions, out ho_Skeleton);
+                    HOperatorSet.SetColor(windowHandle, "red");
+                    this.WindowHandle.DispObj(ho_Skeleton);
+                    this.WindowHandle.WriteString("                                                      不合格!");
                     result = true;
                 }
                 else
@@ -245,49 +289,28 @@ namespace BLTransfusion
             return result;
         }
 
-        public bool CalculateResult()
-        {
-            try
-            {
-                this.WindowHandle.DispObj(ho_Image);
-                HOperatorSet.CountObj(ho_RegionErosion, out hv_Number);
-
-                if (hv_Number > 0)
-                {
-                    this.WindowHandle.DispObj(ho_RegionErosion);
-                    this.WindowHandle.WriteString("                                                      不合格!");
-                }
-                else
-                {
-                    this.WindowHandle.WriteString("                                                      合格!");
-                }
-            }
-            catch (Exception)
-            {
-                //MessageBox.Show("计算结果错误！", "图像处理错误");
-            }
-
-            return true;
-        }
-
         public void SaveToXml()
         {
             try
             {
                 XDocument doc = new XDocument();
                 doc.Add(new XElement("ProcessSetting",
+                    new XAttribute("SeWidth", this.SeWidth),
+                    new XAttribute("SeHeight", this.SeHeight),
                     new XAttribute("RoiMinGray", this.RoiMinGray),
                     new XAttribute("RoiMaxGray", this.RoiMaxGray),
                     new XAttribute("RoiMinArea", this.RoiMinArea),
                     new XAttribute("RoiMaxArea", this.RoiMaxArea),
                     new XAttribute("MaskWidth", this.MaskWidth),
                     new XAttribute("MaskHeight", this.MaskHeight),
-                    new XAttribute("DynThreshOffset", this.DynThreshOffset),
-                    new XAttribute("DilationErosionRadius", this.DilationErosionRadius),
                     new XAttribute("TargetMinArea", this.TargetMinArea),
                     new XAttribute("TargetMaxArea", this.TargetMaxArea),
-                    new XAttribute("TargetMinRect", this.TargetMinRect),
-                    new XAttribute("TargetMaxRect", this.TargetMaxRect)));
+                    new XAttribute("TargetMinAnisometry", this.TargetMinAnisometry),
+                    new XAttribute("TargetMaxAnisometry", this.TargetMaxAnisometry),
+                    new XAttribute("TargetMinOuterRadius", this.TargetMinOuterRadius),
+                    new XAttribute("TargetMaxOuterRadius", this.TargetMaxOuterRadius),
+                    new XAttribute("TargetMinDistDeviation", this.TargetMinDistDeviation),
+                    new XAttribute("TargetMaxDistDeviation", this.TargetMaxDistDeviation)));
                 doc.Save("JunkDetectorConfig.xml");
                 MessageBox.Show("保存参数成功！");
             }
@@ -303,24 +326,23 @@ namespace BLTransfusion
             XElement root = doc.Root;
             try
             {
+                this.SeWidth = int.Parse(root.Attribute("SeWidth").Value);
+                this.SeHeight = int.Parse(root.Attribute("SeWidth").Value);
                 this.RoiMinGray = byte.Parse(root.Attribute("RoiMinGray").Value);
                 this.RoiMaxGray = byte.Parse(root.Attribute("RoiMaxGray").Value);
-
                 this.RoiMinArea = int.Parse(root.Attribute("RoiMinArea").Value);
                 this.RoiMaxArea = int.Parse(root.Attribute("RoiMaxArea").Value);
 
-                this.MaskWidth = int.Parse(root.Attribute("MaskWidth").Value);
-                this.MaskHeight = int.Parse(root.Attribute("MaskHeight").Value);
-
-                this.DynThreshOffset = int.Parse(root.Attribute("DynThreshOffset").Value);
-
-                this.DilationErosionRadius = double.Parse(root.Attribute("DilationErosionRadius").Value);
-
+                this.MaskWidth = float.Parse(root.Attribute("MaskWidth").Value);
+                this.MaskHeight = float.Parse(root.Attribute("MaskHeight").Value);
                 this.TargetMinArea = int.Parse(root.Attribute("TargetMinArea").Value);
                 this.TargetMaxArea = int.Parse(root.Attribute("TargetMaxArea").Value);
-
-                this.TargetMinRect = float.Parse(root.Attribute("TargetMinRect").Value);
-                this.TargetMaxRect = float.Parse(root.Attribute("TargetMaxRect").Value);
+                this.TargetMinAnisometry = float.Parse(root.Attribute("TargetMinAnisometry").Value);
+                this.TargetMaxAnisometry = float.Parse(root.Attribute("TargetMaxAnisometry").Value);
+                this.TargetMinOuterRadius = int.Parse(root.Attribute("TargetMinOuterRadius").Value);
+                this.TargetMaxOuterRadius = int.Parse(root.Attribute("TargetMaxOuterRadius").Value);
+                this.TargetMinDistDeviation = float.Parse(root.Attribute("TargetMinDistDeviation").Value);
+                this.TargetMaxDistDeviation = float.Parse(root.Attribute("TargetMaxDistDeviation").Value);
             }
             catch (Exception)
             {

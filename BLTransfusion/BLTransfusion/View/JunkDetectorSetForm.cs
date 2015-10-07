@@ -20,6 +20,9 @@ namespace BLTransfusion
             {
                 detector = value;
 
+                this.tbSEWidth.DataBindings.Add("Text", detector, "SeWidth");
+                this.tbSEHeight.DataBindings.Add("Text", detector, "SeHeight");
+
                 this.tbRoiMinGray.DataBindings.Add("Text", detector, "RoiMinGray");
                 this.tbRoiMaxGray.DataBindings.Add("Text", detector, "RoiMaxGray");
 
@@ -29,14 +32,17 @@ namespace BLTransfusion
                 this.tbMaskWidth.DataBindings.Add("Text", detector, "MaskWidth");
                 this.tbMaskHeight.DataBindings.Add("Text", detector, "MaskHeight");
 
-                this.tbDynThrehOffset.DataBindings.Add("Text", detector, "DynThreshOffset");
-                this.tbDilaEroRadius.DataBindings.Add("Text", detector, "DilationErosionRadius");
-
                 this.tbTartgetMinArea.DataBindings.Add("Text", detector, "TargetMinArea");
                 this.tbTargetMaxArea.DataBindings.Add("Text", detector, "TargetMaxArea");
 
-                this.tbTargetMinRect.DataBindings.Add("Text", detector, "TargetMinRect");
-                this.tbTargetMaxRect.DataBindings.Add("Text", detector, "TargetMaxRect");
+                this.tbTargetMinAnisometry.DataBindings.Add("Text", detector, "TargetMinAnisometry");
+                this.tbTargetMaxAnisometry.DataBindings.Add("Text", detector, "TargetMaxAnisometry");
+
+                this.tbTargetMinOuterRadius.DataBindings.Add("Text", detector, "TargetMinOuterRadius");
+                this.tbTargetMaxOuterRadius.DataBindings.Add("Text", detector, "TargetMaxOuterRadius");
+
+                this.tbTargetMinDeviation.DataBindings.Add("Text", detector, "TargetMinDistDeviation");
+                this.tbTargetMaxDeviation.DataBindings.Add("Text", detector, "TargetMaxDistDeviation");
             }
         }
 
