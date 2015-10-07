@@ -37,7 +37,7 @@ namespace BLTransfusion.Model
             set { imagePath = value; }
         }
 
-        private emDSFileType imageFileType = CGSDK.emDSFileType.FILE_BMP;
+        private emDSFileType imageFileType = CGSDK.emDSFileType.FILE_JPG;
         public emDSFileType ImageFileType
         {
             get { return imageFileType; }

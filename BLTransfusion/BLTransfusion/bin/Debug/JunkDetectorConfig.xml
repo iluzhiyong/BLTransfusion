@@ -1,2 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ProcessSetting RoiMinGray="30" RoiMaxGray="255" RoiMinArea="80000" RoiMaxArea="50000000" MaskWidth="9" MaskHeight="9" DynThreshOffset="9" DilationErosionRadius="10" TargetMinArea="100000" TargetMaxArea="300000" TargetMinRect="0" TargetMaxRect="0.2" />
+<ProcessSetting RoiMinGray="30" RoiMaxGray="255" RoiMinArea="80000" RoiMaxArea="50000000" MaskWidth="5" MaskHeight="5" DynThreshOffset="15" DilationErosionRadius="6" TargetMinArea="10000" TargetMaxArea="30000" TargetMinRect="0" TargetMaxRect="0.2" />

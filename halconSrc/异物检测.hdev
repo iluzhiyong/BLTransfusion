@@ -3,36 +3,46 @@
 <procedure name="main">
 <interface/>
 <body>
-<l>dev_open_window(0, 0, 640, 480, 'black', WindowHandle)</l>
 <c>************************打开图片*********************************************</c>
 <c>*----------------------------------------------------------------------------</c>
-<l>read_image(Image,'G:/Project/TransfusionDevice/Pic/IMG_1147.JPG')</l>
-<l>dev_display(Image)</l>
+<l>read_image(Image, 'G:/Project/TransfusionDevice/Pic/IMG_1165.JPG')</l>
 <c>*----------------------------------------------------------------------------</c>
 <c></c>
 <c>************************选择ROI**********************************************</c>
 <c>*----------------------------------------------------------------------------</c>
-<c>*阈值,可外部设置选择条件</c>
-<l>threshold (Image, Regions, 30, 255)</l>
-<l>connection(Regions, ConnectedRegions)</l>
-<c>*面积,可外部设置选择条件</c>
-<l>select_shape (ConnectedRegions, SelectedRegions, 'area', 'and', 800, 150000000)</l>
-<l>reduce_domain(Image, SelectedRegions,ImageReduced)</l>
+<l>* rgb1_to_gray(Image, GrayImage)</l>
+<l>decompose3(Image, ImageR, ImageG, ImageB)</l>
+<c></c>
+<c>*利用饱和度，去除蓝色的部分（包括结构件和线条）</c>
+<l>trans_from_rgb(ImageR, ImageG, ImageB, H, S, V,'hsv')</l>
+<l>threshold(S, RegionThreshold, 30, 255)</l>
+<l>dilation_circle(RegionThreshold, RegionDilation, 5)</l>
+<l>complement(RegionDilation, RegionComplement)</l>
+<l>reduce_domain(Image, RegionComplement, ImageReducedS)</l>
+<c></c>
+<c>*利用某个通道，去除一些大的结构件，防止其边缘干扰检测</c>
+<l>threshold(ImageB, RegionB, 0, 120)</l>
+<l>connection(RegionB, ConnectedRegionsB)</l>
+<l>select_shape(ConnectedRegionsB, SelectedRegionsB,'area', 'and', 50000, 200000)</l>
+<l>dilation_circle(SelectedRegionsB, RegionDilationB, 21)</l>
+<l>complement(RegionDilationB, RegionComplement1)</l>
+<l>reduce_domain(ImageReducedS, RegionComplement1, ImageReduced)</l>
+<l>stop()</l>
 <c>*----------------------------------------------------------------------------</c>
 <c></c>
 <c>************************提取被测物*******************************************</c>
 <c>*----------------------------------------------------------------------------</c>
 <c>*Mask宽度、高度,可外部设置选择条件</c>
-<l>mean_image (ImageReduced, ImageMean, 9, 9) </l>
+<l>mean_image (ImageReduced, ImageMean, 11, 11) </l>
+<l>* gauss_filter(ImageReduced, ImageMean, 11)</l>
 <c>*Offset可外部调节</c>
-<l>dyn_threshold (ImageReduced, ImageMean, RegionDynThresh, 9, 'dark')</l>
-<c>*膨胀用结构元素半径,可外部设置选择条件</c>
-<l>dilation_circle(RegionDynThresh, RegionDilation, 10)</l>
+<l>dyn_threshold (ImageReduced, ImageMean, RegionDynThresh, 15, 'dark')</l>
+<c>*膨胀用结构元素半径,可外部设置选择条件S</c>
+<l>dilation_circle(RegionDynThresh, RegionDilation, 17)</l>
 <l>connection (RegionDilation, ConnectedRegions)</l>
-<l>stop()</l>
 <c>*检测目标面积,可外部设置选择条件</c>
-<l>select_shape (ConnectedRegions, TargetRegions, ['area', 'rectangularity'], 'and', [100000, 0], [300000,0.2])</l>
-<l>erosion_circle(TargetRegions, RegionErosion, 10)</l>
+<l>select_shape (ConnectedRegions, TargetRegions, ['area', 'rectangularity'], 'and', [20000, 0], [35000, 1])</l>
+<l>erosion_circle(TargetRegions, RegionErosion, 15)</l>
 <c>*----------------------------------------------------------------------------</c>
 <c></c>
 <c>************************显示结果**********************************************</c>

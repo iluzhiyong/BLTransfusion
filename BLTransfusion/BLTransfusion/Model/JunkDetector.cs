@@ -68,10 +68,12 @@ namespace BLTransfusion
         HTuple hv_Width = new HTuple();
         HTuple hv_Height = new HTuple(), hv_Number = new HTuple();
 
+        private string imagePath = "image";
         public bool LoadImage(string imagePath)
         {
             try
             {
+                imagePath = imagePath;
                 ho_Image.Dispose();
                 HOperatorSet.ReadImage(out ho_Image, imagePath);
                 HOperatorSet.GetImageSize(ho_Image, out hv_Width, out hv_Height);
@@ -134,6 +136,7 @@ namespace BLTransfusion
         {
             try
             {
+                LoadImage(imagePath);
                 ho_Regions.Dispose();
                 HOperatorSet.Threshold(ho_Image, out ho_Regions, RoiMinGray, RoiMaxGray);
                 ho_ConnectedRegions.Dispose();
