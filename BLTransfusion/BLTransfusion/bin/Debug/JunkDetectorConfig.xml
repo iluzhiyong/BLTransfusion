@@ -1,2 +1,2 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ProcessSetting SeWidth="3" SeHeight="3" RoiMinGray="20" RoiMaxGray="255" RoiMinArea="5" RoiMaxArea="99999" MaskWidth="30" MaskHeight="30" TargetMinArea="15000" TargetMaxArea="999999" TargetMinAnisometry="1.5" TargetMaxAnisometry="10" TargetMinOuterRadius="100" TargetMaxOuterRadius="2000" TargetMinDistDeviation="40" TargetMaxDistDeviation="300" />
+<ProcessSetting SeWidth="3" SeHeight="3" RoiMinGray="10" RoiMaxGray="255" RoiMinArea="5" RoiMaxArea="99999" MaskWidth="30" MaskHeight="30" TargetMinArea="15000" TargetMaxArea="999999" TargetMinAnisometry="1.5" TargetMaxAnisometry="10" TargetMinOuterRadius="100" TargetMaxOuterRadius="2000" TargetMinDistDeviation="40" TargetMaxDistDeviation="300" />

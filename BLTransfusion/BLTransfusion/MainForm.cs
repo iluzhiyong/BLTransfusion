@@ -27,6 +27,8 @@ namespace BLTransfusion
         {
             InitializeComponent();
 
+            this.WindowState = FormWindowState.Maximized;
+
             imageDispWnd = ImageDispForm.CreateFrom();
             imageDispWnd.MdiParent = this;
             imageDispWnd.Show();
@@ -633,6 +635,36 @@ namespace BLTransfusion
             {
                 //MessageBox.Show("加载参数失败！", "错误");
             }
+        }
+
+        private void toolStripButton_ConnectCamera_Click(object sender, EventArgs e)
+        {
+            openCameraMenuItem_Click(sender, e);
+        }
+
+        private void toolStripButton_Snap_Click(object sender, EventArgs e)
+        {
+            snapshotMenuItem_Click(sender, e);
+        }
+
+        private void toolStripButton_CameraSet_Click(object sender, EventArgs e)
+        {
+            cameraSettingMenuItem_Click(sender, e);
+        }
+
+        private void toolStripButton_AutoStart_Click(object sender, EventArgs e)
+        {
+            autoDetect_Click(sender, e);
+        }
+
+        private void toolStripButton_AutoStop_Click(object sender, EventArgs e)
+        {
+            stopDetect_Click(sender, e);
+        }
+
+        private void toolStripButton_ClearResult_Click(object sender, EventArgs e)
+        {
+            clearRecordMenuItem_Click(sender, e);
         }
 
     }

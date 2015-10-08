@@ -48,6 +48,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 442);
+            this.ControlBox = false;
             this.Controls.Add(this.pB_Image);
             this.Name = "ImageDispForm";
             this.Text = "相机实时采集窗口";

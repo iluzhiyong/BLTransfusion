@@ -50,6 +50,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(624, 442);
+            this.ControlBox = false;
             this.Controls.Add(this.hWindowControl1);
             this.Name = "ImageProcForm";
             this.Text = "图像处理窗口";

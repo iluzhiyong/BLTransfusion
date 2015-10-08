@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.TsCameraStatus = new System.Windows.Forms.ToolStripStatusLabel();
             this.TsQualifiedCntTitle = new System.Windows.Forms.ToolStripStatusLabel();
@@ -61,8 +62,17 @@
             this.WndLayoutHorizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.WndLayoutVertical = new System.Windows.Forms.ToolStripMenuItem();
             this.WndLayoutCascade = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.toolStripButton_ConnectCamera = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_Snap = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_CameraSet = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripButton_AutoStart = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_AutoStop = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_ClearResult = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // TsCameraStatus
@@ -161,33 +171,33 @@
             // openCameraMenuItem
             // 
             this.openCameraMenuItem.Name = "openCameraMenuItem";
-            this.openCameraMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.openCameraMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openCameraMenuItem.Text = "启动相机";
             this.openCameraMenuItem.Click += new System.EventHandler(this.openCameraMenuItem_Click);
             // 
             // snapshotMenuItem
             // 
             this.snapshotMenuItem.Name = "snapshotMenuItem";
-            this.snapshotMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.snapshotMenuItem.Size = new System.Drawing.Size(152, 22);
             this.snapshotMenuItem.Text = "拍摄照片";
             this.snapshotMenuItem.Click += new System.EventHandler(this.snapshotMenuItem_Click);
             // 
             // closeCameraMenuItem
             // 
             this.closeCameraMenuItem.Name = "closeCameraMenuItem";
-            this.closeCameraMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.closeCameraMenuItem.Size = new System.Drawing.Size(152, 22);
             this.closeCameraMenuItem.Text = "关闭相机";
             this.closeCameraMenuItem.Click += new System.EventHandler(this.closeCameraMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(121, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(149, 6);
             // 
             // cameraSettingMenuItem
             // 
             this.cameraSettingMenuItem.Name = "cameraSettingMenuItem";
-            this.cameraSettingMenuItem.Size = new System.Drawing.Size(124, 22);
+            this.cameraSettingMenuItem.Size = new System.Drawing.Size(152, 22);
             this.cameraSettingMenuItem.Text = "相机设定";
             this.cameraSettingMenuItem.Click += new System.EventHandler(this.cameraSettingMenuItem_Click);
             // 
@@ -314,11 +324,100 @@
             this.WndLayoutCascade.Text = "层叠排列";
             this.WndLayoutCascade.Click += new System.EventHandler(this.WndLayoutCascade_Click);
             // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripButton_ConnectCamera,
+            this.toolStripButton_Snap,
+            this.toolStripButton_CameraSet,
+            this.toolStripSeparator1,
+            this.toolStripButton_AutoStart,
+            this.toolStripButton_AutoStop,
+            this.toolStripButton_ClearResult});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(945, 25);
+            this.toolStrip1.TabIndex = 13;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // toolStripButton_ConnectCamera
+            // 
+            this.toolStripButton_ConnectCamera.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_ConnectCamera.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_ConnectCamera.Image")));
+            this.toolStripButton_ConnectCamera.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_ConnectCamera.Name = "toolStripButton_ConnectCamera";
+            this.toolStripButton_ConnectCamera.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_ConnectCamera.Text = "toolStripButton_ConnectCame";
+            this.toolStripButton_ConnectCamera.ToolTipText = "启动相机";
+            this.toolStripButton_ConnectCamera.Click += new System.EventHandler(this.toolStripButton_ConnectCamera_Click);
+            // 
+            // toolStripButton_Snap
+            // 
+            this.toolStripButton_Snap.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_Snap.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_Snap.Image")));
+            this.toolStripButton_Snap.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_Snap.Name = "toolStripButton_Snap";
+            this.toolStripButton_Snap.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_Snap.Text = "toolStripButton_Snap";
+            this.toolStripButton_Snap.ToolTipText = "拍摄照片";
+            this.toolStripButton_Snap.Click += new System.EventHandler(this.toolStripButton_Snap_Click);
+            // 
+            // toolStripButton_CameraSet
+            // 
+            this.toolStripButton_CameraSet.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_CameraSet.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_CameraSet.Image")));
+            this.toolStripButton_CameraSet.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_CameraSet.Name = "toolStripButton_CameraSet";
+            this.toolStripButton_CameraSet.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_CameraSet.Text = "toolStripButton_CameraSet";
+            this.toolStripButton_CameraSet.ToolTipText = "相机设定";
+            this.toolStripButton_CameraSet.Click += new System.EventHandler(this.toolStripButton_CameraSet_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripButton_AutoStart
+            // 
+            this.toolStripButton_AutoStart.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_AutoStart.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_AutoStart.Image")));
+            this.toolStripButton_AutoStart.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_AutoStart.Name = "toolStripButton_AutoStart";
+            this.toolStripButton_AutoStart.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_AutoStart.Text = "toolStripButton_AutoStart";
+            this.toolStripButton_AutoStart.ToolTipText = "自动检测";
+            this.toolStripButton_AutoStart.Click += new System.EventHandler(this.toolStripButton_AutoStart_Click);
+            // 
+            // toolStripButton_AutoStop
+            // 
+            this.toolStripButton_AutoStop.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_AutoStop.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_AutoStop.Image")));
+            this.toolStripButton_AutoStop.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_AutoStop.Name = "toolStripButton_AutoStop";
+            this.toolStripButton_AutoStop.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_AutoStop.Text = "toolStripButton_AutoStop";
+            this.toolStripButton_AutoStop.ToolTipText = "停止检测";
+            this.toolStripButton_AutoStop.Click += new System.EventHandler(this.toolStripButton_AutoStop_Click);
+            // 
+            // toolStripButton_ClearResult
+            // 
+            this.toolStripButton_ClearResult.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_ClearResult.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_ClearResult.Image")));
+            this.toolStripButton_ClearResult.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_ClearResult.Name = "toolStripButton_ClearResult";
+            this.toolStripButton_ClearResult.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_ClearResult.Text = "toolStripButton_ClearResult";
+            this.toolStripButton_ClearResult.ToolTipText = "清空记录";
+            this.toolStripButton_ClearResult.Click += new System.EventHandler(this.toolStripButton_ClearResult_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(945, 569);
+            this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
             this.IsMdiContainer = true;
@@ -326,10 +425,13 @@
             this.Name = "MainForm";
             this.Text = "输液器检测";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -369,6 +471,14 @@
         private System.Windows.Forms.ToolStripMenuItem cameraSettingMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearRecordMenuItem;
         private System.Windows.Forms.ToolStripMenuItem MenuImgProcAlgorithmSet;
+        private System.Windows.Forms.ToolStrip toolStrip1;
+        private System.Windows.Forms.ToolStripButton toolStripButton_ConnectCamera;
+        private System.Windows.Forms.ToolStripButton toolStripButton_Snap;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
+        private System.Windows.Forms.ToolStripButton toolStripButton_AutoStart;
+        private System.Windows.Forms.ToolStripButton toolStripButton_AutoStop;
+        private System.Windows.Forms.ToolStripButton toolStripButton_CameraSet;
+        private System.Windows.Forms.ToolStripButton toolStripButton_ClearResult;
     }
 }
 
