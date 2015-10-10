@@ -50,6 +50,7 @@
             this.ClientSize = new System.Drawing.Size(624, 442);
             this.ControlBox = false;
             this.Controls.Add(this.pB_Image);
+            this.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.Name = "ImageDispForm";
             this.Text = "相机实时采集窗口";
             ((System.ComponentModel.ISupportInitialize)(this.pB_Image)).EndInit();

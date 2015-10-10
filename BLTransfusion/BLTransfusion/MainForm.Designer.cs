@@ -79,26 +79,27 @@
             // 
             this.TsCameraStatus.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.TsCameraStatus.Name = "TsCameraStatus";
-            this.TsCameraStatus.Size = new System.Drawing.Size(108, 21);
+            this.TsCameraStatus.Size = new System.Drawing.Size(105, 17);
             this.TsCameraStatus.Text = "相机状态：未连接";
             // 
             // TsQualifiedCntTitle
             // 
             this.TsQualifiedCntTitle.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.TsQualifiedCntTitle.Name = "TsQualifiedCntTitle";
-            this.TsQualifiedCntTitle.Size = new System.Drawing.Size(64, 21);
+            this.TsQualifiedCntTitle.Size = new System.Drawing.Size(63, 17);
             this.TsQualifiedCntTitle.Text = "合格数： ";
             // 
             // TsUnqualifiedCntTitle
             // 
             this.TsUnqualifiedCntTitle.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.TsUnqualifiedCntTitle.Name = "TsUnqualifiedCntTitle";
-            this.TsUnqualifiedCntTitle.Size = new System.Drawing.Size(76, 21);
+            this.TsUnqualifiedCntTitle.Size = new System.Drawing.Size(75, 17);
             this.TsUnqualifiedCntTitle.Text = "不合格数： ";
             // 
             // statusStrip1
             // 
             this.statusStrip1.BackColor = System.Drawing.SystemColors.MenuBar;
+            this.statusStrip1.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.statusStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.TsCameraStatus,
@@ -108,10 +109,10 @@
             this.TsQualifiedCnt,
             this.TsUnqualifiedCntTitle,
             this.TsUnqualifiedCnt});
-            this.statusStrip1.Location = new System.Drawing.Point(0, 543);
+            this.statusStrip1.Location = new System.Drawing.Point(0, 547);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.statusStrip1.Size = new System.Drawing.Size(945, 26);
+            this.statusStrip1.Size = new System.Drawing.Size(944, 22);
             this.statusStrip1.TabIndex = 10;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -119,30 +120,31 @@
             // 
             this.TsUartStatus.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.TsUartStatus.Name = "TsUartStatus";
-            this.TsUartStatus.Size = new System.Drawing.Size(96, 21);
+            this.TsUartStatus.Size = new System.Drawing.Size(93, 17);
             this.TsUartStatus.Text = "串口状态：关闭";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(556, 21);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(571, 17);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // TsQualifiedCnt
             // 
             this.TsQualifiedCnt.Name = "TsQualifiedCnt";
-            this.TsQualifiedCnt.Size = new System.Drawing.Size(15, 21);
+            this.TsQualifiedCnt.Size = new System.Drawing.Size(11, 17);
             this.TsQualifiedCnt.Text = "0";
             // 
             // TsUnqualifiedCnt
             // 
             this.TsUnqualifiedCnt.Name = "TsUnqualifiedCnt";
-            this.TsUnqualifiedCnt.Size = new System.Drawing.Size(15, 21);
+            this.TsUnqualifiedCnt.Size = new System.Drawing.Size(11, 17);
             this.TsUnqualifiedCnt.Text = "0";
             // 
             // menuStrip1
             // 
             this.menuStrip1.BackColor = System.Drawing.SystemColors.Menu;
+            this.menuStrip1.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.menuStrip1.GripStyle = System.Windows.Forms.ToolStripGripStyle.Visible;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.相机ToolStripMenuItem,
@@ -151,8 +153,9 @@
             this.WndLayout});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Padding = new System.Windows.Forms.Padding(2, 2, 0, 2);
             this.menuStrip1.RenderMode = System.Windows.Forms.ToolStripRenderMode.Professional;
-            this.menuStrip1.Size = new System.Drawing.Size(945, 25);
+            this.menuStrip1.Size = new System.Drawing.Size(944, 24);
             this.menuStrip1.TabIndex = 11;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -165,39 +168,39 @@
             this.toolStripMenuItem4,
             this.cameraSettingMenuItem});
             this.相机ToolStripMenuItem.Name = "相机ToolStripMenuItem";
-            this.相机ToolStripMenuItem.Size = new System.Drawing.Size(44, 21);
+            this.相机ToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
             this.相机ToolStripMenuItem.Text = "相机";
             // 
             // openCameraMenuItem
             // 
             this.openCameraMenuItem.Name = "openCameraMenuItem";
-            this.openCameraMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.openCameraMenuItem.Size = new System.Drawing.Size(118, 22);
             this.openCameraMenuItem.Text = "启动相机";
             this.openCameraMenuItem.Click += new System.EventHandler(this.openCameraMenuItem_Click);
             // 
             // snapshotMenuItem
             // 
             this.snapshotMenuItem.Name = "snapshotMenuItem";
-            this.snapshotMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.snapshotMenuItem.Size = new System.Drawing.Size(118, 22);
             this.snapshotMenuItem.Text = "拍摄照片";
             this.snapshotMenuItem.Click += new System.EventHandler(this.snapshotMenuItem_Click);
             // 
             // closeCameraMenuItem
             // 
             this.closeCameraMenuItem.Name = "closeCameraMenuItem";
-            this.closeCameraMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.closeCameraMenuItem.Size = new System.Drawing.Size(118, 22);
             this.closeCameraMenuItem.Text = "关闭相机";
             this.closeCameraMenuItem.Click += new System.EventHandler(this.closeCameraMenuItem_Click);
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(115, 6);
             // 
             // cameraSettingMenuItem
             // 
             this.cameraSettingMenuItem.Name = "cameraSettingMenuItem";
-            this.cameraSettingMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.cameraSettingMenuItem.Size = new System.Drawing.Size(118, 22);
             this.cameraSettingMenuItem.Text = "相机设定";
             this.cameraSettingMenuItem.Click += new System.EventHandler(this.cameraSettingMenuItem_Click);
             // 
@@ -211,46 +214,46 @@
             this.clearRecordMenuItem,
             this.MenuImgProcAlgorithmSet});
             this.MenuItemImageProcOpen.Name = "MenuItemImageProcOpen";
-            this.MenuItemImageProcOpen.Size = new System.Drawing.Size(68, 21);
+            this.MenuItemImageProcOpen.Size = new System.Drawing.Size(65, 20);
             this.MenuItemImageProcOpen.Text = "图像处理";
             // 
             // manualDetect
             // 
             this.manualDetect.Name = "manualDetect";
-            this.manualDetect.Size = new System.Drawing.Size(152, 22);
+            this.manualDetect.Size = new System.Drawing.Size(118, 22);
             this.manualDetect.Text = "手动检测";
             this.manualDetect.Click += new System.EventHandler(this.manualDetect_Click);
             // 
             // autoDetect
             // 
             this.autoDetect.Name = "autoDetect";
-            this.autoDetect.Size = new System.Drawing.Size(152, 22);
+            this.autoDetect.Size = new System.Drawing.Size(118, 22);
             this.autoDetect.Text = "自动检测";
             this.autoDetect.Click += new System.EventHandler(this.autoDetect_Click);
             // 
             // stopDetect
             // 
             this.stopDetect.Name = "stopDetect";
-            this.stopDetect.Size = new System.Drawing.Size(152, 22);
+            this.stopDetect.Size = new System.Drawing.Size(118, 22);
             this.stopDetect.Text = "停止检测";
             this.stopDetect.Click += new System.EventHandler(this.stopDetect_Click);
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(149, 6);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(115, 6);
             // 
             // clearRecordMenuItem
             // 
             this.clearRecordMenuItem.Name = "clearRecordMenuItem";
-            this.clearRecordMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.clearRecordMenuItem.Size = new System.Drawing.Size(118, 22);
             this.clearRecordMenuItem.Text = "清空记录";
             this.clearRecordMenuItem.Click += new System.EventHandler(this.clearRecordMenuItem_Click);
             // 
             // MenuImgProcAlgorithmSet
             // 
             this.MenuImgProcAlgorithmSet.Name = "MenuImgProcAlgorithmSet";
-            this.MenuImgProcAlgorithmSet.Size = new System.Drawing.Size(152, 22);
+            this.MenuImgProcAlgorithmSet.Size = new System.Drawing.Size(118, 22);
             this.MenuImgProcAlgorithmSet.Text = "算法设置";
             this.MenuImgProcAlgorithmSet.Click += new System.EventHandler(this.MenuImgProcAlgorithmSet_Click);
             // 
@@ -262,34 +265,34 @@
             this.MenuOpenRelay,
             this.MenuCloseRelay});
             this.iOToolStripMenuItem.Name = "iOToolStripMenuItem";
-            this.iOToolStripMenuItem.Size = new System.Drawing.Size(34, 21);
+            this.iOToolStripMenuItem.Size = new System.Drawing.Size(29, 20);
             this.iOToolStripMenuItem.Text = "IO";
             // 
             // MenuOpenUART
             // 
             this.MenuOpenUART.Name = "MenuOpenUART";
-            this.MenuOpenUART.Size = new System.Drawing.Size(136, 22);
+            this.MenuOpenUART.Size = new System.Drawing.Size(130, 22);
             this.MenuOpenUART.Text = "打开串口";
             this.MenuOpenUART.Click += new System.EventHandler(this.MenuOpenUART_Click);
             // 
             // MenuCloseUART
             // 
             this.MenuCloseUART.Name = "MenuCloseUART";
-            this.MenuCloseUART.Size = new System.Drawing.Size(136, 22);
+            this.MenuCloseUART.Size = new System.Drawing.Size(130, 22);
             this.MenuCloseUART.Text = "关闭串口";
             this.MenuCloseUART.Click += new System.EventHandler(this.MenuCloseUART_Click);
             // 
             // MenuOpenRelay
             // 
             this.MenuOpenRelay.Name = "MenuOpenRelay";
-            this.MenuOpenRelay.Size = new System.Drawing.Size(136, 22);
+            this.MenuOpenRelay.Size = new System.Drawing.Size(130, 22);
             this.MenuOpenRelay.Text = "打开继电器";
             this.MenuOpenRelay.Click += new System.EventHandler(this.MenuOpenRelay_Click);
             // 
             // MenuCloseRelay
             // 
             this.MenuCloseRelay.Name = "MenuCloseRelay";
-            this.MenuCloseRelay.Size = new System.Drawing.Size(136, 22);
+            this.MenuCloseRelay.Size = new System.Drawing.Size(130, 22);
             this.MenuCloseRelay.Text = "关闭继电器";
             this.MenuCloseRelay.Click += new System.EventHandler(this.MenuCloseRelay_Click);
             // 
@@ -300,33 +303,33 @@
             this.WndLayoutVertical,
             this.WndLayoutCascade});
             this.WndLayout.Name = "WndLayout";
-            this.WndLayout.Size = new System.Drawing.Size(44, 21);
+            this.WndLayout.Size = new System.Drawing.Size(41, 20);
             this.WndLayout.Text = "窗口";
             // 
             // WndLayoutHorizontal
             // 
             this.WndLayoutHorizontal.Name = "WndLayoutHorizontal";
-            this.WndLayoutHorizontal.Size = new System.Drawing.Size(124, 22);
+            this.WndLayoutHorizontal.Size = new System.Drawing.Size(118, 22);
             this.WndLayoutHorizontal.Text = "水平平铺";
             this.WndLayoutHorizontal.Click += new System.EventHandler(this.WndLayoutHorizontal_Click);
             // 
             // WndLayoutVertical
             // 
             this.WndLayoutVertical.Name = "WndLayoutVertical";
-            this.WndLayoutVertical.Size = new System.Drawing.Size(124, 22);
+            this.WndLayoutVertical.Size = new System.Drawing.Size(118, 22);
             this.WndLayoutVertical.Text = "垂直平铺";
             this.WndLayoutVertical.Click += new System.EventHandler(this.WndLayoutVertical_Click);
             // 
             // WndLayoutCascade
             // 
             this.WndLayoutCascade.Name = "WndLayoutCascade";
-            this.WndLayoutCascade.Size = new System.Drawing.Size(124, 22);
+            this.WndLayoutCascade.Size = new System.Drawing.Size(118, 22);
             this.WndLayoutCascade.Text = "层叠排列";
             this.WndLayoutCascade.Click += new System.EventHandler(this.WndLayoutCascade_Click);
             // 
             // toolStrip1
             // 
-            this.toolStrip1.Font = new System.Drawing.Font("Microsoft YaHei", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.toolStrip1.Font = new System.Drawing.Font("NSimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripButton_ConnectCamera,
             this.toolStripButton_Snap,
@@ -335,9 +338,9 @@
             this.toolStripButton_AutoStart,
             this.toolStripButton_AutoStop,
             this.toolStripButton_ClearResult});
-            this.toolStrip1.Location = new System.Drawing.Point(0, 25);
+            this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(945, 25);
+            this.toolStrip1.Size = new System.Drawing.Size(944, 25);
             this.toolStrip1.TabIndex = 13;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -416,14 +419,16 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(945, 569);
+            this.ClientSize = new System.Drawing.Size(944, 569);
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip1);
+            this.Font = new System.Drawing.Font("YouYuan", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.IsMdiContainer = true;
             this.MainMenuStrip = this.menuStrip1;
+            this.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.Name = "MainForm";
-            this.Text = "输液器检测";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.statusStrip1.ResumeLayout(false);
