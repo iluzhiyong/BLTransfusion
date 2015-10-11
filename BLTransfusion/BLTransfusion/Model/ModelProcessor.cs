@@ -218,8 +218,10 @@ namespace BLTransfusion.Model
             }
             try
             {
-                XDocument doc = new XDocument();
-                var models = new XElement("Models");
+                XDocument doc = XDocument.Load("config.xml");
+                doc.Root.Element("ModelsConfig").Remove();
+                var models = new XElement("ModelsConfig");
+
                 foreach (var model in this.Models)
                 {
                     var elem = model.ToXElement();
@@ -228,8 +230,8 @@ namespace BLTransfusion.Model
                         models.Add(model.ToXElement());
                     }
                 }
-                doc.Add(models);
-                doc.Save("ModelsDetectorConfig.xml");
+                doc.Root.Add(models);
+                doc.Save("config.xml");
             }
             catch(Exception ex)
             {
@@ -245,11 +247,13 @@ namespace BLTransfusion.Model
         {
             try
             {
-                XDocument doc = XDocument.Load("ModelsDetectorConfig.xml");
-                if (doc.Root != null && doc.Root.Elements("ModelInfo") != null && doc.Root.Elements("ModelInfo").Count() > 0)
+                XDocument doc = XDocument.Load("config.xml");
+                XElement myConfig = doc.Root.Element("ModelsConfig");
+
+                if (doc.Root != null && myConfig.Elements("ModelInfo") != null && myConfig.Elements("ModelInfo").Count() > 0)
                 {
                     this.Models.Clear();
-                    foreach (var icmodelElement in doc.Root.Elements("ModelInfo"))
+                    foreach (var icmodelElement in myConfig.Elements("ModelInfo"))
                     {
                         var model = new ShapeModelMatchProcess();
                         model.WindowHandle = windowHandle;

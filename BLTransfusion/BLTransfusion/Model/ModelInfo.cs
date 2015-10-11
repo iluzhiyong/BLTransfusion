@@ -20,11 +20,11 @@ namespace BLTransfusion.Model
 
             //icXElement.Add(new XAttribute("Label", this.Label.ToString()));    
 
-            element.Add(new XAttribute("RowTop", this.RowTop.ToString()));      
-            element.Add(new XAttribute("RowBottom", this.RowBottom.ToString()));
+            element.Add(new XElement("RowTop", this.RowTop.ToString()));
+            element.Add(new XElement("RowBottom", this.RowBottom.ToString()));
 
-            element.Add(new XAttribute("ColumnLeft", this.ColumnLeft.ToString()));
-            element.Add(new XAttribute("ColumnRight", this.ColumnRight.ToString()));
+            element.Add(new XElement("ColumnLeft", this.ColumnLeft.ToString()));
+            element.Add(new XElement("ColumnRight", this.ColumnRight.ToString()));
 
             return element;
         }
@@ -35,10 +35,10 @@ namespace BLTransfusion.Model
             {
                 //this.Label = icXElement.Attribute("Label").Value;
 
-                this.RowTop = double.Parse(element.Attribute("RowTop").Value);
-                this.RowBottom = double.Parse(element.Attribute("RowBottom").Value);
-                this.ColumnLeft = double.Parse(element.Attribute("ColumnLeft").Value);
-                this.ColumnRight = double.Parse(element.Attribute("ColumnRight").Value);
+                this.RowTop = double.Parse(element.Element("RowTop").Value);
+                this.RowBottom = double.Parse(element.Element("RowBottom").Value);
+                this.ColumnLeft = double.Parse(element.Element("ColumnLeft").Value);
+                this.ColumnRight = double.Parse(element.Element("ColumnRight").Value);
             }
             catch
             {

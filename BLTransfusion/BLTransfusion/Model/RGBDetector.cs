@@ -261,17 +261,19 @@ namespace BLTransfusion
         {
             try
             {
-                XDocument doc = new XDocument();
-                doc.Add(new XElement("RGBSetting",
-                    new XAttribute("RedMinGray", this.RedMinGray),
-                    new XAttribute("RedMaxGray", this.RedMaxGray),
-                    new XAttribute("GreenMinGray", this.GreenMinGray),
-                    new XAttribute("GreenMaxGray", this.GreenMaxGray),
-                    new XAttribute("BlueMinGray", this.BlueMinGray),
-                    new XAttribute("BlueMaxGray", this.BlueMaxGray),
-                    new XAttribute("MinArea", this.MinArea),
-                    new XAttribute("MaxArea", this.MaxArea)));
-                doc.Save("RGBDetectorConfig.xml");
+                XDocument doc = XDocument.Load("config.xml");
+                XElement myConfig = doc.Root.Element("RGBConfig");
+
+                myConfig.Element("RedMinGray").SetValue(this.RedMinGray);
+                myConfig.Element("RedMaxGray").SetValue(this.RedMaxGray);
+                myConfig.Element("GreenMinGray").SetValue(this.GreenMinGray);
+                myConfig.Element("GreenMaxGray").SetValue(this.GreenMaxGray);
+                myConfig.Element("BlueMinGray").SetValue(this.BlueMinGray);
+                myConfig.Element("BlueMaxGray").SetValue(this.BlueMaxGray);
+                myConfig.Element("MinArea").SetValue(this.MinArea);
+                myConfig.Element("MaxArea").SetValue(this.MaxArea);
+
+                doc.Save("config.xml");
 
                 MessageBox.Show("保存参数成功！");
             }
@@ -283,19 +285,20 @@ namespace BLTransfusion
 
         public void LoadFromXml()
         {
-            XDocument doc = XDocument.Load("RGBDetectorConfig.xml");
-            XElement root = doc.Root;
             try
             {
-                this.RedMinGray = byte.Parse(root.Attribute("RedMinGray").Value);
-                this.RedMaxGray = byte.Parse(root.Attribute("RedMaxGray").Value);
-                this.GreenMinGray = byte.Parse(root.Attribute("GreenMinGray").Value);
-                this.GreenMaxGray = byte.Parse(root.Attribute("GreenMaxGray").Value);
-                this.BlueMinGray = byte.Parse(root.Attribute("BlueMinGray").Value);
-                this.BlueMaxGray = byte.Parse(root.Attribute("BlueMaxGray").Value);
+                XDocument doc = XDocument.Load("config.xml");
+                XElement myConfig = doc.Root.Element("RGBConfig");
 
-                this.MinArea = float.Parse(root.Attribute("MinArea").Value);
-                this.MaxArea = float.Parse(root.Attribute("MaxArea").Value);
+                this.RedMinGray = byte.Parse(myConfig.Element("RedMinGray").Value);
+                this.RedMaxGray = byte.Parse(myConfig.Element("RedMaxGray").Value);
+                this.GreenMinGray = byte.Parse(myConfig.Element("GreenMinGray").Value);
+                this.GreenMaxGray = byte.Parse(myConfig.Element("GreenMaxGray").Value);
+                this.BlueMinGray = byte.Parse(myConfig.Element("BlueMinGray").Value);
+                this.BlueMaxGray = byte.Parse(myConfig.Element("BlueMaxGray").Value);
+
+                this.MinArea = float.Parse(myConfig.Element("MinArea").Value);
+                this.MaxArea = float.Parse(myConfig.Element("MaxArea").Value);
             }
             catch (Exception)
             {

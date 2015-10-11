@@ -293,25 +293,27 @@ namespace BLTransfusion
         {
             try
             {
-                XDocument doc = new XDocument();
-                doc.Add(new XElement("ProcessSetting",
-                    new XAttribute("SeWidth", this.SeWidth),
-                    new XAttribute("SeHeight", this.SeHeight),
-                    new XAttribute("RoiMinGray", this.RoiMinGray),
-                    new XAttribute("RoiMaxGray", this.RoiMaxGray),
-                    new XAttribute("RoiMinArea", this.RoiMinArea),
-                    new XAttribute("RoiMaxArea", this.RoiMaxArea),
-                    new XAttribute("MaskWidth", this.MaskWidth),
-                    new XAttribute("MaskHeight", this.MaskHeight),
-                    new XAttribute("TargetMinArea", this.TargetMinArea),
-                    new XAttribute("TargetMaxArea", this.TargetMaxArea),
-                    new XAttribute("TargetMinAnisometry", this.TargetMinAnisometry),
-                    new XAttribute("TargetMaxAnisometry", this.TargetMaxAnisometry),
-                    new XAttribute("TargetMinOuterRadius", this.TargetMinOuterRadius),
-                    new XAttribute("TargetMaxOuterRadius", this.TargetMaxOuterRadius),
-                    new XAttribute("TargetMinDistDeviation", this.TargetMinDistDeviation),
-                    new XAttribute("TargetMaxDistDeviation", this.TargetMaxDistDeviation)));
-                doc.Save("JunkDetectorConfig.xml");
+                XDocument doc = XDocument.Load("config.xml");
+                XElement myConfig = doc.Root.Element("JunkConfig");
+
+                myConfig.Element("SeWidth").SetValue(this.SeWidth);
+                myConfig.Element("SeHeight").SetValue(this.SeHeight);
+                myConfig.Element("RoiMinGray").SetValue(this.RoiMinGray);
+                myConfig.Element("RoiMaxGray").SetValue(this.RoiMaxGray);
+                myConfig.Element("RoiMinArea").SetValue(this.RoiMinArea);
+                myConfig.Element("RoiMaxArea").SetValue(this.RoiMaxArea);
+                myConfig.Element("MaskWidth").SetValue(this.MaskWidth);
+                myConfig.Element("MaskHeight").SetValue(this.MaskHeight);
+                myConfig.Element("TargetMinArea").SetValue(this.TargetMinArea);
+                myConfig.Element("TargetMaxArea").SetValue(this.TargetMaxArea);
+                myConfig.Element("TargetMinAnisometry").SetValue(this.TargetMinAnisometry);
+                myConfig.Element("TargetMaxAnisometry").SetValue(this.TargetMaxAnisometry);
+                myConfig.Element("TargetMinOuterRadius").SetValue(this.TargetMinOuterRadius);
+                myConfig.Element("TargetMaxOuterRadius").SetValue(this.TargetMaxOuterRadius);
+                myConfig.Element("TargetMinDistDeviation").SetValue(this.TargetMinDistDeviation);
+                myConfig.Element("TargetMaxDistDeviation").SetValue(this.TargetMaxDistDeviation);
+
+                doc.Save("config.xml");
                 MessageBox.Show("保存参数成功！");
             }
             catch (Exception)
@@ -322,27 +324,28 @@ namespace BLTransfusion
 
         public void LoadFromXml()
         {
-            XDocument doc = XDocument.Load("JunkDetectorConfig.xml");
-            XElement root = doc.Root;
             try
             {
-                this.SeWidth = int.Parse(root.Attribute("SeWidth").Value);
-                this.SeHeight = int.Parse(root.Attribute("SeWidth").Value);
-                this.RoiMinGray = byte.Parse(root.Attribute("RoiMinGray").Value);
-                this.RoiMaxGray = byte.Parse(root.Attribute("RoiMaxGray").Value);
-                this.RoiMinArea = int.Parse(root.Attribute("RoiMinArea").Value);
-                this.RoiMaxArea = int.Parse(root.Attribute("RoiMaxArea").Value);
+                XDocument doc = XDocument.Load("config.xml");
+                XElement myConfig = doc.Root.Element("JunkConfig");
 
-                this.MaskWidth = float.Parse(root.Attribute("MaskWidth").Value);
-                this.MaskHeight = float.Parse(root.Attribute("MaskHeight").Value);
-                this.TargetMinArea = int.Parse(root.Attribute("TargetMinArea").Value);
-                this.TargetMaxArea = int.Parse(root.Attribute("TargetMaxArea").Value);
-                this.TargetMinAnisometry = float.Parse(root.Attribute("TargetMinAnisometry").Value);
-                this.TargetMaxAnisometry = float.Parse(root.Attribute("TargetMaxAnisometry").Value);
-                this.TargetMinOuterRadius = int.Parse(root.Attribute("TargetMinOuterRadius").Value);
-                this.TargetMaxOuterRadius = int.Parse(root.Attribute("TargetMaxOuterRadius").Value);
-                this.TargetMinDistDeviation = float.Parse(root.Attribute("TargetMinDistDeviation").Value);
-                this.TargetMaxDistDeviation = float.Parse(root.Attribute("TargetMaxDistDeviation").Value);
+                this.SeWidth = int.Parse(myConfig.Element("SeWidth").Value);
+                this.SeHeight = int.Parse(myConfig.Element("SeHeight").Value);
+                this.RoiMinGray = byte.Parse(myConfig.Element("RoiMinGray").Value);
+                this.RoiMaxGray = byte.Parse(myConfig.Element("RoiMaxGray").Value);
+                this.RoiMinArea = int.Parse(myConfig.Element("RoiMinArea").Value);
+                this.RoiMaxArea = int.Parse(myConfig.Element("RoiMaxArea").Value);
+
+                this.MaskWidth = float.Parse(myConfig.Element("MaskWidth").Value);
+                this.MaskHeight = float.Parse(myConfig.Element("MaskHeight").Value);
+                this.TargetMinArea = int.Parse(myConfig.Element("TargetMinArea").Value);
+                this.TargetMaxArea = int.Parse(myConfig.Element("TargetMaxArea").Value);
+                this.TargetMinAnisometry = float.Parse(myConfig.Element("TargetMinAnisometry").Value);
+                this.TargetMaxAnisometry = float.Parse(myConfig.Element("TargetMaxAnisometry").Value);
+                this.TargetMinOuterRadius = int.Parse(myConfig.Element("TargetMinOuterRadius").Value);
+                this.TargetMaxOuterRadius = int.Parse(myConfig.Element("TargetMaxOuterRadius").Value);
+                this.TargetMinDistDeviation = float.Parse(myConfig.Element("TargetMinDistDeviation").Value);
+                this.TargetMaxDistDeviation = float.Parse(myConfig.Element("TargetMaxDistDeviation").Value);
             }
             catch (Exception)
             {

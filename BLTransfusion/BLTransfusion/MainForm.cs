@@ -623,13 +623,13 @@ namespace BLTransfusion
 
         public void LoadConfig()
         {
-            XDocument doc = XDocument.Load("AlgorithmConfig.xml");
-            XElement root = doc.Root;
             try
             {
-                doJunkDetectFlag = bool.Parse(root.Attribute("DoJunkDetectFlag").Value);
-                doModelDetectFlag = bool.Parse(root.Attribute("DoRgbDetectFlag").Value);
-                doRgbDetectFlag = bool.Parse(root.Attribute("DoModelDetectFlag").Value);
+                XDocument doc = XDocument.Load("config.xml");
+                XElement myConfig = doc.Root.Element("AlgorithmConfig");
+                doJunkDetectFlag = bool.Parse(myConfig.Element("DoJunkDetectFlag").Value);
+                doModelDetectFlag = bool.Parse(myConfig.Element("DoRgbDetectFlag").Value);
+                doRgbDetectFlag = bool.Parse(myConfig.Element("DoModelDetectFlag").Value);
             }
             catch (Exception)
             {

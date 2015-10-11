@@ -142,13 +142,14 @@ namespace BLTransfusion.View
 
         public void LoadConfig()
         {
-            XDocument doc = XDocument.Load("AlgorithmConfig.xml");
-            XElement root = doc.Root;
             try
             {
-                this.CB_Junk.Checked = bool.Parse(root.Attribute("DoJunkDetectFlag").Value);
-                this.CBRgb.Checked = bool.Parse(root.Attribute("DoRgbDetectFlag").Value);
-                this.CB_Model.Checked = bool.Parse(root.Attribute("DoModelDetectFlag").Value);
+                XDocument doc = XDocument.Load("config.xml");
+                XElement myConfig = doc.Root.Element("AlgorithmConfig");
+
+                this.CB_Junk.Checked = bool.Parse(myConfig.Element("DoJunkDetectFlag").Value);
+                this.CBRgb.Checked = bool.Parse(myConfig.Element("DoRgbDetectFlag").Value);
+                this.CB_Model.Checked = bool.Parse(myConfig.Element("DoModelDetectFlag").Value);
             }
             catch (Exception)
             {
@@ -160,12 +161,14 @@ namespace BLTransfusion.View
         {
             try
             {
-                XDocument doc = new XDocument();
-                doc.Add(new XElement("AlgorithmConfig",
-                    new XAttribute("DoJunkDetectFlag", this.CB_Junk.Checked),
-                    new XAttribute("DoModelDetectFlag", this.CB_Model.Checked),
-                    new XAttribute("DoRgbDetectFlag", this.CBRgb.Checked)));
-                doc.Save("AlgorithmConfig.xml");
+                XDocument doc = XDocument.Load("config.xml");
+                XElement myConfig = doc.Root.Element("AlgorithmConfig");
+
+                myConfig.Element("DoJunkDetectFlag").SetValue(this.CB_Junk.Checked);
+                myConfig.Element("DoModelDetectFlag").SetValue(this.CB_Model.Checked);
+                myConfig.Element("DoRgbDetectFlag").SetValue(this.CBRgb.Checked);
+
+                doc.Save("config.xml");
 
                 MessageBox.Show("保存参数成功！");
             }

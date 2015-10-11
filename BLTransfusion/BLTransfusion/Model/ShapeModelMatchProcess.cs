@@ -445,40 +445,39 @@ namespace BLTransfusion.Model
             var element = base.ToXElement();
 
             //InspectShapeModel
-            element.Add(new XAttribute("InspectNumLevels", InspectNumLevels.ToString()));
-            element.Add(new XAttribute("InspectContrast", InspectContrast.ToString()));
-            element.Add(new XAttribute("NumLevels", NumLevels.ToString()));
-            element.Add(new XAttribute("NumLevelsAuto", NumLevelsAuto.ToString()));
-            element.Add(new XAttribute("AngleStart", AngleStart.ToString()));
-            element.Add(new XAttribute("AngleExtent", AngleExtent.ToString()));
-            element.Add(new XAttribute("AngleStep", AngleStep.ToString()));
-            element.Add(new XAttribute("AngleStepAuto", AngleStepAuto.ToString()));
-            element.Add(new XAttribute("ScaleMin", ScaleMin.ToString()));
-            element.Add(new XAttribute("ScaleMax", ScaleMax.ToString()));
-            element.Add(new XAttribute("ScaleStep", ScaleStep.ToString()));
-            element.Add(new XAttribute("ScaleStepAuto", ScaleStepAuto.ToString()));
-            element.Add(new XAttribute("Optimization", Optimization.ToString()));
-            element.Add(new XAttribute("Metric", Metric.ToString()));
-            element.Add(new XAttribute("Contrast", Contrast.ToString()));
-            element.Add(new XAttribute("ContrastValue", ContrastValue.ToString()));
-            element.Add(new XAttribute("MinContrast", MinContrast.ToString()));
-            element.Add(new XAttribute("MinContrastAuto", MinContrastAuto.ToString()));
-            element.Add(new XAttribute("MatchAngleStart", MatchAngleStart.ToString()));
-            element.Add(new XAttribute("MatchAngleExtent", MatchAngleExtent.ToString()));
-            element.Add(new XAttribute("MatchScaleMin", MatchScaleMin.ToString()));
-            element.Add(new XAttribute("MatchScaleMax", MatchScaleMax.ToString()));
-            element.Add(new XAttribute("MatchMinScore", MatchMinScore.ToString()));
-            element.Add(new XAttribute("NumMatches", NumMatches.ToString()));
-            element.Add(new XAttribute("MaxOverlap", MaxOverlap.ToString()));
-            element.Add(new XAttribute("SubPixel", SubPixel.ToString()));
-            element.Add(new XAttribute("MatchNumLevels", MatchNumLevels.ToString()));
-            element.Add(new XAttribute("MatchGreediness", MatchGreediness.ToString()));
-
             element.Add(new XAttribute("ModelID", ModelID.I.ToString()));
             element.Add(new XAttribute("ModelIndex", ModelIndex.ToString()));
 
-            element.Add(new XAttribute("ResultScore", ResultScore.ToString()));
-            element.Add(new XAttribute("ResultCount", ResultCount.ToString()));
+            element.Add(new XElement("InspectNumLevels", InspectNumLevels.ToString()));
+            element.Add(new XElement("InspectContrast", InspectContrast.ToString()));
+            element.Add(new XElement("NumLevels", NumLevels.ToString()));
+            element.Add(new XElement("NumLevelsAuto", NumLevelsAuto.ToString()));
+            element.Add(new XElement("AngleStart", AngleStart.ToString()));
+            element.Add(new XElement("AngleExtent", AngleExtent.ToString()));
+            element.Add(new XElement("AngleStep", AngleStep.ToString()));
+            element.Add(new XElement("AngleStepAuto", AngleStepAuto.ToString()));
+            element.Add(new XElement("ScaleMin", ScaleMin.ToString()));
+            element.Add(new XElement("ScaleMax", ScaleMax.ToString()));
+            element.Add(new XElement("ScaleStep", ScaleStep.ToString()));
+            element.Add(new XElement("ScaleStepAuto", ScaleStepAuto.ToString()));
+            element.Add(new XElement("Optimization", Optimization.ToString()));
+            element.Add(new XElement("Metric", Metric.ToString()));
+            element.Add(new XElement("Contrast", Contrast.ToString()));
+            element.Add(new XElement("ContrastValue", ContrastValue.ToString()));
+            element.Add(new XElement("MinContrast", MinContrast.ToString()));
+            element.Add(new XElement("MinContrastAuto", MinContrastAuto.ToString()));
+            element.Add(new XElement("MatchAngleStart", MatchAngleStart.ToString()));
+            element.Add(new XElement("MatchAngleExtent", MatchAngleExtent.ToString()));
+            element.Add(new XElement("MatchScaleMin", MatchScaleMin.ToString()));
+            element.Add(new XElement("MatchScaleMax", MatchScaleMax.ToString()));
+            element.Add(new XElement("MatchMinScore", MatchMinScore.ToString()));
+            element.Add(new XElement("NumMatches", NumMatches.ToString()));
+            element.Add(new XElement("MaxOverlap", MaxOverlap.ToString()));
+            element.Add(new XElement("SubPixel", SubPixel.ToString()));
+            element.Add(new XElement("MatchNumLevels", MatchNumLevels.ToString()));
+            element.Add(new XElement("MatchGreediness", MatchGreediness.ToString()));
+            element.Add(new XElement("ResultScore", ResultScore.ToString()));
+            element.Add(new XElement("ResultCount", ResultCount.ToString()));
 
             return element;
         }
@@ -490,40 +489,39 @@ namespace BLTransfusion.Model
             {
                 try
                 {
-                    InspectNumLevels = int.Parse(element.Attribute("InspectNumLevels").Value);
-                    InspectContrast = int.Parse(element.Attribute("InspectContrast").Value);
-                    NumLevels = int.Parse(element.Attribute("NumLevels").Value);
-                    NumLevelsAuto = bool.Parse(element.Attribute("NumLevelsAuto").Value);
-                    AngleStart = double.Parse(element.Attribute("AngleStart").Value);
-                    AngleExtent = double.Parse(element.Attribute("AngleExtent").Value);
-                    AngleStep = double.Parse(element.Attribute("AngleStep").Value);
-                    AngleStepAuto = bool.Parse(element.Attribute("AngleStepAuto").Value);
-                    ScaleMin = double.Parse(element.Attribute("ScaleMin").Value);
-                    ScaleMax = double.Parse(element.Attribute("ScaleMax").Value);
-                    ScaleStep = double.Parse(element.Attribute("ScaleStep").Value);
-                    ScaleStepAuto = bool.Parse(element.Attribute("ScaleStepAuto").Value);
-                    Optimization = (OptimizationType)Enum.Parse(typeof(OptimizationType), element.Attribute("Optimization").Value);
-                    Metric = (MetricType)Enum.Parse(typeof(MetricType), element.Attribute("Metric").Value);
-                    Contrast = (ContrastType)Enum.Parse(typeof(ContrastType), element.Attribute("Contrast").Value);
-                    ContrastValue = int.Parse(element.Attribute("ContrastValue").Value);
-                    MinContrast = int.Parse(element.Attribute("MinContrast").Value);
-                    MinContrastAuto = bool.Parse(element.Attribute("MinContrastAuto").Value);
-                    MatchAngleStart = double.Parse(element.Attribute("MatchAngleStart").Value);
-                    MatchAngleExtent = double.Parse(element.Attribute("MatchAngleExtent").Value);
-                    MatchScaleMin = double.Parse(element.Attribute("MatchScaleMin").Value);
-                    MatchScaleMax = double.Parse(element.Attribute("MatchScaleMax").Value);
-                    MatchMinScore = double.Parse(element.Attribute("MatchMinScore").Value);
-                    NumMatches = int.Parse(element.Attribute("NumMatches").Value);
-                    MaxOverlap = double.Parse(element.Attribute("MaxOverlap").Value);
-                    SubPixel = (SubPixelType)Enum.Parse(typeof(SubPixelType), element.Attribute("SubPixel").Value);
-                    MatchNumLevels = int.Parse(element.Attribute("MatchNumLevels").Value);
-                    MatchGreediness = double.Parse(element.Attribute("MatchGreediness").Value);
-
                     ModelID = int.Parse(element.Attribute("ModelID").Value);
                     ModelIndex = int.Parse(element.Attribute("ModelIndex").Value);
 
-                    ResultScore = double.Parse(element.Attribute("ResultScore").Value);
-                    ResultCount = int.Parse(element.Attribute("ResultCount").Value);
+                    InspectNumLevels = int.Parse(element.Element("InspectNumLevels").Value);
+                    InspectContrast = int.Parse(element.Element("InspectContrast").Value);
+                    NumLevels = int.Parse(element.Element("NumLevels").Value);
+                    NumLevelsAuto = bool.Parse(element.Element("NumLevelsAuto").Value);
+                    AngleStart = double.Parse(element.Element("AngleStart").Value);
+                    AngleExtent = double.Parse(element.Element("AngleExtent").Value);
+                    AngleStep = double.Parse(element.Element("AngleStep").Value);
+                    AngleStepAuto = bool.Parse(element.Element("AngleStepAuto").Value);
+                    ScaleMin = double.Parse(element.Element("ScaleMin").Value);
+                    ScaleMax = double.Parse(element.Element("ScaleMax").Value);
+                    ScaleStep = double.Parse(element.Element("ScaleStep").Value);
+                    ScaleStepAuto = bool.Parse(element.Element("ScaleStepAuto").Value);
+                    Optimization = (OptimizationType)Enum.Parse(typeof(OptimizationType), element.Element("Optimization").Value);
+                    Metric = (MetricType)Enum.Parse(typeof(MetricType), element.Element("Metric").Value);
+                    Contrast = (ContrastType)Enum.Parse(typeof(ContrastType), element.Element("Contrast").Value);
+                    ContrastValue = int.Parse(element.Element("ContrastValue").Value);
+                    MinContrast = int.Parse(element.Element("MinContrast").Value);
+                    MinContrastAuto = bool.Parse(element.Element("MinContrastAuto").Value);
+                    MatchAngleStart = double.Parse(element.Element("MatchAngleStart").Value);
+                    MatchAngleExtent = double.Parse(element.Element("MatchAngleExtent").Value);
+                    MatchScaleMin = double.Parse(element.Element("MatchScaleMin").Value);
+                    MatchScaleMax = double.Parse(element.Element("MatchScaleMax").Value);
+                    MatchMinScore = double.Parse(element.Element("MatchMinScore").Value);
+                    NumMatches = int.Parse(element.Element("NumMatches").Value);
+                    MaxOverlap = double.Parse(element.Element("MaxOverlap").Value);
+                    SubPixel = (SubPixelType)Enum.Parse(typeof(SubPixelType), element.Element("SubPixel").Value);
+                    MatchNumLevels = int.Parse(element.Element("MatchNumLevels").Value);
+                    MatchGreediness = double.Parse(element.Element("MatchGreediness").Value);
+                    ResultScore = double.Parse(element.Element("ResultScore").Value);
+                    ResultCount = int.Parse(element.Element("ResultCount").Value);
                 }
                 catch
                 {

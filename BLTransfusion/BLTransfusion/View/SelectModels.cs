@@ -26,9 +26,9 @@ namespace BLTransfusion.View
         {
             Microsoft.Win32.OpenFileDialog dlg = new Microsoft.Win32.OpenFileDialog();
 
-            dlg.DefaultExt = ".bmp";
+            dlg.DefaultExt = ".jpg";
 
-            dlg.Filter = "Bmp Image (.bmp)|*.bmp|Png Image (.png)|*.png|All files (*.*)|*.*";
+            dlg.Filter = "jpg Image (.jpg)|*.jpg|Bmp Image (.bmp)|*.bmp|Png Image (.png)|*.png|All files (*.*)|*.*";
 
             Nullable<bool> result = dlg.ShowDialog();
 
