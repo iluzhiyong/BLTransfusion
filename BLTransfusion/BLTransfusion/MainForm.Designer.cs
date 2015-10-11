@@ -79,8 +79,8 @@
             // 
             this.TsCameraStatus.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.TsCameraStatus.Name = "TsCameraStatus";
-            this.TsCameraStatus.Size = new System.Drawing.Size(105, 17);
-            this.TsCameraStatus.Text = "相机状态：未连接";
+            this.TsCameraStatus.Size = new System.Drawing.Size(69, 17);
+            this.TsCameraStatus.Text = "相机：关闭";
             // 
             // TsQualifiedCntTitle
             // 
@@ -120,13 +120,13 @@
             // 
             this.TsUartStatus.BorderSides = System.Windows.Forms.ToolStripStatusLabelBorderSides.Left;
             this.TsUartStatus.Name = "TsUartStatus";
-            this.TsUartStatus.Size = new System.Drawing.Size(93, 17);
-            this.TsUartStatus.Text = "串口状态：关闭";
+            this.TsUartStatus.Size = new System.Drawing.Size(69, 17);
+            this.TsUartStatus.Text = "串口：关闭";
             // 
             // toolStripStatusLabel1
             // 
             this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-            this.toolStripStatusLabel1.Size = new System.Drawing.Size(571, 17);
+            this.toolStripStatusLabel1.Size = new System.Drawing.Size(588, 17);
             this.toolStripStatusLabel1.Spring = true;
             // 
             // TsQualifiedCnt

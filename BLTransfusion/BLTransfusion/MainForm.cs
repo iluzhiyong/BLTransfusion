@@ -84,7 +84,7 @@ namespace BLTransfusion
             try
             {
                 SP_Open();
-                this.TsUartStatus.Text = "串口状态：打开";
+                this.TsUartStatus.Text = "串口：打开";
             }
             catch (Exception)
             {
@@ -95,7 +95,7 @@ namespace BLTransfusion
         private void MenuCloseUART_Click(object sender, EventArgs e)
         {
             SP_Close();
-            this.TsUartStatus.Text = "串口状态：关闭";
+            this.TsUartStatus.Text = "串口：关闭";
         }
 
         private void MenuOpenRelay_Click(object sender, EventArgs e)
@@ -489,7 +489,7 @@ namespace BLTransfusion
         {
             if (OpenCamera())
             {
-                this.TsCameraStatus.Text = "已连接";
+                this.TsCameraStatus.Text = "相机：打开";
             }
             else
             {
@@ -515,7 +515,7 @@ namespace BLTransfusion
         {
             if (CloseCamera())
             {
-                this.TsCameraStatus.Text = "未连接";
+                this.TsCameraStatus.Text = "相机：关闭";
             }
             else
             {
