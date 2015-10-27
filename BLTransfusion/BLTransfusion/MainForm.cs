@@ -413,6 +413,8 @@ namespace BLTransfusion
             var interval = new TimeSpan(0, 0, 1);
             var startTime = DateTime.Now;
             bool cancel = false;
+            Action<bool> display = new Action<bool>(imageProcWnd.DisplayResult);
+
             while (true)
             {
                 while ((DateTime.Now - startTime).Ticks < interval.Ticks)
@@ -442,14 +444,18 @@ namespace BLTransfusion
                     break;
                 }
 
+                bool detRst = true;
                 if (Detect())
                 {
+                    detRst = false;
                     this.OkCount = this.OkCount + 1;
                 }
                 else
                 {
+                    detRst = true;
                     this.NgCount = this.NgCount + 1;
                 }
+                display.BeginInvoke(detRst, null, null);
             }
         }
 

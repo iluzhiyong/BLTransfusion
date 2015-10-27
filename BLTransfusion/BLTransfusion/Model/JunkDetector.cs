@@ -273,7 +273,7 @@ namespace BLTransfusion
                     HOperatorSet.Skeleton(ho_SelectedRegions, out ho_Skeleton);
                     HOperatorSet.SetColor(windowHandle, "red");
                     this.WindowHandle.DispObj(ho_Skeleton);
-                    this.WindowHandle.WriteString("                                                      不合格!");
+
                     result = true;
                 }
                 else
