@@ -107,4 +107,11 @@
       <ResultCount>1</ResultCount>
     </ModelInfo>
   </ModelsConfig>
+  <SerialPortConfig>
+    <SerialPort>COM5</SerialPort>
+    <BaudRate>9600</BaudRate>
+    <DataBits>8</DataBits>
+    <Stop>1</Stop>
+    <Parity>无</Parity>
+  </SerialPortConfig>
 </Configs>

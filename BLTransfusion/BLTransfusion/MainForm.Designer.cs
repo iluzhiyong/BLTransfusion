@@ -58,6 +58,7 @@
             this.MenuCloseUART = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuOpenRelay = new System.Windows.Forms.ToolStripMenuItem();
             this.MenuCloseRelay = new System.Windows.Forms.ToolStripMenuItem();
+            this.SPSetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.WndLayout = new System.Windows.Forms.ToolStripMenuItem();
             this.WndLayoutHorizontal = new System.Windows.Forms.ToolStripMenuItem();
             this.WndLayoutVertical = new System.Windows.Forms.ToolStripMenuItem();
@@ -270,7 +271,8 @@
             this.MenuOpenUART,
             this.MenuCloseUART,
             this.MenuOpenRelay,
-            this.MenuCloseRelay});
+            this.MenuCloseRelay,
+            this.SPSetToolStripMenuItem});
             this.iOToolStripMenuItem.Name = "iOToolStripMenuItem";
             this.iOToolStripMenuItem.Size = new System.Drawing.Size(31, 20);
             this.iOToolStripMenuItem.Text = "IO";
@@ -278,30 +280,37 @@
             // MenuOpenUART
             // 
             this.MenuOpenUART.Name = "MenuOpenUART";
-            this.MenuOpenUART.Size = new System.Drawing.Size(135, 22);
+            this.MenuOpenUART.Size = new System.Drawing.Size(152, 22);
             this.MenuOpenUART.Text = "打开串口";
             this.MenuOpenUART.Click += new System.EventHandler(this.MenuOpenUART_Click);
             // 
             // MenuCloseUART
             // 
             this.MenuCloseUART.Name = "MenuCloseUART";
-            this.MenuCloseUART.Size = new System.Drawing.Size(135, 22);
+            this.MenuCloseUART.Size = new System.Drawing.Size(152, 22);
             this.MenuCloseUART.Text = "关闭串口";
             this.MenuCloseUART.Click += new System.EventHandler(this.MenuCloseUART_Click);
             // 
             // MenuOpenRelay
             // 
             this.MenuOpenRelay.Name = "MenuOpenRelay";
-            this.MenuOpenRelay.Size = new System.Drawing.Size(135, 22);
+            this.MenuOpenRelay.Size = new System.Drawing.Size(152, 22);
             this.MenuOpenRelay.Text = "打开继电器";
             this.MenuOpenRelay.Click += new System.EventHandler(this.MenuOpenRelay_Click);
             // 
             // MenuCloseRelay
             // 
             this.MenuCloseRelay.Name = "MenuCloseRelay";
-            this.MenuCloseRelay.Size = new System.Drawing.Size(135, 22);
+            this.MenuCloseRelay.Size = new System.Drawing.Size(152, 22);
             this.MenuCloseRelay.Text = "关闭继电器";
             this.MenuCloseRelay.Click += new System.EventHandler(this.MenuCloseRelay_Click);
+            // 
+            // SPSetToolStripMenuItem
+            // 
+            this.SPSetToolStripMenuItem.Name = "SPSetToolStripMenuItem";
+            this.SPSetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SPSetToolStripMenuItem.Text = "串口设定";
+            this.SPSetToolStripMenuItem.Click += new System.EventHandler(this.SPSetToolStripMenuItem_Click);
             // 
             // WndLayout
             // 
@@ -492,6 +501,7 @@
         private System.Windows.Forms.ToolStripButton toolStripButton_AutoStop;
         private System.Windows.Forms.ToolStripButton toolStripButton_CameraSet;
         private System.Windows.Forms.ToolStripButton toolStripButton_ClearResult;
+        private System.Windows.Forms.ToolStripMenuItem SPSetToolStripMenuItem;
     }
 }
 

@@ -459,6 +459,31 @@ namespace BLTransfusion
             }
         }
 
+        private void SerialPortDetect()
+        {
+            Action<bool> display = new Action<bool>(imageProcWnd.DisplayResult);
+            Action<bool> sp = new Action<bool>(SerialPortCMD);
+
+            if (!this.CameraController.Snapshot())
+            {
+                return;
+            }
+
+            bool detRst = true;
+            if (Detect())
+            {
+                detRst = false;
+                this.OkCount = this.OkCount + 1;
+            }
+            else
+            {
+                detRst = true;
+                this.NgCount = this.NgCount + 1;
+            }
+            display.BeginInvoke(detRst, null, null);
+            sp.BeginInvoke(detRst, null, null);
+        }
+
         #endregion
 
         #endregion
@@ -673,5 +698,25 @@ namespace BLTransfusion
             clearRecordMenuItem_Click(sender, e);
         }
 
+        private SerialPortSetForm serialPortSetForm;
+        private void SPSetToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (serialPortSetForm == null || serialPortSetForm.IsDisposed)
+                {
+                    this.serialPortSetForm = new SerialPortSetForm();
+                    this.serialPortSetForm.Show();
+                }
+                else
+                {
+                    serialPortSetForm.Show();
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("串口设定窗口打开失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
     }
 }

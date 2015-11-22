@@ -130,6 +130,12 @@
     <Compile Include="View\SelectModels.Designer.cs">
       <DependentUpon>SelectModels.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\SerialPortSetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\SerialPortSetForm.Designer.cs">
+      <DependentUpon>SerialPortSetForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="View\ShapeModelDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -167,6 +173,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="View\SelectModels.resx">
       <DependentUpon>SelectModels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\SerialPortSetForm.resx">
+      <DependentUpon>SerialPortSetForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\ShapeModelDialog.resx">
       <DependentUpon>ShapeModelDialog.cs</DependentUpon>
