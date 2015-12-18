@@ -40,7 +40,7 @@ namespace BLTransfusion
 
         public void DisplayResult(bool result)
         {
-            System.Drawing.SolidBrush myBrush;
+            //System.Drawing.SolidBrush myBrush;
             if (true == result)
             {
                 //myBrush = new System.Drawing.SolidBrush(System.Drawing.Color.Red);

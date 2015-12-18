@@ -239,15 +239,18 @@ namespace BLTransfusion
 
         private void autoDetect_Click(object sender, EventArgs e)
         {
-            if (this.worker == null || !this.worker.IsBusy)
-            {
-                StartAutoDetect();
-            }
+            //if (this.worker == null || !this.worker.IsBusy)
+            //{
+            //    StartAutoDetect();
+            //}
+            SP_Open();
+            SerialPortCMD(SP_CMD.SP_CMD_SEND_START_AUTO_DECTET);
         }
 
         private void stopDetect_Click(object sender, EventArgs e)
         {
-            StopAutoDetect();
+            //StopAutoDetect();
+            SerialPortCMD(SP_CMD.SP_CMD_SEND_STOP_AUTO_DECTET);
         }
 
         private void clearRecordMenuItem_Click(object sender, EventArgs e)
@@ -462,7 +465,7 @@ namespace BLTransfusion
         private void SerialPortDetect()
         {
             Action<bool> display = new Action<bool>(imageProcWnd.DisplayResult);
-            Action<bool> sp = new Action<bool>(SerialPortCMD);
+            Action<bool> sp = new Action<bool>(SerialPortRslt);
 
             if (!this.CameraController.Snapshot())
             {

@@ -112,6 +112,6 @@
     <BaudRate>9600</BaudRate>
     <DataBits>8</DataBits>
     <Stop>1</Stop>
-    <Parity>无</Parity>
+    <Parity>偶校验</Parity>
   </SerialPortConfig>
 </Configs>
