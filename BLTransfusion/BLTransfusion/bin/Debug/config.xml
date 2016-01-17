@@ -108,8 +108,8 @@
     </ModelInfo>
   </ModelsConfig>
   <SerialPortConfig>
-    <SerialPort>COM5</SerialPort>
-    <BaudRate>9600</BaudRate>
+    <SerialPort>COM6</SerialPort>
+    <BaudRate>19200</BaudRate>
     <DataBits>8</DataBits>
     <Stop>1</Stop>
     <Parity>偶校验</Parity>

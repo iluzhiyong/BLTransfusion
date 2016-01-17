@@ -71,6 +71,8 @@
             this.toolStripButton_AutoStart = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_AutoStop = new System.Windows.Forms.ToolStripButton();
             this.toolStripButton_ClearResult = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_DEC = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_INC = new System.Windows.Forms.ToolStripButton();
             this.statusStrip1.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.toolStrip1.SuspendLayout();
@@ -280,35 +282,35 @@
             // MenuOpenUART
             // 
             this.MenuOpenUART.Name = "MenuOpenUART";
-            this.MenuOpenUART.Size = new System.Drawing.Size(152, 22);
+            this.MenuOpenUART.Size = new System.Drawing.Size(135, 22);
             this.MenuOpenUART.Text = "打开串口";
             this.MenuOpenUART.Click += new System.EventHandler(this.MenuOpenUART_Click);
             // 
             // MenuCloseUART
             // 
             this.MenuCloseUART.Name = "MenuCloseUART";
-            this.MenuCloseUART.Size = new System.Drawing.Size(152, 22);
+            this.MenuCloseUART.Size = new System.Drawing.Size(135, 22);
             this.MenuCloseUART.Text = "关闭串口";
             this.MenuCloseUART.Click += new System.EventHandler(this.MenuCloseUART_Click);
             // 
             // MenuOpenRelay
             // 
             this.MenuOpenRelay.Name = "MenuOpenRelay";
-            this.MenuOpenRelay.Size = new System.Drawing.Size(152, 22);
+            this.MenuOpenRelay.Size = new System.Drawing.Size(135, 22);
             this.MenuOpenRelay.Text = "打开继电器";
             this.MenuOpenRelay.Click += new System.EventHandler(this.MenuOpenRelay_Click);
             // 
             // MenuCloseRelay
             // 
             this.MenuCloseRelay.Name = "MenuCloseRelay";
-            this.MenuCloseRelay.Size = new System.Drawing.Size(152, 22);
+            this.MenuCloseRelay.Size = new System.Drawing.Size(135, 22);
             this.MenuCloseRelay.Text = "关闭继电器";
             this.MenuCloseRelay.Click += new System.EventHandler(this.MenuCloseRelay_Click);
             // 
             // SPSetToolStripMenuItem
             // 
             this.SPSetToolStripMenuItem.Name = "SPSetToolStripMenuItem";
-            this.SPSetToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.SPSetToolStripMenuItem.Size = new System.Drawing.Size(135, 22);
             this.SPSetToolStripMenuItem.Text = "串口设定";
             this.SPSetToolStripMenuItem.Click += new System.EventHandler(this.SPSetToolStripMenuItem_Click);
             // 
@@ -354,7 +356,9 @@
             this.toolStripSeparator1,
             this.toolStripButton_AutoStart,
             this.toolStripButton_AutoStop,
-            this.toolStripButton_ClearResult});
+            this.toolStripButton_ClearResult,
+            this.toolStripButton_DEC,
+            this.toolStripButton_INC});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(944, 39);
@@ -432,6 +436,30 @@
             this.toolStripButton_ClearResult.ToolTipText = "清空记录";
             this.toolStripButton_ClearResult.Click += new System.EventHandler(this.toolStripButton_ClearResult_Click);
             // 
+            // toolStripButton_DEC
+            // 
+            this.toolStripButton_DEC.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_DEC.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_DEC.Image")));
+            this.toolStripButton_DEC.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_DEC.Name = "toolStripButton_DEC";
+            this.toolStripButton_DEC.Size = new System.Drawing.Size(33, 36);
+            this.toolStripButton_DEC.Text = "减速";
+            this.toolStripButton_DEC.Click += new System.EventHandler(this.toolStripButton_DEC_Click);
+            this.toolStripButton_DEC.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButton_DEC_MouseDown);
+            this.toolStripButton_DEC.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButton_DEC_MouseUp);
+            // 
+            // toolStripButton_INC
+            // 
+            this.toolStripButton_INC.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripButton_INC.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_INC.Image")));
+            this.toolStripButton_INC.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_INC.Name = "toolStripButton_INC";
+            this.toolStripButton_INC.Size = new System.Drawing.Size(33, 36);
+            this.toolStripButton_INC.Text = "加速";
+            this.toolStripButton_INC.Click += new System.EventHandler(this.toolStripButton_INC_Click);
+            this.toolStripButton_INC.MouseDown += new System.Windows.Forms.MouseEventHandler(this.toolStripButton_INC_MouseDown);
+            this.toolStripButton_INC.MouseUp += new System.Windows.Forms.MouseEventHandler(this.toolStripButton_INC_MouseUp);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -502,6 +530,8 @@
         private System.Windows.Forms.ToolStripButton toolStripButton_CameraSet;
         private System.Windows.Forms.ToolStripButton toolStripButton_ClearResult;
         private System.Windows.Forms.ToolStripMenuItem SPSetToolStripMenuItem;
+        private System.Windows.Forms.ToolStripButton toolStripButton_DEC;
+        private System.Windows.Forms.ToolStripButton toolStripButton_INC;
     }
 }
 

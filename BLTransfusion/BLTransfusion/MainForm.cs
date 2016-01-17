@@ -721,5 +721,35 @@ namespace BLTransfusion
                 MessageBox.Show("串口设定窗口打开失败！", "错误", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+        private void toolStripButton_DEC_Click(object sender, EventArgs e)
+        {
+            //SerialPortCMD(SP_CMD.SP_CMD_SEND_DEC);
+        }
+
+        private void toolStripButton_INC_Click(object sender, EventArgs e)
+        {
+            //SerialPortCMD(SP_CMD.SP_CMD_SEND_INC);
+        }
+
+        private void toolStripButton_DEC_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            SerialPortCMD(SP_CMD.SP_CMD_SEND_DEC);
+        }
+
+        private void toolStripButton_INC_MouseDown(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            SerialPortCMD(SP_CMD.SP_CMD_SEND_INC);
+        }
+
+        private void toolStripButton_DEC_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            SerialPortCMD(0);
+        }
+
+        private void toolStripButton_INC_MouseUp(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            SerialPortCMD(0);
+        }
     }
 }

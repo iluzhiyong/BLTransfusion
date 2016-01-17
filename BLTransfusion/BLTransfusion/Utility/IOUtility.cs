@@ -110,10 +110,10 @@ namespace BLTransfusion
                         serialPort1.Parity = Parity.None;
                         break;
                     case "偶校验":
-                        serialPort1.Parity = Parity.Odd;
+                        serialPort1.Parity = Parity.Even;
                         break;
                     case "奇校验":
-                        serialPort1.Parity = Parity.Even;
+                        serialPort1.Parity = Parity.Odd;
                         break;
                     default:
                         {
@@ -176,9 +176,11 @@ namespace BLTransfusion
         {
             SP_CMD_RCV_START                    = 0x05,
             SP_CMD_SEND_START_AUTO_DECTET       = 0x01,
-            SP_CMD_SEND_STOP_AUTO_DECTET        = 0x07,
-            SP_CMD_SEND_FAILD                   = 0x02,
-            SP_CMD_SEND_SUCESS                  = 0x04,
+            SP_CMD_SEND_STOP_AUTO_DECTET        = 0x02,
+            SP_CMD_SEND_FAILD                   = 0x04,
+            SP_CMD_SEND_SUCESS                  = 0x03,
+            SP_CMD_SEND_INC                     = 0x06,
+            SP_CMD_SEND_DEC                     = 0x07,
         };
 
         private void SerialPortCMD(SP_CMD cmd)
